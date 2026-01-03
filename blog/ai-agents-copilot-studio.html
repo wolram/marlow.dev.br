@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Building Enterprise AI Agents with Microsoft Copilot Studio | Marlow Sousa</title>
+
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Learn how to deploy 5+ AI agents with JIRA integration using Microsoft Copilot Studio. A practical guide for enterprise tech leads with real implementation details and metrics.">
+  <meta name="keywords" content="Microsoft Copilot Studio, AI Agents, JIRA Integration, Enterprise AI, RPA, Automation, Tech Lead, Digital Transformation">
+  <meta name="author" content="Marlow Sousa">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://marlow.dev.br/blog/ai-agents-copilot-studio.html">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://marlow.dev.br/blog/ai-agents-copilot-studio.html">
+  <meta property="og:title" content="Building Enterprise AI Agents with Microsoft Copilot Studio">
+  <meta property="og:description" content="Deploy 5+ AI agents with JIRA integration. A practical guide with real implementation details and metrics.">
+  <meta property="og:image" content="https://marlow.dev.br/og-image.png">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:site_name" content="Marlow Sousa Blog">
+  <meta property="article:author" content="Marlow Sousa">
+  <meta property="article:published_time" content="2026-01-03T00:00:00Z">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://marlow.dev.br/blog/ai-agents-copilot-studio.html">
+  <meta name="twitter:title" content="Building Enterprise AI Agents with Microsoft Copilot Studio">
+  <meta name="twitter:description" content="Deploy 5+ AI agents with JIRA integration. A practical guide with real implementation details and metrics.">
+  <meta name="twitter:image" content="https://marlow.dev.br/og-image.png">
+  <meta name="twitter:creator" content="@marlowsousa">
+
+  <!-- Theme Color -->
+  <meta name="theme-color" content="#0a0a0a">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='12' fill='%230a0a0a'/%3E%3Ctext x='50' y='68' font-family='system-ui,-apple-system,sans-serif' font-size='60' font-weight='800' fill='%23c8ff2d' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E">
+
+  <!-- JSON-LD Article Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Building Enterprise AI Agents with Microsoft Copilot Studio",
+    "description": "Learn how to deploy 5+ AI agents with JIRA integration using Microsoft Copilot Studio. A practical guide for enterprise tech leads with real implementation details and metrics.",
+    "image": "https://marlow.dev.br/og-image.png",
+    "author": {
+      "@type": "Person",
+      "name": "Marlow Sousa",
+      "url": "https://marlow.dev.br",
+      "jobTitle": "RPA Tech Lead",
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Omni Conectado"
+      }
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Marlow Sousa",
+      "url": "https://marlow.dev.br"
+    },
+    "datePublished": "2026-01-03",
+    "dateModified": "2026-01-03",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://marlow.dev.br/blog/ai-agents-copilot-studio.html"
+    },
+    "keywords": ["Microsoft Copilot Studio", "AI Agents", "JIRA Integration", "Enterprise AI", "RPA", "Automation"],
+    "articleSection": "Technology",
+    "wordCount": 1850
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-primary: #0a0a0a;
+      --bg-secondary: #111111;
+      --bg-tertiary: #1a1a1a;
+      --text-primary: #f5f0e8;
+      --text-secondary: #a8a8a8;
+      --text-muted: #666666;
+      --accent: #c8ff2d;
+      --accent-secondary: #e85d4c;
+      --accent-glow: rgba(200, 255, 45, 0.15);
+      --font-display: 'Syne', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scrollbar-width: thin;
+      scrollbar-color: var(--accent) var(--bg-secondary);
+    }
+
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg-secondary);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--accent);
+      border-radius: 4px;
+    }
+
+    body {
+      font-family: var(--font-mono);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.8;
+      overflow-x: hidden;
+    }
+
+    /* Noise Overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      opacity: 0.03;
+      pointer-events: none;
+      z-index: 10000;
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 1.5rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(10, 10, 10, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .logo {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      text-decoration: none;
+    }
+
+    .logo::after {
+      content: '_';
+      color: var(--accent);
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+    }
+
+    /* Article Header */
+    .article-header {
+      padding: 10rem 2rem 4rem;
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .article-meta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .article-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+      background: rgba(200, 255, 45, 0.1);
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+    }
+
+    .article-date, .article-read-time {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .article-header h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.5rem;
+    }
+
+    .article-header h1 span {
+      background: linear-gradient(135deg, var(--accent) 0%, #9eff00 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .article-subtitle {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    /* Author Box */
+    .author-box {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .author-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-secondary) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.2rem;
+      color: var(--bg-primary);
+    }
+
+    .author-info {
+      text-align: left;
+    }
+
+    .author-name {
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .author-title {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* Article Content */
+    .article-content {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .article-content p {
+      margin-bottom: 1.5rem;
+      color: var(--text-secondary);
+      font-size: 1rem;
+    }
+
+    .article-content h2 {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 3rem 0 1.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    .article-content h3 {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin: 2rem 0 1rem;
+    }
+
+    .article-content strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    .article-content a {
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.3s;
+    }
+
+    .article-content a:hover {
+      border-bottom-color: var(--accent);
+    }
+
+    .article-content ul, .article-content ol {
+      margin: 1.5rem 0;
+      padding-left: 1.5rem;
+      color: var(--text-secondary);
+    }
+
+    .article-content li {
+      margin-bottom: 0.75rem;
+    }
+
+    .article-content blockquote {
+      border-left: 3px solid var(--accent);
+      padding-left: 1.5rem;
+      margin: 2rem 0;
+      font-style: italic;
+      color: var(--text-secondary);
+    }
+
+    /* Code Blocks */
+    .code-block {
+      background: var(--bg-secondary);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      margin: 2rem 0;
+      overflow: hidden;
+    }
+
+    .code-block-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 1rem;
+      background: var(--bg-tertiary);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .code-block-lang {
+      font-size: 0.75rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .code-block-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .code-block-dots span {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .code-block-dots span:nth-child(1) { background: #ff5f57; }
+    .code-block-dots span:nth-child(2) { background: #febc2e; }
+    .code-block-dots span:nth-child(3) { background: #28c840; }
+
+    .code-block pre {
+      padding: 1.5rem;
+      overflow-x: auto;
+      font-size: 0.85rem;
+      line-height: 1.6;
+    }
+
+    .code-block code {
+      font-family: var(--font-mono);
+      color: var(--text-primary);
+    }
+
+    .code-keyword { color: #ff79c6; }
+    .code-string { color: #f1fa8c; }
+    .code-comment { color: var(--text-muted); }
+    .code-property { color: #8be9fd; }
+    .code-value { color: #50fa7b; }
+
+    /* Highlight Box */
+    .highlight-box {
+      background: linear-gradient(135deg, rgba(200, 255, 45, 0.1) 0%, rgba(200, 255, 45, 0.05) 100%);
+      border: 1px solid rgba(200, 255, 45, 0.3);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .highlight-box-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .highlight-box p {
+      margin-bottom: 0;
+      color: var(--text-secondary);
+    }
+
+    /* Metrics Grid */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .metric-card {
+      background: var(--bg-secondary);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .metric-value {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .metric-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-top: 0.5rem;
+    }
+
+    /* CTA Section */
+    .cta-section {
+      background: var(--bg-secondary);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 3rem;
+      margin: 4rem 0;
+      text-align: center;
+    }
+
+    .cta-section h3 {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .cta-section p {
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem 2rem;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      border: none;
+      cursor: pointer;
+      transition: all 0.4s var(--ease-out-expo);
+      background: var(--accent);
+      color: var(--bg-primary);
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 40px var(--accent-glow);
+    }
+
+    .btn svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    /* Related Articles */
+    .related-articles {
+      margin: 4rem 0;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .related-articles h3 {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+    }
+
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .related-card {
+      background: var(--bg-secondary);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 1.5rem;
+      text-decoration: none;
+      transition: all 0.3s var(--ease-out-expo);
+    }
+
+    .related-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+    }
+
+    .related-card-tag {
+      font-size: 0.7rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .related-card h4 {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin: 0.5rem 0;
+    }
+
+    .related-card p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin: 0;
+    }
+
+    /* Footer */
+    footer {
+      padding: 3rem;
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent);
+    }
+
+    .footer-copy {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      nav {
+        padding: 1rem 1.5rem;
+      }
+
+      .nav-links {
+        gap: 1.5rem;
+      }
+
+      .nav-links a {
+        font-size: 0.75rem;
+      }
+
+      .article-header {
+        padding: 8rem 1.5rem 3rem;
+      }
+
+      .article-meta {
+        gap: 1rem;
+      }
+
+      .article-content {
+        padding: 1.5rem;
+      }
+
+      .metrics-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .cta-section {
+        padding: 2rem 1.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .logo {
+        font-size: 1.2rem;
+      }
+
+      .nav-links {
+        gap: 1rem;
+      }
+
+      .article-header h1 {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav>
+    <a href="https://marlow.dev.br" class="logo">marlow</a>
+    <ul class="nav-links">
+      <li><a href="https://marlow.dev.br#about">About</a></li>
+      <li><a href="https://marlow.dev.br#projects">Projects</a></li>
+      <li><a href="https://marlow.dev.br/blog/ai-agents-copilot-studio.html">Blog</a></li>
+      <li><a href="https://marlow.dev.br#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Article Header -->
+  <header class="article-header">
+    <div class="article-meta">
+      <span class="article-tag">AI & Automation</span>
+      <span class="article-date">January 3, 2026</span>
+      <span class="article-read-time">8 min read</span>
+    </div>
+    <h1>Building Enterprise AI Agents with <span>Microsoft Copilot Studio</span></h1>
+    <p class="article-subtitle">How we deployed 5+ intelligent agents with JIRA integration, reducing ticket resolution time by 67% and saving 2,400+ engineering hours annually.</p>
+
+    <div class="author-box">
+      <div class="author-avatar">M</div>
+      <div class="author-info">
+        <div class="author-name">Marlow Sousa</div>
+        <div class="author-title">RPA Tech Lead at Omni Conectado</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Article Content -->
+  <article class="article-content">
+    <p>Last quarter, our engineering team was drowning. With 47 microservices in production, the support ticket queue had become a black hole consuming 30% of developer time. Every context switch meant lost productivity. Every "quick question" in Slack turned into a 45-minute investigation. Sound familiar?</p>
+
+    <p>We needed a force multiplier. Not another dashboard or notification system, but something that could actually <strong>think</strong>, understand context, and take action. After evaluating several platforms, we bet on Microsoft Copilot Studio to build our AI agent army. Here's exactly how we did it, and what we learned along the way.</p>
+
+    <h2>The Problem: Death by a Thousand Tickets</h2>
+
+    <p>Before diving into the solution, let me paint the picture of our pain points. Our support workflow looked like this:</p>
+
+    <ul>
+      <li><strong>450+ JIRA tickets per month</strong> across infrastructure, deployment, and application issues</li>
+      <li><strong>Average resolution time of 4.2 hours</strong> for Level 1 issues that were often repetitive</li>
+      <li><strong>12 different runbooks</strong> scattered across Confluence, with outdated information</li>
+      <li><strong>3 dedicated support engineers</strong> who spent 70% of their time on repetitive triage</li>
+    </ul>
+
+    <p>The real killer? <strong>68% of tickets followed predictable patterns</strong>. Password resets, deployment failures, certificate renewals, API rate limiting issues. These weren't complex problems; they were time sinks that demanded human attention without really needing human creativity.</p>
+
+    <blockquote>"We were paying senior engineers to be human lookup tables. It was demoralizing for them and expensive for us."</blockquote>
+
+    <h2>Why Microsoft Copilot Studio?</h2>
+
+    <p>When evaluating AI agent platforms, we had specific requirements that ruled out most alternatives:</p>
+
+    <ol>
+      <li><strong>Enterprise SSO integration</strong> with Azure AD (non-negotiable for security)</li>
+      <li><strong>Native JIRA connectivity</strong> without building custom middleware</li>
+      <li><strong>Conversational AI</strong> that could understand nuanced technical requests</li>
+      <li><strong>Low-code extensibility</strong> for rapid iteration by non-ML engineers</li>
+      <li><strong>Audit trails</strong> for compliance and debugging</li>
+    </ol>
+
+    <p>Copilot Studio checked every box. Its Power Platform foundation meant we could leverage existing connectors, while the GPT-powered conversation layer gave us the natural language understanding we needed. The clincher was the <strong>Topics + Actions architecture</strong>, which let us model complex workflows without drowning in code.</p>
+
+    <h2>The Architecture: Five Agents, One Mission</h2>
+
+    <p>Rather than building a monolithic super-agent, we designed a <strong>fleet of specialized agents</strong>, each with a focused domain. Here's the breakdown:</p>
+
+    <h3>Agent 1: TicketTriage (The Front Door)</h3>
+    <p>This agent intercepts all incoming JIRA tickets via webhook. It analyzes the ticket title, description, and reporter history to classify issues and route them appropriately. For straightforward issues, it either resolves them directly or escalates with enriched context.</p>
+
+    <div class="code-block">
+      <div class="code-block-header">
+        <span class="code-block-lang">Power Automate Flow</span>
+        <div class="code-block-dots">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+      <pre><code><span class="code-comment">// Trigger: JIRA Webhook - Issue Created</span>
+<span class="code-keyword">when</span> jira.issue.created
+  <span class="code-property">|></span> extract(title, description, reporter)
+  <span class="code-property">|></span> copilot.classify(
+       <span class="code-property">categories:</span> [<span class="code-string">"infra"</span>, <span class="code-string">"deploy"</span>, <span class="code-string">"app"</span>, <span class="code-string">"access"</span>]
+     )
+  <span class="code-property">|></span> <span class="code-keyword">route</span>(agent: category_agent)
+  <span class="code-property">|></span> jira.addComment(triage_summary)</code></pre>
+    </div>
+
+    <h3>Agent 2: DeployBot (The Release Guardian)</h3>
+    <p>Handles deployment-related tickets: failed pipelines, rollback requests, environment promotions. It connects directly to Azure DevOps and can trigger remediation actions like rerunning failed stages or initiating controlled rollbacks.</p>
+
+    <h3>Agent 3: AccessManager (The Gatekeeper)</h3>
+    <p>Processes access requests for repositories, environments, and third-party tools. It validates requests against our RBAC policies, creates approval workflows, and provisions access automatically once approved.</p>
+
+    <h3>Agent 4: IncidentResponder (The Fire Fighter)</h3>
+    <p>Our highest-stakes agent. It monitors production alerts from Datadog, correlates them with recent deployments, and either triggers automated runbooks or pages the on-call engineer with a complete incident brief.</p>
+
+    <h3>Agent 5: KnowledgeKeeper (The Librarian)</h3>
+    <p>Indexes our Confluence documentation, code comments, and historical tickets to answer "how do I..." questions. It learns from resolved tickets to keep its knowledge base current.</p>
+
+    <div class="highlight-box">
+      <div class="highlight-box-title">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        Architecture Insight
+      </div>
+      <p>The key to our success was treating agents as <strong>microservices with conversations</strong>. Each agent has a single responsibility, clear interfaces, and can be updated independently. This mirrors the same principles that made our backend scalable.</p>
+    </div>
+
+    <h2>Implementation Deep Dive: The JIRA Integration</h2>
+
+    <p>The JIRA integration was both our most critical and most challenging piece. Here's how we architected it:</p>
+
+    <h3>Bidirectional Sync</h3>
+    <p>We needed agents to both read from and write to JIRA. Using the native JIRA connector in Power Automate, we established:</p>
+
+    <ul>
+      <li><strong>Inbound webhooks</strong> for real-time ticket notifications</li>
+      <li><strong>Outbound API calls</strong> for status updates, comments, and assignments</li>
+      <li><strong>Custom fields</strong> to track agent interactions and resolutions</li>
+    </ul>
+
+    <div class="code-block">
+      <div class="code-block-header">
+        <span class="code-block-lang">JSON - Custom JIRA Field Schema</span>
+        <div class="code-block-dots">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+      <pre><code>{
+  <span class="code-property">"fields"</span>: {
+    <span class="code-property">"customfield_10089"</span>: {
+      <span class="code-property">"name"</span>: <span class="code-string">"AI Agent Handler"</span>,
+      <span class="code-property">"type"</span>: <span class="code-string">"string"</span>,
+      <span class="code-property">"description"</span>: <span class="code-string">"Which Copilot agent processed this ticket"</span>
+    },
+    <span class="code-property">"customfield_10090"</span>: {
+      <span class="code-property">"name"</span>: <span class="code-string">"AI Resolution Confidence"</span>,
+      <span class="code-property">"type"</span>: <span class="code-string">"number"</span>,
+      <span class="code-property">"description"</span>: <span class="code-string">"0-100 confidence score for AI resolution"</span>
+    },
+    <span class="code-property">"customfield_10091"</span>: {
+      <span class="code-property">"name"</span>: <span class="code-string">"AI Actions Taken"</span>,
+      <span class="code-property">"type"</span>: <span class="code-string">"array"</span>,
+      <span class="code-property">"description"</span>: <span class="code-string">"Log of automated actions performed"</span>
+    }
+  }
+}</code></pre>
+    </div>
+
+    <h3>Confidence Thresholds</h3>
+    <p>Not every issue should be auto-resolved. We implemented a <strong>three-tier confidence system</strong>:</p>
+
+    <ul>
+      <li><strong>High confidence (85%+):</strong> Agent resolves automatically, notifies reporter</li>
+      <li><strong>Medium confidence (60-84%):</strong> Agent proposes solution, awaits human approval</li>
+      <li><strong>Low confidence (&lt;60%):</strong> Agent enriches ticket with context, routes to human</li>
+    </ul>
+
+    <p>This graduated approach gave us automation benefits while maintaining a safety net. After three months of operation, we tuned our thresholds based on actual resolution success rates.</p>
+
+    <h2>Security Considerations</h2>
+
+    <p>When you're giving AI agents the ability to modify infrastructure and access systems, security isn't optional. Our approach:</p>
+
+    <ul>
+      <li><strong>Principle of least privilege:</strong> Each agent has only the permissions it needs</li>
+      <li><strong>Service accounts:</strong> Dedicated Azure AD service principals with MFA-backed authentication</li>
+      <li><strong>Action logging:</strong> Every agent action is logged to Azure Log Analytics with full audit trail</li>
+      <li><strong>Human-in-the-loop:</strong> Critical actions (production deployments, access grants) always require human approval</li>
+      <li><strong>Rate limiting:</strong> Agents have action quotas to prevent runaway automation</li>
+    </ul>
+
+    <h2>The Results: By the Numbers</h2>
+
+    <p>After six months in production, here's what we measured:</p>
+
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-value">67%</div>
+        <div class="metric-label">Faster Resolution</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">2,400+</div>
+        <div class="metric-label">Hours Saved/Year</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">73%</div>
+        <div class="metric-label">Auto-Resolved Tickets</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">94%</div>
+        <div class="metric-label">User Satisfaction</div>
+      </div>
+    </div>
+
+    <p>But the numbers only tell part of the story. The qualitative improvements were equally significant:</p>
+
+    <ul>
+      <li><strong>Engineers reclaimed focus time.</strong> Support engineers now spend 70% of their time on complex, interesting problems instead of repetitive triage.</li>
+      <li><strong>Faster onboarding.</strong> New team members can get answers from KnowledgeKeeper instead of hunting down senior engineers.</li>
+      <li><strong>Institutional knowledge capture.</strong> Every resolution becomes training data, continuously improving the system.</li>
+      <li><strong>Night and weekend coverage.</strong> Agents don't sleep, reducing after-hours escalations by 82%.</li>
+    </ul>
+
+    <h2>Lessons Learned</h2>
+
+    <p>Six months of running AI agents in production taught us several valuable lessons:</p>
+
+    <h3>1. Start Narrow, Expand Gradually</h3>
+    <p>We initially tried to build one agent that could do everything. It was a mess. Starting with TicketTriage alone, then adding specialized agents incrementally, was the right approach.</p>
+
+    <h3>2. Invest in Observability</h3>
+    <p>When an agent makes a mistake, you need to understand why. We built comprehensive dashboards showing agent decision paths, confidence scores, and outcome tracking. This investment paid off repeatedly during debugging.</p>
+
+    <h3>3. Feedback Loops Are Essential</h3>
+    <p>We added a simple thumbs up/thumbs down on every agent response. This feedback directly influences model fine-tuning and helps identify edge cases we hadn't anticipated.</p>
+
+    <h3>4. Set Expectations Early</h3>
+    <p>We communicated clearly that agents were assistants, not replacements. Setting realistic expectations prevented disappointment and encouraged the team to help improve the system rather than work around it.</p>
+
+    <h2>What's Next</h2>
+
+    <p>We're not done. Our roadmap includes:</p>
+
+    <ul>
+      <li><strong>Predictive maintenance:</strong> Using historical data to predict and prevent issues before they generate tickets</li>
+      <li><strong>Cross-agent collaboration:</strong> Enabling agents to delegate and coordinate on complex multi-domain issues</li>
+      <li><strong>Voice interface:</strong> Integrating with Teams for voice-based incident reporting</li>
+      <li><strong>Custom model fine-tuning:</strong> Training on our specific domain vocabulary for better accuracy</li>
+    </ul>
+
+    <p>The future of enterprise operations isn't about replacing humans; it's about amplifying human capability. Our AI agents handle the predictable so our engineers can focus on the exceptional. That's the promise of enterprise AI, and with Microsoft Copilot Studio, we've finally delivered on it.</p>
+
+    <!-- CTA Section -->
+    <div class="cta-section">
+      <h3>Building Your Own AI Agent Fleet?</h3>
+      <p>I help enterprise teams design and deploy intelligent automation solutions. Let's talk about your use case.</p>
+      <a href="https://marlow.dev.br#contact" class="btn">
+        Get in Touch
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
+    </div>
+
+    <!-- Related Articles -->
+    <div class="related-articles">
+      <h3>Continue Reading</h3>
+      <div class="related-grid">
+        <a href="https://marlow.dev.br" class="related-card">
+          <span class="related-card-tag">RPA</span>
+          <h4>UiPath vs Power Automate: A Tech Lead's Perspective</h4>
+          <p>Comparing enterprise automation platforms after 5 years in the field.</p>
+        </a>
+        <a href="https://marlow.dev.br" class="related-card">
+          <span class="related-card-tag">Remote Work</span>
+          <h4>Leading Distributed Teams Across Time Zones</h4>
+          <p>Lessons from managing automation projects from 3 continents.</p>
+        </a>
+      </div>
+    </div>
+  </article>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-links">
+      <a href="https://marlow.dev.br">Home</a>
+      <a href="https://marlow.dev.br#about">About</a>
+      <a href="https://marlow.dev.br#projects">Projects</a>
+      <a href="https://marlow.dev.br#contact">Contact</a>
+      <a href="https://linkedin.com/in/marlowsousa" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/marlowsousa" target="_blank" rel="noopener">GitHub</a>
+    </div>
+    <p class="footer-copy">&copy; 2026 Marlow Sousa. All rights reserved.</p>
+  </footer>
+</body>
+</html>

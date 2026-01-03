@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BPMN + Camunda: Projetando Processos que Realmente Escalam | Marlow Sousa</title>
+
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Aprenda a projetar processos de negócio escaláveis usando BPMN e Camunda. Domine o mapeamento AS-IS/TO-BE, evite débito técnico de automação e construa processos que crescem com sua organização.">
+  <meta name="keywords" content="BPMN, Camunda, Design de Processos, Gestão de Processos de Negócio, Automação, Débito Técnico, AS-IS TO-BE, Mapeamento de Processos, Automação de Fluxos, RPA">
+  <meta name="author" content="Marlow Sousa">
+  <meta name="robots" content="index, follow">
+  <meta name="language" content="Portuguese">
+  <link rel="canonical" href="https://marlow.dev.br/pt/blog/bpmn-camunda-process-design.html">
+
+  <!-- Hreflang Tags -->
+  <link rel="alternate" hreflang="en" href="https://marlow.dev.br/blog/bpmn-camunda-process-design.html">
+  <link rel="alternate" hreflang="pt-BR" href="https://marlow.dev.br/pt/blog/bpmn-camunda-process-design.html">
+  <link rel="alternate" hreflang="x-default" href="https://marlow.dev.br/blog/bpmn-camunda-process-design.html">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://marlow.dev.br/pt/blog/bpmn-camunda-process-design.html">
+  <meta property="og:title" content="BPMN + Camunda: Projetando Processos que Realmente Escalam">
+  <meta property="og:description" content="Aprenda a projetar processos de negócio escaláveis usando BPMN e Camunda. Domine o mapeamento AS-IS/TO-BE e evite débito técnico de automação.">
+  <meta property="og:image" content="https://marlow.dev.br/og-image.png">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="Marlow Sousa Blog">
+  <meta property="article:author" content="Marlow Sousa">
+  <meta property="article:published_time" content="2026-01-03">
+  <meta property="article:section" content="Automação de Processos">
+  <meta property="article:tag" content="BPMN">
+  <meta property="article:tag" content="Camunda">
+  <meta property="article:tag" content="Design de Processos">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://marlow.dev.br/pt/blog/bpmn-camunda-process-design.html">
+  <meta name="twitter:title" content="BPMN + Camunda: Projetando Processos que Realmente Escalam">
+  <meta name="twitter:description" content="Aprenda a projetar processos de negócio escaláveis usando BPMN e Camunda. Domine o mapeamento AS-IS/TO-BE e evite débito técnico de automação.">
+  <meta name="twitter:image" content="https://marlow.dev.br/og-image.png">
+  <meta name="twitter:creator" content="@marlowsousa">
+
+  <!-- Theme Color -->
+  <meta name="theme-color" content="#0a0a0a">
+  <meta name="msapplication-TileColor" content="#c8ff2d">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='12' fill='%230a0a0a'/%3E%3Ctext x='50' y='68' font-family='system-ui,-apple-system,sans-serif' font-size='60' font-weight='800' fill='%23c8ff2d' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- JSON-LD Article Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "BPMN + Camunda: Projetando Processos que Realmente Escalam",
+    "description": "Aprenda a projetar processos de negócio escaláveis usando BPMN e Camunda. Domine o mapeamento AS-IS/TO-BE, evite débito técnico de automação e construa processos que crescem com sua organização.",
+    "image": "https://marlow.dev.br/og-image.png",
+    "author": {
+      "@type": "Person",
+      "name": "Marlow Sousa",
+      "url": "https://marlow.dev.br",
+      "jobTitle": "RPA Tech Lead",
+      "description": "RPA Tech Lead com formação em Engenharia Mecânica, especializado em design de processos e arquitetura de automação."
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Marlow Sousa",
+      "url": "https://marlow.dev.br"
+    },
+    "datePublished": "2026-01-03",
+    "dateModified": "2026-01-03",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://marlow.dev.br/pt/blog/bpmn-camunda-process-design.html"
+    },
+    "keywords": ["BPMN", "Camunda", "Design de Processos", "Gestão de Processos de Negócio", "Automação", "Débito Técnico", "AS-IS TO-BE"],
+    "articleSection": "Automação de Processos",
+    "wordCount": 2400,
+    "timeRequired": "PT10M",
+    "inLanguage": "pt-BR"
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg-primary: #0a0a0a;
+      --bg-secondary: #111111;
+      --bg-tertiary: #1a1a1a;
+      --text-primary: #f5f0e8;
+      --text-secondary: #a8a8a8;
+      --text-muted: #666666;
+      --accent: #c8ff2d;
+      --accent-secondary: #e85d4c;
+      --accent-glow: rgba(200, 255, 45, 0.15);
+      --font-display: 'Syne', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scrollbar-width: thin;
+      scrollbar-color: var(--accent) var(--bg-secondary);
+    }
+
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg-secondary);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--accent);
+      border-radius: 4px;
+    }
+
+    body {
+      font-family: var(--font-mono);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.8;
+      overflow-x: hidden;
+    }
+
+    /* Noise Overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      opacity: 0.03;
+      pointer-events: none;
+      z-index: 10000;
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 1.5rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(10, 10, 10, 0.9);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .logo {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      text-decoration: none;
+    }
+
+    .logo::after {
+      content: '_';
+      color: var(--accent);
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      position: relative;
+      transition: color 0.3s;
+    }
+
+    .nav-links a::before {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: width 0.3s var(--ease-out-expo);
+    }
+
+    .nav-links a:hover {
+      color: var(--text-primary);
+    }
+
+    .nav-links a:hover::before {
+      width: 100%;
+    }
+
+    /* Article Header */
+    .article-header {
+      padding: 10rem 3rem 4rem;
+      max-width: 900px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .article-header::before {
+      content: '';
+      position: absolute;
+      top: 15%;
+      right: -30%;
+      width: 60%;
+      height: 60%;
+      background: radial-gradient(ellipse, var(--accent-glow) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+
+    .breadcrumb a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .breadcrumb a:hover {
+      color: var(--accent);
+    }
+
+    .breadcrumb span {
+      color: var(--text-muted);
+    }
+
+    .article-meta {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .article-category {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--accent);
+      padding: 0.5rem 1rem;
+      background: rgba(200, 255, 45, 0.1);
+      border-radius: 4px;
+    }
+
+    .article-date, .article-read-time {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    .article-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+    }
+
+    .article-title span {
+      background: linear-gradient(135deg, var(--accent) 0%, #9eff00 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .article-subtitle {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      max-width: 700px;
+    }
+
+    /* Author Box */
+    .author-box {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-top: 3rem;
+      padding: 1.5rem;
+      background: var(--bg-secondary);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 8px;
+    }
+
+    .author-avatar {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, var(--accent) 0%, #9eff00 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--bg-primary);
+      flex-shrink: 0;
+    }
+
+    .author-info h4 {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+
+    .author-info p {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    /* Article Content */
+    .article-content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 4rem 3rem;
+    }
+
+    .article-content h2 {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 700;
+      margin-top: 3rem;
+      margin-bottom: 1.5rem;
+      color: var(--text-primary);
+      position: relative;
+      padding-left: 1.5rem;
+    }
+
+    .article-content h2::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.25rem;
+      width: 4px;
+      height: 80%;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    .article-content h3 {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+
+    .article-content p {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      margin-bottom: 1.5rem;
+      line-height: 1.9;
+    }
+
+    .article-content strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    .article-content em {
+      color: var(--accent);
+      font-style: italic;
+    }
+
+    .article-content a {
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.3s;
+    }
+
+    .article-content a:hover {
+      border-bottom-color: var(--accent);
+    }
+
+    .article-content ul, .article-content ol {
+      margin-bottom: 1.5rem;
+      padding-left: 1.5rem;
+      color: var(--text-secondary);
+    }
+
+    .article-content li {
+      margin-bottom: 0.75rem;
+      line-height: 1.8;
+    }
+
+    .article-content li::marker {
+      color: var(--accent);
+    }
+
+    /* Callout Box */
+    .callout {
+      background: var(--bg-secondary);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-left: 4px solid var(--accent);
+      border-radius: 0 8px 8px 0;
+      padding: 1.5rem 2rem;
+      margin: 2rem 0;
+    }
+
+    .callout.warning {
+      border-left-color: var(--accent-secondary);
+    }
+
+    .callout-title {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .callout.warning .callout-title {
+      color: var(--accent-secondary);
+    }
+
+    .callout p {
+      margin-bottom: 0;
+      font-size: 0.95rem;
+    }
+
+    /* Code Block */
+    .code-block {
+      background: var(--bg-secondary);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      margin: 2rem 0;
+      overflow: hidden;
+    }
+
+    .code-block-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 1.5rem;
+      background: var(--bg-tertiary);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .code-block-title {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+    }
+
+    .code-block-body {
+      padding: 1.5rem;
+      overflow-x: auto;
+    }
+
+    .code-block pre {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      line-height: 1.7;
+      color: var(--text-secondary);
+    }
+
+    .code-keyword { color: #ff79c6; }
+    .code-tag { color: #50fa7b; }
+    .code-attr { color: #8be9fd; }
+    .code-string { color: #f1fa8c; }
+    .code-comment { color: var(--text-muted); }
+
+    /* Process Diagram Box */
+    .diagram-box {
+      background: var(--bg-secondary);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 2rem;
+      margin: 2.5rem 0;
+      text-align: center;
+    }
+
+    .diagram-title {
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 1.5rem;
+    }
+
+    .diagram-flow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .diagram-node {
+      padding: 0.75rem 1.25rem;
+      background: var(--bg-tertiary);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 6px;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      transition: all 0.3s;
+    }
+
+    .diagram-node.start {
+      background: rgba(200, 255, 45, 0.15);
+      border-color: var(--accent);
+      color: var(--accent);
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .diagram-node.end {
+      background: rgba(232, 93, 76, 0.15);
+      border-color: var(--accent-secondary);
+      color: var(--accent-secondary);
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .diagram-node.gateway {
+      background: rgba(200, 255, 45, 0.1);
+      border-color: rgba(200, 255, 45, 0.3);
+      transform: rotate(45deg);
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .diagram-node.gateway span {
+      transform: rotate(-45deg);
+      font-size: 0.7rem;
+    }
+
+    .diagram-arrow {
+      color: var(--text-muted);
+      font-size: 1.2rem;
+    }
+
+    /* Table */
+    .content-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 2rem 0;
+      font-size: 0.9rem;
+    }
+
+    .content-table th {
+      background: var(--bg-secondary);
+      padding: 1rem 1.5rem;
+      text-align: left;
+      font-family: var(--font-display);
+      font-weight: 600;
+      color: var(--accent);
+      border-bottom: 2px solid rgba(200, 255, 45, 0.3);
+    }
+
+    .content-table td {
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      color: var(--text-secondary);
+    }
+
+    .content-table tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    /* Quote */
+    blockquote {
+      border-left: 3px solid var(--accent);
+      padding-left: 1.5rem;
+      margin: 2rem 0;
+      font-style: italic;
+      color: var(--text-secondary);
+    }
+
+    blockquote p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+    }
+
+    /* CTA Section */
+    .cta-section {
+      background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+      border: 1px solid rgba(200, 255, 45, 0.2);
+      border-radius: 16px;
+      padding: 3rem;
+      margin: 4rem 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 60%;
+      height: 200%;
+      background: radial-gradient(ellipse, var(--accent-glow) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .cta-section h3 {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      position: relative;
+    }
+
+    .cta-section p {
+      color: var(--text-secondary);
+      max-width: 500px;
+      margin: 0 auto 2rem;
+      position: relative;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem 2rem;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      border: none;
+      cursor: pointer;
+      transition: all 0.4s var(--ease-out-expo);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--bg-primary);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 40px var(--accent-glow);
+    }
+
+    .btn svg {
+      width: 18px;
+      height: 18px;
+      transition: transform 0.3s;
+    }
+
+    .btn:hover svg {
+      transform: translateX(4px);
+    }
+
+    /* Related Posts */
+    .related-posts {
+      padding: 4rem 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .related-posts h3 {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .related-card {
+      background: var(--bg-secondary);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 8px;
+      padding: 1.5rem;
+      text-decoration: none;
+      transition: all 0.4s var(--ease-out-expo);
+    }
+
+    .related-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(200, 255, 45, 0.2);
+    }
+
+    .related-card-category {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+
+    .related-card h4 {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .related-card p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* Footer */
+    footer {
+      padding: 3rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      text-align: center;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent);
+    }
+
+    .footer-copyright {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+      nav {
+        padding: 1rem 1.5rem;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .article-header {
+        padding: 8rem 1.5rem 3rem;
+      }
+
+      .article-content {
+        padding: 2rem 1.5rem;
+      }
+
+      .article-meta {
+        gap: 1rem;
+      }
+
+      .author-box {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .diagram-flow {
+        flex-direction: column;
+      }
+
+      .diagram-arrow {
+        transform: rotate(90deg);
+      }
+
+      .cta-section {
+        padding: 2rem 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav>
+    <a href="https://marlow.dev.br/pt/" class="logo">marlow</a>
+    <ul class="nav-links">
+      <li><a href="https://marlow.dev.br/pt/#about">Sobre</a></li>
+      <li><a href="https://marlow.dev.br/pt/#skills">Habilidades</a></li>
+      <li><a href="https://marlow.dev.br/pt/#projects">Projetos</a></li>
+      <li><a href="https://marlow.dev.br/pt/blog/">Blog</a></li>
+      <li><a href="https://marlow.dev.br/pt/#contact">Contato</a></li>
+    </ul>
+  </nav>
+
+  <!-- Article Header -->
+  <header class="article-header">
+    <div class="breadcrumb">
+      <a href="https://marlow.dev.br/pt/">Inicio</a>
+      <span>/</span>
+      <a href="https://marlow.dev.br/pt/blog/">Blog</a>
+      <span>/</span>
+      <span>BPMN + Camunda</span>
+    </div>
+
+    <div class="article-meta">
+      <span class="article-category">Design de Processos</span>
+      <span class="article-date">3 de Janeiro de 2026</span>
+      <span class="article-read-time">10 min de leitura</span>
+    </div>
+
+    <h1 class="article-title">BPMN + Camunda: Projetando Processos <span>que Realmente Escalam</span></h1>
+
+    <p class="article-subtitle">Por que o mapeamento adequado AS-IS/TO-BE e o pensamento orientado a processos fazem a diferenca entre automacoes que geram valor composto e sistemas que se tornam pesadelos legados.</p>
+
+    <div class="author-box">
+      <div class="author-avatar">M</div>
+      <div class="author-info">
+        <h4>Marlow Sousa</h4>
+        <p>RPA Tech Lead | Engenheiro Mecanico | Especialista em Design de Processos</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- Article Content -->
+  <article class="article-content">
+    <h2>O Cemiterio de Automacoes: Um Conto de Advertencia</h2>
+
+    <p>Certa vez herdei um portfolio de automacoes avaliado em aproximadamente R$ 12 milhoes em custos de desenvolvimento. Sessenta e sete bots, cuidadosamente construidos, extensivamente testados e implantados em toda a organizacao. Em dezoito meses, quarenta e um deles estavam deprecados, constantemente falhando ou executando processos que nao existiam mais de forma significativa.</p>
+
+    <p>A causa raiz nao foi codigo ruim. Nao foi teste inadequado. Nao foi nem mesmo falha de gestao de mudancas no sentido tradicional. <strong>A causa raiz foi que ninguem havia documentado adequadamente o que os processos deveriam realizar em primeiro lugar.</strong></p>
+
+    <p>Cada uma dessas automacoes falhas foi construida por engenharia reversa de gravacoes de tela de funcionarios clicando em aplicacoes. As equipes de automacao haviam se tornado incrivelmente eficientes em replicar cliques e teclas. Tornaram-se mestres em lidar com excecoes que observavam. Mas nao tinham ideia de por que o processo existia, quais resultados de negocio ele atendia ou como se conectava a atividades anteriores e posteriores.</p>
+
+    <div class="callout warning">
+      <div class="callout-title">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+          <line x1="12" y1="9" x2="12" y2="13"/>
+          <line x1="12" y1="17" x2="12.01" y2="17"/>
+        </svg>
+        O Custo Oculto do Debito Tecnico de Automacao
+      </div>
+      <p>Quando processos mudam e automacoes quebram, voce nao esta apenas perdendo o ROI daquela automacao. Voce esta perdendo o custo de oportunidade do que sua equipe poderia ter construido, a confianca dos stakeholders de negocio e, frequentemente, o conhecimento institucional de por que o processo original existia.</p>
+    </div>
+
+    <p>Essa experiencia mudou fundamentalmente como eu abordo automacao. E por isso que agora me recuso a tocar no teclado ate termos mapeado adequadamente o processo. E por isso que acredito que <em>BPMN e Camunda representam a abordagem mais madura para construir automacao que sobrevive ao contato com a realidade.</em></p>
+
+    <h2>O Caso para Automacao Orientada a Processos</h2>
+
+    <p>Ha uma simplicidade sedutora na automacao baseada em tarefas. Alguem mostra o que faz, voce grava, limpa, implanta. O tempo de entrega e rapido. A demonstracao e impressionante. Os stakeholders de negocio ficam felizes por aproximadamente seis meses.</p>
+
+    <p>Entao a primeira mudanca acontece. Um botao muda de lugar. Uma nova etapa de aprovacao e adicionada. O fornecedor atualiza sua API. E de repente, sua automacao nao esta apenas quebrada - ela esta ativamente causando problemas, porque esta executando cegamente etapas que nao fazem mais sentido no novo contexto.</p>
+
+    <p><strong>A automacao orientada a processos inverte essa dinamica.</strong> Em vez de perguntar "O que o trabalhador faz?", perguntamos "Qual resultado o negocio precisa?" Em vez de mapear cliques, mapeamos decisoes. Em vez de replicar comportamento, modelamos intencao.</p>
+
+    <h3>As Tres Perguntas Que Mudam Tudo</h3>
+
+    <p>Antes de qualquer projeto de automacao, agora exijo respostas para tres perguntas fundamentais:</p>
+
+    <ol>
+      <li><strong>Qual e o gatilho de negocio?</strong> Nao "quando o trabalhador comeca a clicar", mas qual evento no mundo real inicia este processo? Uma solicitacao de cliente? Um agendamento baseado em tempo? Um limite sendo ultrapassado?</li>
+      <li><strong>Qual e o resultado de negocio?</strong> Nao "quais telas sao atualizadas", mas qual mudanca de estado no mundo real indica sucesso? Um pedido atendido? Uma reclamacao adjudicada? Um relatorio entregue a um tomador de decisao?</li>
+      <li><strong>Quais decisoes determinam o caminho?</strong> Nao "quais IFs estao no codigo", mas qual logica de negocio determina como casos diferentes devem ser tratados?</li>
+    </ol>
+
+    <p>Essas perguntas nao podem ser respondidas assistindo gravacoes de tela. Elas exigem conversas com donos de processo, revisao de politicas de negocio e entendimento de requisitos regulatorios. Isso leva mais tempo inicialmente. Economiza exponencialmente mais tempo ao longo do ciclo de vida da automacao.</p>
+
+    <h2>Fundamentos de BPMN: A Linguagem dos Processos</h2>
+
+    <p>Business Process Model and Notation, ou BPMN, nao e apenas um padrao de diagramacao. E uma linguagem de especificacao executavel que faz a ponte entre o entendimento de negocio e a implementacao tecnica. Quando usado adequadamente, um diagrama BPMN e simultaneamente uma ferramenta de comunicacao para stakeholders, um documento de requisitos para desenvolvedores e um modelo de execucao para motores de processo.</p>
+
+    <h3>Elementos Essenciais de BPMN Que Voce Realmente Precisa</h3>
+
+    <p>Apesar de ter centenas de simbolos e variacoes, a modelagem eficaz de processos tipicamente usa um subconjunto focado:</p>
+
+    <div class="diagram-box">
+      <div class="diagram-title">Fluxo Basico de Processo BPMN</div>
+      <div class="diagram-flow">
+        <div class="diagram-node start">Inicio</div>
+        <span class="diagram-arrow">--></span>
+        <div class="diagram-node">Receber Solicitacao</div>
+        <span class="diagram-arrow">--></span>
+        <div class="diagram-node gateway"><span>XOR</span></div>
+        <span class="diagram-arrow">--></span>
+        <div class="diagram-node">Processar Tarefa</div>
+        <span class="diagram-arrow">--></span>
+        <div class="diagram-node end">Fim</div>
+      </div>
+    </div>
+
+    <table class="content-table">
+      <thead>
+        <tr>
+          <th>Elemento</th>
+          <th>Simbolo</th>
+          <th>Proposito</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Evento de Inicio</td>
+          <td>Circulo (borda fina)</td>
+          <td>Define o que dispara o processo</td>
+        </tr>
+        <tr>
+          <td>Evento de Fim</td>
+          <td>Circulo (borda grossa)</td>
+          <td>Define terminacao bem-sucedida ou excepcional</td>
+        </tr>
+        <tr>
+          <td>Tarefa</td>
+          <td>Retangulo arredondado</td>
+          <td>Uma unidade de trabalho (pode ser manual, automatizada ou servico)</td>
+        </tr>
+        <tr>
+          <td>Gateway Exclusivo (XOR)</td>
+          <td>Losango com X</td>
+          <td>Ponto de decisao onde exatamente um caminho e tomado</td>
+        </tr>
+        <tr>
+          <td>Gateway Paralelo (AND)</td>
+          <td>Losango com +</td>
+          <td>Divisao ou juncao para execucao concorrente</td>
+        </tr>
+        <tr>
+          <td>Fluxo de Sequencia</td>
+          <td>Seta solida</td>
+          <td>A ordem de execucao</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>O poder do BPMN vem nao de usar cada simbolo disponivel, mas de usar os simbolos corretos de forma consistente e correta. Um modelo BPMN bem projetado deve ser legivel por stakeholders de negocio que nunca viram a notacao antes, sendo simultaneamente preciso o suficiente para executar em um motor de processo.</p>
+
+    <h2>AS-IS/TO-BE: A Fundacao da Mudanca Significativa</h2>
+
+    <p>Talvez a disciplina mais critica na melhoria de processos seja a separacao rigorosa da modelagem do estado atual (AS-IS) do estado futuro (TO-BE). Isso nao e meramente um exercicio de documentacao. E a fundacao para entender qual valor a automacao realmente entregara.</p>
+
+    <h3>O Modelo AS-IS: Entendendo a Realidade</h3>
+
+    <p>O modelo AS-IS documenta como o processo realmente funciona hoje - incluindo todas as gambiarras, tratamento de excecoes e procedimentos informais que evoluiram ao longo do tempo. Este modelo deve capturar:</p>
+
+    <ul>
+      <li><strong>Todos os participantes:</strong> Todo papel que toca o processo, incluindo aquelas dependencias informais de "deixa eu so perguntar para a Maria"</li>
+      <li><strong>Todas as transferencias:</strong> Todo ponto onde o trabalho se move entre sistemas, departamentos ou individuos</li>
+      <li><strong>Todos os estados de espera:</strong> Todo ponto onde o trabalho fica em uma fila ou aguarda uma resposta</li>
+      <li><strong>Todos os pontos de decisao:</strong> Toda bifurcacao no processo, incluindo decisoes de conhecimento tribal nao documentado</li>
+      <li><strong>Todas as excecoes:</strong> Toda forma como o processo pode falhar ou desviar do caminho feliz</li>
+    </ul>
+
+    <div class="callout">
+      <div class="callout-title">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="12" y1="16" x2="12" y2="12"/>
+          <line x1="12" y1="8" x2="12.01" y2="8"/>
+        </svg>
+        A Regra 80/20 da Descoberta de Processos
+      </div>
+      <p>Na minha experiencia, aproximadamente 20% dos casos de processo consomem 80% do tempo do trabalhador. Estas sao as excecoes, os casos extremos, os "estranhos" que exigem julgamento. Seu modelo AS-IS deve capturar esses casos desproporcionalmente importantes, ou seu design TO-BE otimizara para os casos faceis enquanto deixa humanos para lidar com os dificeis de forma ainda mais intensiva.</p>
+    </div>
+
+    <h3>O Modelo TO-BE: Projetando para o Futuro</h3>
+
+    <p>O modelo TO-BE nao e simplesmente o AS-IS com robos adicionados. E um processo redesenhado que aproveita as capacidades de automacao enquanto respeita as limitacoes da automacao. O design TO-BE eficaz considera:</p>
+
+    <ul>
+      <li><strong>Eliminacao:</strong> Quais etapas existem apenas por causa de limitacoes humanas e podem ser removidas inteiramente?</li>
+      <li><strong>Consolidacao:</strong> Quais etapas separadas podem ser combinadas quando executadas por automacao?</li>
+      <li><strong>Paralelizacao:</strong> Quais etapas sequenciais podem rodar concorrentemente quando o tempo de espera e eliminado?</li>
+      <li><strong>Redesign de excecoes:</strong> Como as excecoes devem ser tratadas quando o caminho feliz e automatizado?</li>
+      <li><strong>Humano no loop:</strong> Onde os humanos devem permanecer envolvidos e como o trabalho deve ser roteado para eles?</li>
+    </ul>
+
+    <p>A lacuna entre AS-IS e TO-BE e onde o business case vive. Se seu TO-BE parece substancialmente similar ao seu AS-IS, voce esta automatizando um processo que nao precisa disso, ou nao pensou criativamente o suficiente sobre o que a automacao possibilita.</p>
+
+    <h2>Padroes de Integracao com Camunda</h2>
+
+    <p>Camunda transforma o BPMN de um exercicio de documentacao em uma plataforma de orquestracao executavel. Quando adequadamente integrado, Camunda se torna a unica fonte de verdade para o estado do processo, o coordenador para todas as atividades de automacao e a trilha de auditoria para requisitos de conformidade.</p>
+
+    <h3>O Padrao de Orquestracao</h3>
+
+    <p>Neste padrao, Camunda atua como o cerebro central que coordena multiplos workers de automacao:</p>
+
+    <div class="code-block">
+      <div class="code-block-header">
+        <span class="code-block-title">Configuracao de Service Task BPMN</span>
+      </div>
+      <div class="code-block-body">
+<pre><span class="code-tag">&lt;bpmn:serviceTask</span> <span class="code-attr">id</span>=<span class="code-string">"validateCustomer"</span>
+                  <span class="code-attr">name</span>=<span class="code-string">"Validar Dados do Cliente"</span><span class="code-tag">&gt;</span>
+  <span class="code-tag">&lt;bpmn:extensionElements&gt;</span>
+    <span class="code-tag">&lt;camunda:connector&gt;</span>
+      <span class="code-tag">&lt;camunda:connectorId&gt;</span>http-connector<span class="code-tag">&lt;/camunda:connectorId&gt;</span>
+      <span class="code-tag">&lt;camunda:inputOutput&gt;</span>
+        <span class="code-tag">&lt;camunda:inputParameter</span> <span class="code-attr">name</span>=<span class="code-string">"url"</span><span class="code-tag">&gt;</span>
+          ${validationService}/api/validate
+        <span class="code-tag">&lt;/camunda:inputParameter&gt;</span>
+      <span class="code-tag">&lt;/camunda:inputOutput&gt;</span>
+    <span class="code-tag">&lt;/camunda:connector&gt;</span>
+  <span class="code-tag">&lt;/bpmn:extensionElements&gt;</span>
+<span class="code-tag">&lt;/bpmn:serviceTask&gt;</span></pre>
+      </div>
+    </div>
+
+    <h3>O Padrao de External Task</h3>
+
+    <p>Para tarefas de longa duracao ou intensivas em recursos, o padrao de external task do Camunda permite que workers facam polling por trabalho disponivel e reportem conclusao de forma assincrona. Isso e particularmente poderoso para integracao com RPA:</p>
+
+    <div class="code-block">
+      <div class="code-block-header">
+        <span class="code-block-title">Worker External Task em Python</span>
+      </div>
+      <div class="code-block-body">
+<pre><span class="code-keyword">from</span> camunda.external_task.external_task <span class="code-keyword">import</span> ExternalTask
+<span class="code-keyword">from</span> camunda.external_task.external_task_worker <span class="code-keyword">import</span> ExternalTaskWorker
+
+<span class="code-keyword">def</span> <span class="code-tag">handle_task</span>(task: ExternalTask):
+    <span class="code-comment"># Executar workflow RPA aqui</span>
+    customer_id = task.get_variable(<span class="code-string">"customerId"</span>)
+    result = rpa_engine.execute(<span class="code-string">"validate_customer"</span>, customer_id)
+
+    <span class="code-keyword">return</span> task.complete({
+        <span class="code-string">"validationResult"</span>: result.status,
+        <span class="code-string">"validationDetails"</span>: result.details
+    })
+
+worker = ExternalTaskWorker(
+    worker_id=<span class="code-string">"rpa-validator-01"</span>,
+    base_url=<span class="code-string">"http://camunda:8080/engine-rest"</span>
+)
+worker.subscribe(<span class="code-string">"validate-customer"</span>, handle_task)</pre>
+      </div>
+    </div>
+
+    <h3>O Padrao de Human Task</h3>
+
+    <p>Nem tudo deve ser automatizado. As capacidades de user task do Camunda permitem rotear excecoes e workflows de aprovacao para trabalhadores humanos atraves de listas de tarefas integradas, mantendo visibilidade completa do processo:</p>
+
+    <ul>
+      <li><strong>Timers de escalonamento:</strong> Escalonar automaticamente tarefas que nao sao concluidas dentro do SLA</li>
+      <li><strong>Regras de atribuicao:</strong> Rotear tarefas baseado em carga de trabalho, expertise ou regras de negocio</li>
+      <li><strong>Integracao de formularios:</strong> Fornecer interfaces sensíveis ao contexto para tomada de decisao humana</li>
+      <li><strong>Trilhas de auditoria:</strong> Capturar quem tomou qual decisao e quando</li>
+    </ul>
+
+    <h2>Workshop Pratico: Redesign de Atendimento de Pedidos</h2>
+
+    <p>Deixe-me apresentar um exemplo condensado de como esta metodologia se aplica na pratica. Considere um processo tipico de atendimento de pedidos em um contexto de e-commerce.</p>
+
+    <h3>Analise do Processo AS-IS</h3>
+
+    <p>O processo atual envolve:</p>
+
+    <ol>
+      <li>Atendimento ao cliente recebe notificacao de pedido por email</li>
+      <li>Agente copia manualmente detalhes do pedido no sistema ERP</li>
+      <li>Agente verifica disponibilidade de estoque no sistema do armazem</li>
+      <li>Se o estoque esta baixo, agente envia email ao gerente do armazem para confirmacao</li>
+      <li>Agente cria solicitacao de envio no portal da transportadora</li>
+      <li>Agente atualiza cliente com informacoes de rastreamento via template de email</li>
+    </ol>
+
+    <p>Tempo medio de processamento: 23 minutos por pedido. Taxa de erro: 4,2% exigindo retrabalho.</p>
+
+    <h3>Identificacao de Pontos de Dor</h3>
+
+    <p>Atraves de entrevistas com stakeholders e analise de dados, identificamos:</p>
+
+    <ul>
+      <li>67% do tempo gasto em entrada de dados entre sistemas</li>
+      <li>Aprovacao baseada em email cria atraso medio de 4 horas</li>
+      <li>Sem visibilidade do status do processo uma vez iniciado</li>
+      <li>Erros principalmente de transcricao manual</li>
+    </ul>
+
+    <h3>Design do Processo TO-BE</h3>
+
+    <div class="diagram-box">
+      <div class="diagram-title">Fluxo TO-BE de Atendimento de Pedidos</div>
+      <div class="diagram-flow">
+        <div class="diagram-node start">Pedido Recebido</div>
+        <span class="diagram-arrow">--></span>
+        <div class="diagram-node">Auto-Validar</div>
+        <span class="diagram-arrow">--></span>
+        <div class="diagram-node gateway"><span>Estoque?</span></div>
+        <span class="diagram-arrow">--></span>
+        <div class="diagram-node">Criar Envio</div>
+        <span class="diagram-arrow">--></span>
+        <div class="diagram-node end">Notificar Cliente</div>
+      </div>
+    </div>
+
+    <p>O processo redesenhado:</p>
+
+    <ul>
+      <li><strong>Inicio orientado a eventos:</strong> Processo dispara automaticamente quando pedido e feito na plataforma de e-commerce</li>
+      <li><strong>Integracao via API:</strong> Dados do pedido fluem diretamente entre sistemas sem transcricao humana</li>
+      <li><strong>Decisoes automatizadas:</strong> Limites de estoque disparam reserva automatica ou fluxo de backorder</li>
+      <li><strong>Envolvimento humano apenas para excecoes:</strong> Apenas excecoes complexas sao roteadas para agentes humanos via tasklist do Camunda</li>
+      <li><strong>Visibilidade em tempo real:</strong> Todos os stakeholders podem ver o status do processo atraves do Camunda Cockpit</li>
+    </ul>
+
+    <p>Resultados projetados: 3 minutos de tempo medio de processamento, taxa de erro abaixo de 0,5%, trilha de auditoria completa para cada pedido.</p>
+
+    <h2>O Jogo de Longo Prazo: Construindo para Mudanca</h2>
+
+    <p>Os processos que voce projeta hoje precisarao mudar. Mercados mudam. Regulamentacoes evoluem. Tecnologias emergem. A medida de uma boa arquitetura de processos nao e se ela lida perfeitamente com os requisitos de hoje, mas se pode se adaptar graciosamente aos requisitos de amanha.</p>
+
+    <blockquote>
+      <p>"O melhor momento para pensar em evolucao de processos e antes de escrever a primeira linha de codigo de automacao."</p>
+    </blockquote>
+
+    <p>Isso significa:</p>
+
+    <ul>
+      <li><strong>Design modular:</strong> Dividir processos em subprocessos reutilizaveis que podem ser modificados independentemente</li>
+      <li><strong>Regras de negocio externalizadas:</strong> Manter logica de decisao em tabelas DMN ou motores de regras, nao hardcoded em workflows</li>
+      <li><strong>Gestao de versoes:</strong> Usar o versionamento de processos do Camunda para migrar instancias em execucao graciosamente</li>
+      <li><strong>Monitoramento e metricas:</strong> Instrumentar tudo para saber quando a mudanca e necessaria antes que se torne urgente</li>
+    </ul>
+
+    <p>As organizacoes que vencem em automacao nao sao necessariamente aquelas com a tecnologia mais sofisticada. Sao aquelas com a disciplina para entender seus processos profundamente, projetar mudancas cuidadosamente e construir sistemas que se tornam mais valiosos ao longo do tempo em vez de mais frageis.</p>
+
+    <p>BPMN fornece a linguagem. Camunda fornece a plataforma. Mas o pensamento estrategico que transforma essas ferramentas em vantagem competitiva - isso vem de tratar o design de processos como a disciplina de engenharia que realmente e.</p>
+
+    <!-- CTA Section -->
+    <div class="cta-section">
+      <h3>Pronto para Escalar Seus Processos?</h3>
+      <p>Obtenha uma avaliacao de processos gratuita para identificar oportunidades de automacao e potencial debito tecnico em seus workflows atuais.</p>
+      <a href="https://marlow.dev.br/pt/#contact" class="btn btn-primary">
+        Solicitar Avaliacao de Processos
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
+    </div>
+
+    <!-- Related Posts -->
+    <div class="related-posts">
+      <h3>Continue Lendo</h3>
+      <div class="related-grid">
+        <a href="#" class="related-card">
+          <div class="related-card-category">Arquitetura RPA</div>
+          <h4>Construindo Redes de Bots Resilientes</h4>
+          <p>Como projetar infraestrutura de automacao que se auto-recupera e escala.</p>
+        </a>
+        <a href="#" class="related-card">
+          <div class="related-card-category">Integracao com IA</div>
+          <h4>Quando Adicionar Inteligencia a Automacao</h4>
+          <p>Um framework pratico para decidir entre regras e machine learning.</p>
+        </a>
+        <a href="#" class="related-card">
+          <div class="related-card-category">Process Mining</div>
+          <h4>Descoberta Antes do Design</h4>
+          <p>Usando process mining para validar premissas antes de construir.</p>
+        </a>
+      </div>
+    </div>
+  </article>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-links">
+      <a href="https://marlow.dev.br/pt/">Inicio</a>
+      <a href="https://marlow.dev.br/pt/#about">Sobre</a>
+      <a href="https://marlow.dev.br/pt/blog/">Blog</a>
+      <a href="https://marlow.dev.br/pt/#contact">Contato</a>
+      <a href="https://linkedin.com/in/marlowsousa" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/marlowsousa" target="_blank" rel="noopener">GitHub</a>
+    </div>
+    <p class="footer-copyright">2026 Marlow Sousa. Criado com precisao de onde quer que o WiFi funcione.</p>
+  </footer>
+</body>
+</html>

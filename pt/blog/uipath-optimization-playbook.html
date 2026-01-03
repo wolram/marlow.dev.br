@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>De 60 Horas para 6: O Guia de Otimizacao UiPath | Marlow Sousa</title>
+
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Aprenda como alcancar melhorias de 10x no desempenho de automacoes UiPath processando mais de 12 mil solicitacoes mensais. Um guia pratico com 5 principios de otimizacao, estudos de caso e erros comuns a evitar.">
+  <meta name="keywords" content="otimizacao UiPath, desempenho RPA, automacao robotica de processos, melhores praticas UiPath, otimizacao RPA, automacao de processos, desenvolvimento UiPath, eficiencia de automacao">
+  <meta name="author" content="Marlow Sousa">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://marlow.dev.br/pt/blog/uipath-optimization-playbook.html">
+
+  <!-- Hreflang Tags -->
+  <link rel="alternate" hreflang="en" href="https://marlow.dev.br/blog/uipath-optimization-playbook.html">
+  <link rel="alternate" hreflang="pt-BR" href="https://marlow.dev.br/pt/blog/uipath-optimization-playbook.html">
+  <link rel="alternate" hreflang="x-default" href="https://marlow.dev.br/blog/uipath-optimization-playbook.html">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://marlow.dev.br/pt/blog/uipath-optimization-playbook.html">
+  <meta property="og:title" content="De 60 Horas para 6: O Guia de Otimizacao UiPath">
+  <meta property="og:description" content="Um guia pratico para alcancar melhorias de 10x no desempenho de automacoes UiPath de alto volume. Aprenda os 5 principios que transformaram nosso tempo de processamento.">
+  <meta property="og:image" content="https://marlow.dev.br/og-image.png">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="Blog Marlow Sousa">
+  <meta property="article:author" content="Marlow Sousa">
+  <meta property="article:published_time" content="2025-01-03">
+  <meta property="article:section" content="Desenvolvimento RPA">
+  <meta property="article:tag" content="UiPath">
+  <meta property="article:tag" content="RPA">
+  <meta property="article:tag" content="Otimizacao">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://marlow.dev.br/pt/blog/uipath-optimization-playbook.html">
+  <meta name="twitter:title" content="De 60 Horas para 6: O Guia de Otimizacao UiPath">
+  <meta name="twitter:description" content="Um guia pratico para alcancar melhorias de 10x no desempenho de automacoes UiPath de alto volume.">
+  <meta name="twitter:image" content="https://marlow.dev.br/og-image.png">
+  <meta name="twitter:creator" content="@marlowsousa">
+
+  <!-- Theme Color -->
+  <meta name="theme-color" content="#0a0a0a">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='12' fill='%230a0a0a'/%3E%3Ctext x='50' y='68' font-family='system-ui,-apple-system,sans-serif' font-size='60' font-weight='800' fill='%23c8ff2d' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E">
+
+  <!-- JSON-LD Article Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "De 60 Horas para 6: O Guia de Otimizacao UiPath",
+    "description": "Um guia pratico para alcancar melhorias de 10x no desempenho de automacoes UiPath de alto volume processando mais de 12 mil solicitacoes mensais.",
+    "image": "https://marlow.dev.br/og-image.png",
+    "author": {
+      "@type": "Person",
+      "name": "Marlow Sousa",
+      "url": "https://marlow.dev.br",
+      "jobTitle": "Tech Lead RPA",
+      "description": "Tech Lead RPA remoto e Nomade Digital com mais de 8 anos de experiencia entregando solucoes de automacao em 3 continentes."
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Marlow Sousa",
+      "url": "https://marlow.dev.br"
+    },
+    "datePublished": "2025-01-03",
+    "dateModified": "2025-01-03",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://marlow.dev.br/pt/blog/uipath-optimization-playbook.html"
+    },
+    "articleSection": "Desenvolvimento RPA",
+    "keywords": ["UiPath", "RPA", "Otimizacao", "Desempenho", "Automacao"],
+    "wordCount": 2800,
+    "timeRequired": "PT12M",
+    "inLanguage": "pt-BR"
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-primary: #0a0a0a;
+      --bg-secondary: #111111;
+      --bg-tertiary: #1a1a1a;
+      --text-primary: #f5f0e8;
+      --text-secondary: #a8a8a8;
+      --text-muted: #666666;
+      --accent: #c8ff2d;
+      --accent-secondary: #e85d4c;
+      --accent-glow: rgba(200, 255, 45, 0.15);
+      --font-display: 'Syne', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scrollbar-width: thin;
+      scrollbar-color: var(--accent) var(--bg-secondary);
+    }
+
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg-secondary);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--accent);
+      border-radius: 4px;
+    }
+
+    body {
+      font-family: var(--font-mono);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.8;
+      overflow-x: hidden;
+    }
+
+    /* Noise Overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      opacity: 0.03;
+      pointer-events: none;
+      z-index: 10000;
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 1.5rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(10, 10, 10, 0.9);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .logo {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      text-decoration: none;
+    }
+
+    .logo::after {
+      content: '_';
+      color: var(--accent);
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      position: relative;
+      transition: color 0.3s;
+    }
+
+    .nav-links a::before {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: width 0.3s var(--ease-out-expo);
+    }
+
+    .nav-links a:hover {
+      color: var(--text-primary);
+    }
+
+    .nav-links a:hover::before {
+      width: 100%;
+    }
+
+    /* Article Header */
+    .article-header {
+      padding: 10rem 6rem 4rem;
+      max-width: 900px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .article-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: -30%;
+      width: 80%;
+      height: 100%;
+      background: radial-gradient(ellipse, var(--accent-glow) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .article-meta {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .article-category {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--accent);
+    }
+
+    .article-category::before {
+      content: '';
+      width: 2rem;
+      height: 2px;
+      background: var(--accent);
+    }
+
+    .article-date,
+    .article-read-time {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .article-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.5rem;
+    }
+
+    .article-title span {
+      background: linear-gradient(135deg, var(--accent) 0%, #9eff00 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .article-subtitle {
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+      max-width: 700px;
+      line-height: 1.7;
+    }
+
+    /* Author Box */
+    .author-box {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      padding: 2rem;
+      background: var(--bg-secondary);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      margin-top: 3rem;
+    }
+
+    .author-avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent) 0%, #9eff00 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--bg-primary);
+      flex-shrink: 0;
+    }
+
+    .author-info h3 {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+
+    .author-info p {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    /* Article Content */
+    .article-content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 4rem 6rem 6rem;
+    }
+
+    .article-content p {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      margin-bottom: 1.75rem;
+      line-height: 1.9;
+    }
+
+    .article-content h2 {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 700;
+      margin-top: 4rem;
+      margin-bottom: 1.5rem;
+      color: var(--text-primary);
+      position: relative;
+      padding-left: 1.5rem;
+    }
+
+    .article-content h2::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.5rem;
+      width: 4px;
+      height: 70%;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    .article-content h3 {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-top: 3rem;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+
+    .article-content h4 {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-top: 2rem;
+      margin-bottom: 0.75rem;
+      color: var(--accent);
+    }
+
+    .article-content ul,
+    .article-content ol {
+      margin-bottom: 1.75rem;
+      padding-left: 1.5rem;
+    }
+
+    .article-content li {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      margin-bottom: 0.75rem;
+      line-height: 1.8;
+    }
+
+    .article-content li::marker {
+      color: var(--accent);
+    }
+
+    .article-content strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    .article-content a {
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.3s;
+    }
+
+    .article-content a:hover {
+      border-bottom-color: var(--accent);
+    }
+
+    /* Highlight Box */
+    .highlight-box {
+      background: var(--bg-secondary);
+      border: 1px solid rgba(200, 255, 45, 0.2);
+      border-left: 4px solid var(--accent);
+      border-radius: 8px;
+      padding: 2rem;
+      margin: 2.5rem 0;
+    }
+
+    .highlight-box p {
+      margin-bottom: 0;
+      font-size: 1.1rem;
+      color: var(--text-primary);
+    }
+
+    .highlight-box .highlight-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+      display: block;
+    }
+
+    /* Stats Box */
+    .stats-box {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      background: var(--bg-tertiary);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 2.5rem;
+      margin: 3rem 0;
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-top: 0.5rem;
+    }
+
+    /* Code Block */
+    .code-block {
+      background: var(--bg-secondary);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 8px;
+      margin: 2rem 0;
+      overflow: hidden;
+    }
+
+    .code-block-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 1rem 1.5rem;
+      background: var(--bg-tertiary);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .code-block-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .code-block-dot:nth-child(1) { background: #ff5f57; }
+    .code-block-dot:nth-child(2) { background: #febc2e; }
+    .code-block-dot:nth-child(3) { background: #28c840; }
+
+    .code-block-title {
+      margin-left: 1rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .code-block pre {
+      padding: 1.5rem;
+      font-size: 0.9rem;
+      line-height: 1.7;
+      overflow-x: auto;
+      color: var(--text-secondary);
+    }
+
+    .code-keyword { color: #ff79c6; }
+    .code-function { color: #50fa7b; }
+    .code-string { color: #f1fa8c; }
+    .code-comment { color: var(--text-muted); }
+    .code-variable { color: #8be9fd; }
+
+    /* Principle Card */
+    .principle-card {
+      background: var(--bg-secondary);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 2rem;
+      margin: 2rem 0;
+      transition: all 0.3s var(--ease-out-expo);
+    }
+
+    .principle-card:hover {
+      border-color: rgba(200, 255, 45, 0.2);
+      transform: translateY(-4px);
+    }
+
+    .principle-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      background: rgba(200, 255, 45, 0.1);
+      border-radius: 8px;
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .principle-title {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      color: var(--text-primary);
+    }
+
+    .principle-description {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+    }
+
+    /* Case Study Box */
+    .case-study {
+      background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+      border: 1px solid rgba(200, 255, 45, 0.1);
+      border-radius: 16px;
+      padding: 3rem;
+      margin: 3rem 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .case-study::before {
+      content: 'ESTUDO DE CASO';
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+      background: rgba(200, 255, 45, 0.1);
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+    }
+
+    .case-study h3 {
+      margin-top: 0;
+      font-size: 1.75rem;
+    }
+
+    /* Mistake Box */
+    .mistake-box {
+      background: var(--bg-secondary);
+      border: 1px solid rgba(232, 93, 76, 0.3);
+      border-left: 4px solid var(--accent-secondary);
+      border-radius: 8px;
+      padding: 1.75rem;
+      margin: 1.5rem 0;
+    }
+
+    .mistake-title {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--accent-secondary);
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .mistake-title::before {
+      content: 'X';
+      font-weight: 800;
+    }
+
+    .mistake-description {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    /* CTA Section */
+    .cta-section {
+      background: var(--bg-secondary);
+      border-radius: 16px;
+      padding: 4rem;
+      margin: 4rem 0;
+      text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(ellipse, var(--accent-glow) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .cta-section h2 {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      position: relative;
+    }
+
+    .cta-section p {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      max-width: 500px;
+      margin: 0 auto 2rem;
+      position: relative;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1.25rem 2.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      border: none;
+      cursor: pointer;
+      transition: all 0.4s var(--ease-out-expo);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--bg-primary);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 40px var(--accent-glow);
+    }
+
+    .btn svg {
+      width: 18px;
+      height: 18px;
+      transition: transform 0.3s;
+    }
+
+    .btn:hover svg {
+      transform: translateX(4px);
+    }
+
+    /* Table of Contents */
+    .toc {
+      background: var(--bg-secondary);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 2rem;
+      margin: 2rem 0 3rem;
+    }
+
+    .toc-title {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .toc ol {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .toc li {
+      margin-bottom: 0.5rem;
+    }
+
+    .toc a {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .toc a:hover {
+      color: var(--accent);
+    }
+
+    /* Related Posts */
+    .related-posts {
+      margin-top: 4rem;
+      padding-top: 4rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .related-posts h3 {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+    }
+
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .related-card {
+      background: var(--bg-secondary);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-decoration: none;
+      transition: all 0.3s var(--ease-out-expo);
+    }
+
+    .related-card:hover {
+      border-color: rgba(200, 255, 45, 0.2);
+      transform: translateY(-4px);
+    }
+
+    .related-card-tag {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .related-card-title {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .related-card-excerpt {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--bg-secondary);
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 4rem 6rem 2rem;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    .footer-brand {
+      max-width: 300px;
+    }
+
+    .footer-logo {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      text-decoration: none;
+      display: inline-block;
+      margin-bottom: 1rem;
+    }
+
+    .footer-logo::after {
+      content: '_';
+      color: var(--accent);
+    }
+
+    .footer-description {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 4rem;
+    }
+
+    .footer-column h4 {
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+    }
+
+    .footer-column ul {
+      list-style: none;
+    }
+
+    .footer-column li {
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-column a {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-column a:hover {
+      color: var(--accent);
+    }
+
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 4rem auto 0;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-copyright {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .footer-social a {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-tertiary);
+      border-radius: 8px;
+      color: var(--text-secondary);
+      transition: all 0.3s;
+    }
+
+    .footer-social a:hover {
+      background: var(--accent);
+      color: var(--bg-primary);
+    }
+
+    .footer-social svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      nav {
+        padding: 1rem 1.5rem;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .article-header {
+        padding: 8rem 1.5rem 3rem;
+      }
+
+      .article-content {
+        padding: 2rem 1.5rem 4rem;
+      }
+
+      .stats-box {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      .cta-section {
+        padding: 2.5rem 1.5rem;
+      }
+
+      .cta-section h2 {
+        font-size: 1.75rem;
+      }
+
+      footer {
+        padding: 3rem 1.5rem 2rem;
+      }
+
+      .footer-content {
+        flex-direction: column;
+      }
+
+      .footer-links {
+        flex-direction: column;
+        gap: 2rem;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+      }
+
+      .author-box {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav>
+    <a href="https://marlow.dev.br/pt/" class="logo">marlow</a>
+    <ul class="nav-links">
+      <li><a href="https://marlow.dev.br/pt/#sobre">Sobre</a></li>
+      <li><a href="https://marlow.dev.br/pt/#habilidades">Habilidades</a></li>
+      <li><a href="https://marlow.dev.br/pt/#projetos">Projetos</a></li>
+      <li><a href="https://marlow.dev.br/pt/#blog">Blog</a></li>
+      <li><a href="https://marlow.dev.br/pt/#contato">Contato</a></li>
+    </ul>
+  </nav>
+
+  <!-- Article Header -->
+  <header class="article-header">
+    <div class="article-meta">
+      <span class="article-category">Desenvolvimento RPA</span>
+      <span class="article-date">3 de Janeiro de 2025</span>
+      <span class="article-read-time">12 min de leitura</span>
+    </div>
+    <h1 class="article-title">De 60 Horas para 6: <span>O Guia de Otimizacao UiPath</span></h1>
+    <p class="article-subtitle">Um guia pratico para alcancar melhorias de 10x no desempenho de automacoes UiPath de alto volume. Aprenda os principios testados em batalha que transformaram nosso tempo de processamento de impossivel para impressionante.</p>
+
+    <div class="author-box">
+      <div class="author-avatar">M</div>
+      <div class="author-info">
+        <h3>Marlow Sousa</h3>
+        <p>Tech Lead RPA & Nomade Digital | 8+ anos de experiencia | 60+ automacoes entregues | R$10M+ em economia</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- Article Content -->
+  <article class="article-content">
+
+    <!-- Table of Contents -->
+    <div class="toc">
+      <div class="toc-title">Neste Artigo</div>
+      <ol>
+        <li><a href="#a-crise">A Crise Que Desencadeou Tudo</a></li>
+        <li><a href="#principios">Os 5 Principios de Otimizacao</a></li>
+        <li><a href="#estudo-de-caso">Estudo de Caso: A Transformacao do Processamento de Notas Fiscais</a></li>
+        <li><a href="#erros">Erros Comuns a Evitar</a></li>
+        <li><a href="#implementacao">Roteiro de Implementacao</a></li>
+      </ol>
+    </div>
+
+    <p>Era 2h da manha de uma terca-feira quando meu telefone vibrou com uma mensagem urgente: "O bot travou de novo. Temos 14.000 notas fiscais presas na fila." Isso nao era apenas mais um problema tecnico - foi um alerta que mudaria fundamentalmente minha abordagem ao desenvolvimento RPA.</p>
+
+    <p>Aquela automacao quebrada deveria processar mais de 12.000 notas fiscais mensalmente. Em vez disso, levava 60 horas para completar um unico ciclo mensal - quando completava. Seis meses depois, apos aplicar os principios que estou prestes a compartilhar, esse mesmo processo rodava em menos de 6 horas com 99,5% de precisao.</p>
+
+    <div class="highlight-box">
+      <span class="highlight-label">O Ponto Principal</span>
+      <p>Otimizar automacoes existentes frequentemente entrega mais valor do que construir novas. Uma melhoria de 10x no tempo de processamento nao e apenas mais rapida - e transformadora para as operacoes do negocio e a confianca dos stakeholders.</p>
+    </div>
+
+    <h2 id="a-crise">A Crise Que Desencadeou Tudo</h2>
+
+    <p>O bot de processamento de notas fiscais estava "funcionando" por oito meses quando o herdei. Funcionando e generoso - ele estava sobrevivendo. Todo mes trazia novas excecoes, erros de timeout e intervencoes manuais. O negocio tinha aceitado isso como normal. Eu me recusei.</p>
+
+    <p>Quando analisei os dados de desempenho do bot, os problemas eram imediatamente aparentes. A automacao estava fazendo chamadas API desnecessarias, processando itens sequencialmente quando a paralelizacao era possivel, e pior de tudo - estava tratando cada transacao de forma identica, independentemente da complexidade.</p>
+
+    <div class="stats-box">
+      <div class="stat-item">
+        <div class="stat-number">60hrs</div>
+        <div class="stat-label">Tempo Original</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">6hrs</div>
+        <div class="stat-label">Tempo Otimizado</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">99,5%</div>
+        <div class="stat-label">Precisao Final</div>
+      </div>
+    </div>
+
+    <p>O problema real nao era o codigo - era a mentalidade. O desenvolvedor original tinha focado em fazer o bot funcionar em vez de faze-lo funcionar bem. Esta e a armadilha em que a maioria dos desenvolvedores RPA cai: celebramos quando a automacao roda sem erros, esquecendo que eficiencia e tao critica quanto funcionalidade.</p>
+
+    <h2 id="principios">Os 5 Principios de Otimizacao</h2>
+
+    <p>Apos otimizar dezenas de automacoes de alto volume, destilei minha abordagem em cinco principios fundamentais. Estes nao sao conceitos teoricos - sao estrategias testadas em batalha que consistentemente entregam melhorias de desempenho de 5-10x.</p>
+
+    <div class="principle-card">
+      <div class="principle-number">01</div>
+      <div class="principle-title">Em Lote, Nao em Fluxo</div>
+      <p class="principle-description">Processar itens um de cada vez e o pecado capital do RPA de alto volume. Em vez de abrir uma aplicacao, processar um item e fechar - agrupe suas operacoes. Abra uma vez, processe multiplos itens, feche uma vez. Essa simples mudanca pode cortar o tempo de processamento em 40-60% em fluxos de trabalho pesados em aplicacoes. A chave e identificar o tamanho maximo do lote que seu sistema alvo pode lidar sem problemas de timeout ou memoria.</p>
+    </div>
+
+    <div class="principle-card">
+      <div class="principle-number">02</div>
+      <div class="principle-title">Paralelizar o Paralelizavel</div>
+      <p class="principle-description">Nem todo passo depende do anterior. Chamadas API, downloads de arquivos, validacoes de dados - estes podem frequentemente rodar simultaneamente. A atividade paralela do UiPath e a execucao multi-robo do Orchestrator sao armas subutilizadas. O bot de 12 mil notas fiscais agora roda em 4 robos simultaneamente, cada um lidando com uma regiao geografica. O tempo total caiu de 60 horas para 15 horas apenas com essa mudanca.</p>
+    </div>
+
+    <div class="principle-card">
+      <div class="principle-number">03</div>
+      <div class="principle-title">Cache Agressivo</div>
+      <p class="principle-description">Quantas vezes seu bot consulta a mesma taxa de cambio, codigo de cliente ou valor de configuracao? Cada consulta repetida e tempo desperdicado. Implemente cache inteligente: carregue dados de referencia uma vez no inicio, armazene valores frequentemente acessados na memoria e atualize apenas quando necessario. Ja vi bots desperdicarem 30% do seu tempo de execucao em buscas de dados redundantes.</p>
+    </div>
+
+    <div class="principle-card">
+      <div class="principle-number">04</div>
+      <div class="principle-title">Falhe Rapido, Recupere Mais Rapido</div>
+      <p class="principle-description">Pare de tentar salvar cada transacao na mesma execucao. Implemente processamento em camadas: validacao rapida primeiro, processamento complexo segundo, tratamento de excecoes terceiro. Itens que falham na validacao inicial vao direto para filas de excecao sem desperdicar tempo de processamento. Erros recuperaveis acionam retry automatico com backoff exponencial. Erros fatais sao registrados e pulados imediatamente. Esse padrao sozinho reduziu nossa sobrecarga de tratamento de excecoes em 70%.</p>
+    </div>
+
+    <div class="principle-card">
+      <div class="principle-number">05</div>
+      <div class="principle-title">Meca Tudo</div>
+      <p class="principle-description">Voce nao pode otimizar o que nao pode medir. Cada operacao critica deve ter metricas de tempo. Rastreie nao apenas o tempo total de execucao, mas tempo por transacao, tempo por tipo de atividade e tempo esperando por sistemas externos. Construa dashboards que mostram tendencias ao longo do tempo. Quando o bot desacelerar 10%, voce deve saber em horas - nao quando usuarios comecarem a reclamar.</p>
+    </div>
+
+    <h2 id="estudo-de-caso">Estudo de Caso: A Transformacao do Processamento de Notas Fiscais</h2>
+
+    <div class="case-study">
+      <h3>Bot de Processamento de Notas Fiscais v2.0</h3>
+      <p>Deixe-me mostrar exatamente como esses principios transformaram o bot de processamento de notas fiscais. Isso nao e teoria - essas sao as mudancas reais que implementamos ao longo de 6 semanas.</p>
+
+      <h4>Semana 1-2: Analise e Ganhos Rapidos</h4>
+      <p>Primeiro, instrumentei cada atividade principal com logs de tempo. Os dados foram chocantes: 40% do tempo de execucao era gasto em abertura e fechamento de aplicacoes. O bot estava abrindo o SAP para cada nota fiscal individual, processando-a e fechando o SAP. Para 12.000 notas fiscais.</p>
+
+      <p>Ganho rapido: Reestruturei o fluxo de trabalho para processar notas fiscais em lotes de 100. SAP permanece aberto, processa 100 notas fiscais, depois fecha. Essa mudanca sozinha cortou o tempo de execucao de 60 horas para 35 horas.</p>
+
+      <h4>Semana 3-4: Paralelizacao</h4>
+      <p>As notas fiscais vinham de quatro regioes geograficas com fontes de dados independentes. Nao havia razao tecnica para rodarem sequencialmente. Dividi a fila em quatro filas regionais e implantei quatro instancias de robos.</p>
+
+      <div class="code-block">
+        <div class="code-block-header">
+          <span class="code-block-dot"></span>
+          <span class="code-block-dot"></span>
+          <span class="code-block-dot"></span>
+          <span class="code-block-title">Logica de Distribuicao de Fila</span>
+        </div>
+        <pre><span class="code-comment">// Distribuir itens entre filas regionais</span>
+<span class="code-keyword">For Each</span> notaFiscal <span class="code-keyword">In</span> colecaoNotasFiscais
+    <span class="code-variable">filaAlvo</span> = <span class="code-function">ObterFilaRegional</span>(notaFiscal.Regiao)
+    <span class="code-function">AdicionarItemFila</span>(filaAlvo, notaFiscal.Dados)
+<span class="code-keyword">End For</span>
+
+<span class="code-comment">// Cada robo pega da sua fila atribuida</span>
+<span class="code-variable">configRobo</span> = <span class="code-function">ObterConfiguracaoRobo</span>()
+<span class="code-variable">filaAtribuida</span> = configRobo.FilaRegional
+<span class="code-keyword">While</span> <span class="code-function">TemItensFila</span>(filaAtribuida)
+    <span class="code-function">ProcessarProximoItem</span>(filaAtribuida)
+<span class="code-keyword">End While</span></pre>
+      </div>
+
+      <p>O tempo de execucao caiu de 35 horas para 12 horas. Mas nao tinhamos terminado.</p>
+
+      <h4>Semana 5-6: Cache Inteligente e Tratamento de Erros</h4>
+      <p>A analise mostrou que o bot estava fazendo mais de 36.000 chamadas API para o servico de conversao de moeda mensalmente - mas havia apenas 15 pares de moedas unicos. Implementamos um cache simples que carregava taxas de cambio uma vez por dia.</p>
+
+      <p>Para tratamento de erros, implementamos um sistema de tres camadas:</p>
+      <ul>
+        <li><strong>Camada 1 - Validacao:</strong> Verificar campos obrigatorios, conformidade de formato, existencia de dados de referencia. Falhas pulam imediatamente para fila de excecao.</li>
+        <li><strong>Camada 2 - Processamento:</strong> Entrada real no SAP com retry automatico em timeout. Maximo de 3 tentativas com intervalos de 30 segundos.</li>
+        <li><strong>Camada 3 - Verificacao:</strong> Confirmar sucesso do lancamento. Falhas acionam reversao automatica e re-enfileiramento para o proximo ciclo.</li>
+      </ul>
+
+      <p>Tempo de execucao final: 5,8 horas em media. Dias de pico de volume ainda completam dentro de 8 horas. A precisao melhorou de 94% para 99,5% porque paramos de tentar forcar transacoes problematicas.</p>
+    </div>
+
+    <h2 id="erros">Erros Comuns a Evitar</h2>
+
+    <p>Em meus anos otimizando solucoes RPA, vi os mesmos erros se repetirem em organizacoes. Aqui estao os criticos a evitar:</p>
+
+    <div class="mistake-box">
+      <div class="mistake-title">Otimizar Cedo Demais</div>
+      <p class="mistake-description">Nao comece a otimizar no primeiro dia. Primeiro, construa uma solucao funcional com logging abrangente. Rode por 2-4 semanas para coletar dados reais de desempenho. Depois otimize baseado em gargalos reais, nao assumidos. Ja vi times gastarem semanas otimizando um passo que representava 2% do tempo total de execucao.</p>
+    </div>
+
+    <div class="mistake-box">
+      <div class="mistake-title">Ignorar o Elemento Humano</div>
+      <p class="mistake-description">Um bot que roda em 6 horas mas produz resultados que ninguem entende e pior que um bot de 12 horas com outputs claros. Toda otimizacao deve manter ou melhorar a qualidade do output. Adicione relatorios de validacao, dashboards de resumo e categorizacao de excecoes. Seus stakeholders devem confiar nos resultados completamente.</p>
+    </div>
+
+    <div class="mistake-box">
+      <div class="mistake-title">Super-Engenharia de Paralelizacao</div>
+      <p class="mistake-description">Mais robos nem sempre significam processamento mais rapido. Se seu gargalo e um recurso compartilhado (banco de dados, limite de taxa de API, sistema de arquivos), adicionar robos apenas move a fila do Orchestrator para esse recurso. Perfil suas dependencias externas antes de escalar horizontalmente.</p>
+    </div>
+
+    <div class="mistake-box">
+      <div class="mistake-title">Negligenciar Janelas de Manutencao</div>
+      <p class="mistake-description">Um bot altamente otimizado que roda durante janelas de manutencao de sistemas vai falhar espetacularmente. Construa consciencia dos cronogramas de manutencao da sua organizacao. Inclua capacidades de pausa e retomada automatica. O bot mais rapido e inutil se ele bate em uma parede as 2h da manha de domingo.</p>
+    </div>
+
+    <div class="mistake-box">
+      <div class="mistake-title">Pular Testes de Regressao</div>
+      <p class="mistake-description">Toda otimizacao carrega risco. Aquela camada de cache que voce adicionou? Ela pode servir dados desatualizados durante fechamentos de mes. Aquela execucao paralela? Ela pode criar condicoes de corrida em dados compartilhados. Construa suites de teste abrangentes e rode-as apos cada mudanca significativa. O tempo investido em testes economiza exponencialmente mais em problemas de producao.</p>
+    </div>
+
+    <h2 id="implementacao">Roteiro de Implementacao</h2>
+
+    <p>Pronto para otimizar suas proprias automacoes de alto volume? Aqui esta uma abordagem comprovada de quatro fases:</p>
+
+    <h3>Fase 1: Instrumentar e Medir (Semana 1-2)</h3>
+    <p>Adicione logs de tempo a cada atividade principal. Crie uma linha de base de desempenho. Identifique os 5 maiores consumidores de tempo. Nao mude nenhuma logica ainda - apenas observe e documente.</p>
+
+    <h3>Fase 2: Ganhos Rapidos (Semana 3-4)</h3>
+    <p>Mire nas ineficiencias obvias: aberturas/fechamentos redundantes de aplicacoes, consultas de dados repetidas, passos sequenciais que poderiam ser em lote. Essas mudancas devem ter risco minimo e impacto visivel.</p>
+
+    <h3>Fase 3: Mudancas Estruturais (Semana 5-8)</h3>
+    <p>Implemente paralelizacao, camadas de cache e tratamento de erros em camadas. Estas sao mudancas de maior risco que requerem testes cuidadosos. Implante em um ambiente de teste primeiro e valide com volumes de dados reais.</p>
+
+    <h3>Fase 4: Otimizacao Continua (Continuo)</h3>
+    <p>Construa dashboards de monitoramento. Defina limites de desempenho e alertas. Revise metricas semanalmente. Otimizacao nao e um projeto - e uma pratica.</p>
+
+    <div class="highlight-box">
+      <span class="highlight-label">Metricas Chave para Rastrear</span>
+      <p><strong>Primarias:</strong> Tempo total de execucao, itens por hora, taxa de sucesso<br>
+      <strong>Secundarias:</strong> Tempo por tipo de transacao, taxa de retry, categorias de excecao<br>
+      <strong>Diagnosticas:</strong> Tempo por atividade, tempo de espera na fila, tempos de resposta de sistemas externos</p>
+    </div>
+
+    <h2>O Quadro Maior</h2>
+
+    <p>Aquela ligacao das 2h da manha mudou mais do que uma automacao - mudou toda minha abordagem ao desenvolvimento RPA. Desempenho nao e uma funcionalidade para adicionar depois. E um requisito fundamental que deve influenciar decisoes de design desde o primeiro dia.</p>
+
+    <p>O bot de processamento de notas fiscais agora lida com mais de 15.000 itens mensalmente sem intervencao manual. Ele roda fora do horario comercial, completa antes do inicio do expediente e mantem taxas de precisao que excedem o processamento manual. A equipe de negocios que antes temia o fechamento do mes agora mal o percebe.</p>
+
+    <p>Esse e o real objetivo da otimizacao: nao apenas bots mais rapidos, mas operacoes transformadas. Quando a automacao realmente funciona, ela se torna invisivel - e essa invisibilidade e o maior elogio que um desenvolvedor RPA pode receber.</p>
+
+    <p>As tecnicas neste guia foram refinadas em mais de 60 projetos de automacao. Elas funcionam para processamento de notas fiscais, migracao de dados, geracao de relatorios e virtualmente qualquer caso de uso RPA de alto volume. Os principios sao universais; apenas os detalhes de implementacao mudam.</p>
+
+    <p>Seus bots provavelmente sao mais rapidos do que voce pensa que podem ser. A pergunta e: voce esta disposto a descobrir?</p>
+
+    <!-- CTA Section -->
+    <div class="cta-section">
+      <h2>Pronto para Otimizar Suas Automacoes?</h2>
+      <p>Vamos discutir como esses principios podem transformar suas operacoes RPA. Agende uma consulta gratuita para revisar suas automacoes atuais.</p>
+      <a href="https://marlow.dev.br/pt/#contato" class="btn btn-primary">
+        Entre em Contato
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </a>
+    </div>
+
+    <!-- Related Posts -->
+    <div class="related-posts">
+      <h3>Continue Lendo</h3>
+      <div class="related-grid">
+        <a href="https://marlow.dev.br/pt/blog/" class="related-card">
+          <div class="related-card-tag">AI & RPA</div>
+          <div class="related-card-title">Document AI: Ensinando Bots a Ler</div>
+          <p class="related-card-excerpt">Como integrar modelos de machine learning com UiPath para processamento inteligente de documentos.</p>
+        </a>
+        <a href="https://marlow.dev.br/pt/blog/" class="related-card">
+          <div class="related-card-tag">Arquitetura</div>
+          <div class="related-card-title">Construindo RPA Resiliente em Escala</div>
+          <p class="related-card-excerpt">Padroes e praticas para automacao empresarial que sobrevive ao caos do mundo real.</p>
+        </a>
+      </div>
+    </div>
+
+  </article>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-brand">
+        <a href="https://marlow.dev.br/pt/" class="footer-logo">marlow</a>
+        <p class="footer-description">Tech Lead RPA & Nomade Digital. Construindo solucoes de automacao de qualquer lugar do mundo.</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-column">
+          <h4>Navegacao</h4>
+          <ul>
+            <li><a href="https://marlow.dev.br/pt/#sobre">Sobre</a></li>
+            <li><a href="https://marlow.dev.br/pt/#habilidades">Habilidades</a></li>
+            <li><a href="https://marlow.dev.br/pt/#projetos">Projetos</a></li>
+            <li><a href="https://marlow.dev.br/pt/#blog">Blog</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Conecte-se</h4>
+          <ul>
+            <li><a href="https://linkedin.com/in/marlowsousa" target="_blank">LinkedIn</a></li>
+            <li><a href="https://github.com/marlowsousa" target="_blank">GitHub</a></li>
+            <li><a href="mailto:hello@marlow.dev.br">Email</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copyright">2025 Marlow Sousa. Construido com precisao de algum lugar da Terra.</p>
+      <div class="footer-social">
+        <a href="https://linkedin.com/in/marlowsousa" target="_blank" aria-label="LinkedIn">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+          </svg>
+        </a>
+        <a href="https://github.com/marlowsousa" target="_blank" aria-label="GitHub">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

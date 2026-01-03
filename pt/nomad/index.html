@@ -1,0 +1,1851 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vida de Nomade Digital | Marlow Sousa - Trabalhe de Qualquer Lugar</title>
+
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Descubra minha jornada como nomade digital - trabalhando remotamente de mais de 5 paises em 3 continentes. Dicas, guias de cidades e insights sobre trabalho independente de localizacao.">
+  <meta name="keywords" content="Nomade Digital, Trabalho Remoto, Independente de Localizacao, Trabalhe de Qualquer Lugar, Estilo de Vida Nomade, Tech Lead Remoto, Viajar e Trabalhar">
+  <meta name="author" content="Marlow Sousa">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://marlow.dev.br/pt/nomad/">
+
+  <!-- Hreflang Tags -->
+  <link rel="alternate" hreflang="en" href="https://marlow.dev.br/nomad/">
+  <link rel="alternate" hreflang="pt-BR" href="https://marlow.dev.br/pt/nomad/">
+  <link rel="alternate" hreflang="x-default" href="https://marlow.dev.br/nomad/">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="profile">
+  <meta property="og:url" content="https://marlow.dev.br/pt/nomad/">
+  <meta property="og:title" content="Vida de Nomade Digital | Marlow Sousa">
+  <meta property="og:description" content="5+ paises, 3 fusos horarios, 100% remoto. Explore minha jornada como tech lead nomade digital construindo solucoes de automacao de qualquer lugar.">
+  <meta property="og:image" content="https://marlow.dev.br/og-image.png">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="Portfolio Marlow Sousa">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://marlow.dev.br/pt/nomad/">
+  <meta name="twitter:title" content="Vida de Nomade Digital | Marlow Sousa">
+  <meta name="twitter:description" content="5+ paises, 3 fusos horarios, 100% remoto. Explore minha jornada como tech lead nomade digital.">
+  <meta name="twitter:image" content="https://marlow.dev.br/og-image.png">
+  <meta name="twitter:creator" content="@marlowsousa">
+
+  <!-- Theme Color -->
+  <meta name="theme-color" content="#0a0a0a">
+  <meta name="msapplication-TileColor" content="#c8ff2d">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='12' fill='%230a0a0a'/%3E%3Ctext x='50' y='68' font-family='system-ui,-apple-system,sans-serif' font-size='60' font-weight='800' fill='%23c8ff2d' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- JSON-LD Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Marlow Sousa",
+    "url": "https://marlow.dev.br",
+    "jobTitle": "RPA Tech Lead & Nomade Digital",
+    "description": "Tech Lead remoto e Nomade Digital trabalhando de mais de 5 paises em 3 continentes, especializado em RPA e automacao.",
+    "knowsAbout": ["Estilo de Vida Nomade Digital", "Trabalho Remoto", "Independencia de Localizacao", "RPA", "Automacao", "UiPath", "Python"],
+    "workLocation": {
+      "@type": "Place",
+      "name": "Remoto / Independente de Localizacao"
+    },
+    "hasOccupation": {
+      "@type": "Occupation",
+      "name": "Tech Lead Nomade Digital",
+      "occupationLocation": [
+        {"@type": "Country", "name": "Brasil"},
+        {"@type": "Country", "name": "Portugal"},
+        {"@type": "Country", "name": "Argentina"},
+        {"@type": "Country", "name": "Espanha"},
+        {"@type": "Country", "name": "Estados Unidos"}
+      ]
+    },
+    "sameAs": [
+      "https://linkedin.com/in/marlowsousa",
+      "https://github.com/marlowsousa"
+    ]
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg-primary: #0a0a0a;
+      --bg-secondary: #111111;
+      --bg-tertiary: #1a1a1a;
+      --text-primary: #f5f0e8;
+      --text-secondary: #a8a8a8;
+      --text-muted: #666666;
+      --accent: #c8ff2d;
+      --accent-secondary: #e85d4c;
+      --accent-glow: rgba(200, 255, 45, 0.15);
+      --font-display: 'Syne', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-out-back: cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scrollbar-width: thin;
+      scrollbar-color: var(--accent) var(--bg-secondary);
+    }
+
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg-secondary);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--accent);
+      border-radius: 4px;
+    }
+
+    body {
+      font-family: var(--font-mono);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Noise Overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      opacity: 0.03;
+      pointer-events: none;
+      z-index: 10000;
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 1.5rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(10, 10, 10, 0.8);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      transform: translateY(-100%);
+      animation: slideDown 0.8s var(--ease-out-expo) 0.3s forwards;
+    }
+
+    @keyframes slideDown {
+      to { transform: translateY(0); }
+    }
+
+    .logo {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      text-decoration: none;
+      position: relative;
+    }
+
+    .logo::after {
+      content: '_';
+      color: var(--accent);
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      position: relative;
+      transition: color 0.3s;
+    }
+
+    .nav-links a::before {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: width 0.3s var(--ease-out-expo);
+    }
+
+    .nav-links a:hover {
+      color: var(--text-primary);
+    }
+
+    .nav-links a:hover::before {
+      width: 100%;
+    }
+
+    .nav-links a.active {
+      color: var(--accent);
+    }
+
+    .nav-links a.active::before {
+      width: 100%;
+    }
+
+    .lang-toggle {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-decoration: none;
+      padding: 0.4rem 0.8rem;
+      border: 1px solid var(--text-muted);
+      border-radius: 4px;
+      transition: all 0.3s;
+    }
+
+    .lang-toggle:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 8rem 3rem 6rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 150%;
+      height: 100%;
+      background: radial-gradient(ellipse at center top, var(--accent-glow) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .hero-globe {
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      opacity: 0.1;
+      animation: rotate 60s linear infinite;
+    }
+
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--accent);
+      margin-bottom: 2rem;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.8s var(--ease-out-expo) 0.5s forwards;
+    }
+
+    .hero-tag svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 10vw, 7rem);
+      font-weight: 800;
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      transform: translateY(40px);
+      animation: fadeUp 1s var(--ease-out-expo) 0.7s forwards;
+    }
+
+    .hero h1 span {
+      display: block;
+      background: linear-gradient(135deg, var(--accent) 0%, #9eff00 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-tagline {
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      line-height: 1.8;
+      margin-bottom: 2rem;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeUp 0.8s var(--ease-out-expo) 0.9s forwards;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 3rem;
+      margin-top: 3rem;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeUp 0.8s var(--ease-out-expo) 1.1s forwards;
+    }
+
+    .hero-stat {
+      text-align: center;
+    }
+
+    .hero-stat-number {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .hero-stat-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-top: 0.5rem;
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 3rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-muted);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      opacity: 0;
+      animation: fadeUp 0.8s var(--ease-out-expo) 1.5s forwards;
+    }
+
+    .scroll-indicator::after {
+      content: '';
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--accent), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.3; transform: scaleY(0.5); }
+      50% { opacity: 1; transform: scaleY(1); }
+    }
+
+    /* Section Styling */
+    .section {
+      padding: 8rem 6rem;
+      position: relative;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 5rem;
+    }
+
+    .section-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .section-tag::before,
+    .section-tag::after {
+      content: '';
+      width: 2rem;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+
+    .section-subtitle {
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin: 1.5rem auto 0;
+      line-height: 1.8;
+    }
+
+    /* Journey Timeline */
+    .journey {
+      background: var(--bg-secondary);
+    }
+
+    .timeline {
+      position: relative;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 2px;
+      height: 100%;
+      background: linear-gradient(to bottom, var(--accent), var(--bg-tertiary));
+    }
+
+    .timeline-item {
+      display: flex;
+      justify-content: flex-end;
+      padding-right: 50%;
+      padding-bottom: 4rem;
+      position: relative;
+    }
+
+    .timeline-item:nth-child(even) {
+      justify-content: flex-start;
+      padding-right: 0;
+      padding-left: 50%;
+    }
+
+    .timeline-content {
+      background: var(--bg-tertiary);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 2rem;
+      max-width: 380px;
+      margin-right: 3rem;
+      position: relative;
+      transition: transform 0.3s var(--ease-out-expo), box-shadow 0.3s;
+    }
+
+    .timeline-item:nth-child(even) .timeline-content {
+      margin-right: 0;
+      margin-left: 3rem;
+    }
+
+    .timeline-content:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 16px;
+      height: 16px;
+      background: var(--accent);
+      border: 3px solid var(--bg-secondary);
+      border-radius: 50%;
+      z-index: 1;
+    }
+
+    .timeline-year {
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .timeline-title {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .timeline-location {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .timeline-location svg {
+      width: 14px;
+      height: 14px;
+      color: var(--accent);
+    }
+
+    .timeline-description {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    /* Philosophy Section */
+    .philosophy {
+      background: var(--bg-primary);
+    }
+
+    .philosophy-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .philosophy-card {
+      background: var(--bg-secondary);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      padding: 2.5rem;
+      transition: transform 0.3s var(--ease-out-expo), border-color 0.3s;
+    }
+
+    .philosophy-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--accent);
+    }
+
+    .philosophy-icon {
+      width: 60px;
+      height: 60px;
+      background: var(--accent-glow);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .philosophy-icon svg {
+      width: 28px;
+      height: 28px;
+      color: var(--accent);
+    }
+
+    .philosophy-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .philosophy-card p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+    }
+
+    /* Setup Section */
+    .setup {
+      background: var(--bg-secondary);
+    }
+
+    .setup-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 3rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .setup-category {
+      background: var(--bg-tertiary);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      padding: 2.5rem;
+    }
+
+    .setup-category h3 {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .setup-category h3 svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .setup-list {
+      list-style: none;
+    }
+
+    .setup-list li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      font-size: 0.9rem;
+    }
+
+    .setup-list li:last-child {
+      border-bottom: none;
+    }
+
+    .setup-item-name {
+      color: var(--text-primary);
+    }
+
+    .setup-item-detail {
+      color: var(--text-muted);
+      font-size: 0.8rem;
+    }
+
+    /* City Guides */
+    .cities {
+      background: var(--bg-primary);
+    }
+
+    .cities-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .city-card {
+      background: var(--bg-secondary);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: transform 0.3s var(--ease-out-expo), box-shadow 0.3s;
+      cursor: pointer;
+    }
+
+    .city-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+    }
+
+    .city-header {
+      padding: 2rem;
+      position: relative;
+      background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-secondary) 100%);
+    }
+
+    .city-flag {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .city-name {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 0.25rem;
+    }
+
+    .city-country {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .city-body {
+      padding: 1.5rem 2rem 2rem;
+    }
+
+    .city-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .city-tag {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.35rem 0.75rem;
+      background: var(--accent-glow);
+      color: var(--accent);
+      border-radius: 20px;
+    }
+
+    .city-description {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 1.25rem;
+    }
+
+    .city-stats {
+      display: flex;
+      gap: 1.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .city-stat {
+      text-align: center;
+    }
+
+    .city-stat-value {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .city-stat-label {
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* For Companies Section */
+    .companies {
+      background: var(--bg-secondary);
+    }
+
+    .companies-content {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .companies-intro {
+      font-size: 1.15rem;
+      color: var(--text-secondary);
+      line-height: 1.9;
+      margin-bottom: 4rem;
+      text-align: center;
+    }
+
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+
+    .benefit-card {
+      background: var(--bg-tertiary);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 2rem;
+      display: flex;
+      gap: 1.5rem;
+      transition: border-color 0.3s;
+    }
+
+    .benefit-card:hover {
+      border-color: var(--accent);
+    }
+
+    .benefit-number {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--accent);
+      opacity: 0.5;
+      line-height: 1;
+    }
+
+    .benefit-content h4 {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+
+    .benefit-content p {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    /* CTA Section */
+    .cta {
+      background: var(--bg-primary);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 150%;
+      height: 60%;
+      background: radial-gradient(ellipse at center bottom, var(--accent-glow) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .cta-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+    }
+
+    .cta h2 span {
+      background: linear-gradient(135deg, var(--accent) 0%, #9eff00 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .cta p {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      max-width: 550px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.8;
+    }
+
+    .cta-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem 2rem;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      border: none;
+      cursor: pointer;
+      transition: all 0.4s var(--ease-out-expo);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--bg-primary);
+    }
+
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      transition: left 0.5s;
+    }
+
+    .btn-primary:hover::before {
+      left: 100%;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 40px var(--accent-glow);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text-primary);
+      border: 1px solid var(--text-muted);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-3px);
+    }
+
+    .btn svg {
+      width: 18px;
+      height: 18px;
+      transition: transform 0.3s;
+    }
+
+    .btn:hover svg {
+      transform: translateX(4px);
+    }
+
+    /* Footer */
+    footer {
+      padding: 3rem 6rem;
+      background: var(--bg-secondary);
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-text {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .footer-text a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .footer-links a {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent);
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 1024px) {
+      .section {
+        padding: 5rem 3rem;
+      }
+
+      .philosophy-grid,
+      .cities-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .benefits-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        padding: 1rem 1.5rem;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .hero {
+        padding: 6rem 1.5rem 4rem;
+      }
+
+      .hero-stats {
+        gap: 2rem;
+      }
+
+      .hero-stat-number {
+        font-size: 2rem;
+      }
+
+      .section {
+        padding: 4rem 1.5rem;
+      }
+
+      .philosophy-grid,
+      .cities-grid,
+      .setup-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline::before {
+        left: 20px;
+      }
+
+      .timeline-item,
+      .timeline-item:nth-child(even) {
+        padding-left: 50px;
+        padding-right: 0;
+        justify-content: flex-start;
+      }
+
+      .timeline-content,
+      .timeline-item:nth-child(even) .timeline-content {
+        margin-left: 0;
+        margin-right: 0;
+        max-width: 100%;
+      }
+
+      .timeline-dot {
+        left: 20px;
+      }
+
+      footer {
+        flex-direction: column;
+        gap: 1.5rem;
+        padding: 2rem 1.5rem;
+        text-align: center;
+      }
+    }
+
+    /* Animations for scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <a href="/pt/" class="logo">marlow</a>
+    <ul class="nav-links">
+      <li><a href="/pt/">Inicio</a></li>
+      <li><a href="/pt/#projects">Projetos</a></li>
+      <li><a href="/pt/nomad/" class="active">Vida Nomade</a></li>
+      <li><a href="/pt/blog/">Blog</a></li>
+      <li><a href="/pt/#contact">Contato</a></li>
+      <li><a href="/nomad/" class="lang-toggle">EN</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <svg class="hero-globe" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="100" cy="100" r="80" stroke="currentColor" stroke-width="0.5"/>
+      <ellipse cx="100" cy="100" rx="80" ry="30" stroke="currentColor" stroke-width="0.5"/>
+      <ellipse cx="100" cy="100" rx="80" ry="50" stroke="currentColor" stroke-width="0.5"/>
+      <ellipse cx="100" cy="100" rx="30" ry="80" stroke="currentColor" stroke-width="0.5"/>
+      <ellipse cx="100" cy="100" rx="50" ry="80" stroke="currentColor" stroke-width="0.5"/>
+      <line x1="20" y1="100" x2="180" y2="100" stroke="currentColor" stroke-width="0.5"/>
+      <line x1="100" y1="20" x2="100" y2="180" stroke="currentColor" stroke-width="0.5"/>
+    </svg>
+
+    <div class="hero-tag">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"/>
+        <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+      </svg>
+      Independente de Localizacao Desde 2021
+    </div>
+
+    <h1>Trabalhe de<br><span>Qualquer Lugar</span></h1>
+
+    <p class="hero-tagline">
+      Meu escritorio nao tem paredes. Construo solucoes de automacao que economizam milhoes enquanto
+      exploro o mundo - provando que grandes trabalhos acontecem onde quer que voce esteja.
+    </p>
+
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-number">5+</div>
+        <div class="hero-stat-label">Paises</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-number">3</div>
+        <div class="hero-stat-label">Fusos Horarios</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-number">100%</div>
+        <div class="hero-stat-label">Remoto</div>
+      </div>
+    </div>
+
+    <div class="scroll-indicator">
+      Explorar
+    </div>
+  </section>
+
+  <!-- Journey Timeline -->
+  <section class="section journey">
+    <div class="section-header">
+      <div class="section-tag">A Jornada</div>
+      <h2 class="section-title">Minha Historia Nomade</h2>
+      <p class="section-subtitle">
+        De um escritorio fixo em Sao Paulo para construir uma vida sem fronteiras.
+        Aqui estao os marcos que moldaram minha carreira independente de localizacao.
+      </p>
+    </div>
+
+    <div class="timeline">
+      <div class="timeline-item reveal">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <div class="timeline-year">2021</div>
+          <h3 class="timeline-title">O Grande Salto</h3>
+          <div class="timeline-location">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+              <circle cx="12" cy="10" r="3"/>
+            </svg>
+            Sao Paulo, Brasil
+          </div>
+          <p class="timeline-description">
+            Negociei trabalho totalmente remoto com meu empregador apos provar produtividade durante a pandemia.
+            Vendi a maioria dos bens, mantive duas malas e nunca olhei para tras.
+          </p>
+        </div>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <div class="timeline-year">2022</div>
+          <h3 class="timeline-title">Capitulo Europeu</h3>
+          <div class="timeline-location">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+              <circle cx="12" cy="10" r="3"/>
+            </svg>
+            Lisboa, Portugal
+          </div>
+          <p class="timeline-description">
+            Desembarquei em Lisboa com sua cena tech vibrante e comunidade nomade.
+            Gerenciei projetos globais de RPA enquanto explorava castelos nos fins de semana.
+          </p>
+        </div>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <div class="timeline-year">2023</div>
+          <h3 class="timeline-title">Retorno a America do Sul</h3>
+          <div class="timeline-location">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+              <circle cx="12" cy="10" r="3"/>
+            </svg>
+            Buenos Aires, Argentina
+          </div>
+          <p class="timeline-description">
+            Descobri a magia de BA - comida incrivel, cultura do tango e um custo de vida
+            que permite viver como realeza. Liderei meu maior projeto de automacao de um cafe em Palermo.
+          </p>
+        </div>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <div class="timeline-year">2024</div>
+          <h3 class="timeline-title">Vida Multi-Hub</h3>
+          <div class="timeline-location">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+              <circle cx="12" cy="10" r="3"/>
+            </svg>
+            Madrid, Espanha + Miami, EUA
+          </div>
+          <p class="timeline-description">
+            Estabeleci uma rotacao entre continentes. Madrid por seu fuso horario central,
+            Miami para reunioes com clientes dos EUA. O mundo se tornou minha planta de escritorio.
+          </p>
+        </div>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <div class="timeline-year">2025</div>
+          <h3 class="timeline-title">Base Atual</h3>
+          <div class="timeline-location">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+              <circle cx="12" cy="10" r="3"/>
+            </svg>
+            Porto, Portugal
+          </div>
+          <p class="timeline-description">
+            Encontrei meu ponto ideal no Porto - clima perfeito, vida acessivel, vinho incrivel,
+            e um fuso horario que funciona para Americas e Europa. Escrevendo isso de um coworking a beira-rio.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Philosophy Section -->
+  <section class="section philosophy">
+    <div class="section-header">
+      <div class="section-tag">Filosofia</div>
+      <h2 class="section-title">Por Que Independencia de Localizacao?</h2>
+      <p class="section-subtitle">
+        Trabalho remoto nao e sobre fugir do escritorio. E sobre projetar
+        uma vida onde o trabalho melhora a vida, nao o contrario.
+      </p>
+    </div>
+
+    <div class="philosophy-grid">
+      <div class="philosophy-card reveal">
+        <div class="philosophy-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <polyline points="12 6 12 12 16 14"/>
+          </svg>
+        </div>
+        <h3>Excelencia Assincrona</h3>
+        <p>
+          Quando voce trabalha em diferentes fusos horarios, domina a comunicacao assincrona.
+          Documentacao clara, mensagens ponderadas e respeito pelo tempo de foco
+          se tornam segunda natureza.
+        </p>
+      </div>
+
+      <div class="philosophy-card reveal">
+        <div class="philosophy-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+            <path d="M2 17l10 5 10-5"/>
+            <path d="M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+        <h3>Perspectivas Frescas</h3>
+        <p>
+          Novos ambientes despertam criatividade. As melhores solucoes frequentemente surgem
+          enquanto caminhamos por ruas desconhecidas ou trabalhamos de um cafe
+          em uma nova cidade.
+        </p>
+      </div>
+
+      <div class="philosophy-card reveal">
+        <div class="philosophy-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+            <polyline points="22 4 12 14.01 9 11.01"/>
+          </svg>
+        </div>
+        <h3>Resultados Sobre Horas</h3>
+        <p>
+          Sou medido por resultados, nao por horas de escritorio. Essa responsabilidade
+          impulsiona melhor trabalho - quando voce e dono do seu tempo, voce o protege ferozmente.
+        </p>
+      </div>
+
+      <div class="philosophy-card reveal">
+        <div class="philosophy-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+        </div>
+        <h3>Rede Global</h3>
+        <p>
+          A vida nomade constroi uma rede internacional de colaboradores,
+          mentores e amigos. Cada cidade adiciona novas conexoes que
+          enriquecem tanto o trabalho quanto a vida.
+        </p>
+      </div>
+
+      <div class="philosophy-card reveal">
+        <div class="philosophy-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+            <line x1="3" y1="9" x2="21" y2="9"/>
+            <line x1="9" y1="21" x2="9" y2="9"/>
+          </svg>
+        </div>
+        <h3>Vida Intencional</h3>
+        <p>
+          Sem uma rotina padrao, cada escolha e deliberada.
+          Onde morar, quando trabalhar, como gastar o tempo - tudo
+          se torna proposital.
+        </p>
+      </div>
+
+      <div class="philosophy-card reveal">
+        <div class="philosophy-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+          </svg>
+        </div>
+        <h3>Crescimento Constante</h3>
+        <p>
+          Adaptar-se a novas culturas, resolver problemas inesperados e
+          sair da zona de conforto - a vida nomade e uma masterclass
+          em desenvolvimento pessoal.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- My Setup Section -->
+  <section class="section setup">
+    <div class="section-header">
+      <div class="section-tag">O Setup</div>
+      <h2 class="section-title">Meu Escritorio Movel</h2>
+      <p class="section-subtitle">
+        Tudo que preciso cabe em uma mochila. Aqui estao os equipamentos e softwares
+        que me mantem produtivo de qualquer lugar do planeta.
+      </p>
+    </div>
+
+    <div class="setup-grid">
+      <div class="setup-category reveal">
+        <h3>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+            <line x1="8" y1="21" x2="16" y2="21"/>
+            <line x1="12" y1="17" x2="12" y2="21"/>
+          </svg>
+          Hardware
+        </h3>
+        <ul class="setup-list">
+          <li>
+            <span class="setup-item-name">MacBook Pro 14"</span>
+            <span class="setup-item-detail">M3 Pro, 18GB RAM</span>
+          </li>
+          <li>
+            <span class="setup-item-name">Sony WH-1000XM5</span>
+            <span class="setup-item-detail">Fones com cancelamento de ruido</span>
+          </li>
+          <li>
+            <span class="setup-item-name">Logitech MX Master 3</span>
+            <span class="setup-item-detail">Mouse portatil</span>
+          </li>
+          <li>
+            <span class="setup-item-name">Anker 737 Power Bank</span>
+            <span class="setup-item-detail">Bateria de 24.000mAh</span>
+          </li>
+          <li>
+            <span class="setup-item-name">iPhone 15 Pro</span>
+            <span class="setup-item-detail">Hotspot de backup</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="setup-category reveal">
+        <h3>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3H6a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3V6a3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/>
+          </svg>
+          Software e Ferramentas
+        </h3>
+        <ul class="setup-list">
+          <li>
+            <span class="setup-item-name">VS Code + Cursor</span>
+            <span class="setup-item-detail">IDE principal</span>
+          </li>
+          <li>
+            <span class="setup-item-name">Slack + Discord</span>
+            <span class="setup-item-detail">Comunicacao com equipe</span>
+          </li>
+          <li>
+            <span class="setup-item-name">Notion + Obsidian</span>
+            <span class="setup-item-detail">Gestao de conhecimento</span>
+          </li>
+          <li>
+            <span class="setup-item-name">NordVPN</span>
+            <span class="setup-item-detail">Essencial de seguranca</span>
+          </li>
+          <li>
+            <span class="setup-item-name">1Password</span>
+            <span class="setup-item-detail">Gerenciador de senhas</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="setup-category reveal">
+        <h3>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
+            <line x1="1" y1="10" x2="23" y2="10"/>
+          </svg>
+          Essenciais de Viagem
+        </h3>
+        <ul class="setup-list">
+          <li>
+            <span class="setup-item-name">Mochila Peak Design</span>
+            <span class="setup-item-detail">Mala de viagem 45L</span>
+          </li>
+          <li>
+            <span class="setup-item-name">Adaptador Universal</span>
+            <span class="setup-item-detail">Funciona em todo lugar</span>
+          </li>
+          <li>
+            <span class="setup-item-name">Airalo eSIM</span>
+            <span class="setup-item-detail">Dados em 190+ paises</span>
+          </li>
+          <li>
+            <span class="setup-item-name">Suporte Roost</span>
+            <span class="setup-item-detail">Suporte portatil para laptop</span>
+          </li>
+          <li>
+            <span class="setup-item-name">Teclado Compacto</span>
+            <span class="setup-item-detail">Nuphy Air75</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="setup-category reveal">
+        <h3>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+          Stack de Produtividade
+        </h3>
+        <ul class="setup-list">
+          <li>
+            <span class="setup-item-name">Loom</span>
+            <span class="setup-item-detail">Atualizacoes em video async</span>
+          </li>
+          <li>
+            <span class="setup-item-name">Calendly</span>
+            <span class="setup-item-detail">Agendamento entre fusos</span>
+          </li>
+          <li>
+            <span class="setup-item-name">Toggl Track</span>
+            <span class="setup-item-detail">Controle de tempo</span>
+          </li>
+          <li>
+            <span class="setup-item-name">Wise</span>
+            <span class="setup-item-detail">Banco multi-moeda</span>
+          </li>
+          <li>
+            <span class="setup-item-name">World Time Buddy</span>
+            <span class="setup-item-detail">Coordenacao de fusos</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- City Guides -->
+  <section class="section cities">
+    <div class="section-header">
+      <div class="section-tag">Guia de Cidades</div>
+      <h2 class="section-title">Onde Ja Trabalhei</h2>
+      <p class="section-subtitle">
+        Breves insights dos meus destinos nomades favoritos. Cada cidade me ensinou
+        algo diferente sobre trabalho e vida.
+      </p>
+    </div>
+
+    <div class="cities-grid">
+      <div class="city-card reveal">
+        <div class="city-header">
+          <div class="city-flag">BR</div>
+          <h3 class="city-name">Sao Paulo</h3>
+          <div class="city-country">Brasil</div>
+        </div>
+        <div class="city-body">
+          <div class="city-tags">
+            <span class="city-tag">Hub de Startups</span>
+            <span class="city-tag">Cidade 24/7</span>
+          </div>
+          <p class="city-description">
+            Minha base e a capital tech da America Latina. Infinitas opcoes de coworking,
+            cena gastronomica vibrante, mas o transito pode consumir seu dia.
+          </p>
+          <div class="city-stats">
+            <div class="city-stat">
+              <div class="city-stat-value">$$$</div>
+              <div class="city-stat-label">Custo</div>
+            </div>
+            <div class="city-stat">
+              <div class="city-stat-value">Otimo</div>
+              <div class="city-stat-label">WiFi</div>
+            </div>
+            <div class="city-stat">
+              <div class="city-stat-value">GMT-3</div>
+              <div class="city-stat-label">Fuso</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="city-card reveal">
+        <div class="city-header">
+          <div class="city-flag">PT</div>
+          <h3 class="city-name">Lisboa</h3>
+          <div class="city-country">Portugal</div>
+        </div>
+        <div class="city-body">
+          <div class="city-tags">
+            <span class="city-tag">Paraiso Nomade</span>
+            <span class="city-tag">Surf + Trabalho</span>
+          </div>
+          <p class="city-description">
+            A indiscutivel capital nomade da Europa. Clima incrivel, pasteis acessiveis,
+            e cada terceira pessoa em um cafe esta programando.
+          </p>
+          <div class="city-stats">
+            <div class="city-stat">
+              <div class="city-stat-value">$$</div>
+              <div class="city-stat-label">Custo</div>
+            </div>
+            <div class="city-stat">
+              <div class="city-stat-value">Solido</div>
+              <div class="city-stat-label">WiFi</div>
+            </div>
+            <div class="city-stat">
+              <div class="city-stat-value">GMT+0</div>
+              <div class="city-stat-label">Fuso</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="city-card reveal">
+        <div class="city-header">
+          <div class="city-flag">AR</div>
+          <h3 class="city-name">Buenos Aires</h3>
+          <div class="city-country">Argentina</div>
+        </div>
+        <div class="city-body">
+          <div class="city-tags">
+            <span class="city-tag">Melhor Custo-Beneficio</span>
+            <span class="city-tag">Rica em Cultura</span>
+          </div>
+          <p class="city-description">
+            Valor incrivel pelo dinheiro atualmente. Churrascos de classe mundial, arquitetura linda,
+            tango aos domingos. A cultura de cafe e incomparavel.
+          </p>
+          <div class="city-stats">
+            <div class="city-stat">
+              <div class="city-stat-value">$</div>
+              <div class="city-stat-label">Custo</div>
+            </div>
+            <div class="city-stat">
+              <div class="city-stat-value">Bom</div>
+              <div class="city-stat-label">WiFi</div>
+            </div>
+            <div class="city-stat">
+              <div class="city-stat-value">GMT-3</div>
+              <div class="city-stat-label">Fuso</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="city-card reveal">
+        <div class="city-header">
+          <div class="city-flag">ES</div>
+          <h3 class="city-name">Madrid</h3>
+          <div class="city-country">Espanha</div>
+        </div>
+        <div class="city-body">
+          <div class="city-tags">
+            <span class="city-tag">Hub Central</span>
+            <span class="city-tag">Melhor Transporte</span>
+          </div>
+          <p class="city-description">
+            Fuso horario central perfeito para chamadas das Americas e Europa.
+            Transporte publico incrivel, jantares tardios e acesso facil a toda Europa.
+          </p>
+          <div class="city-stats">
+            <div class="city-stat">
+              <div class="city-stat-value">$$</div>
+              <div class="city-stat-label">Custo</div>
+            </div>
+            <div class="city-stat">
+              <div class="city-stat-value">Otimo</div>
+              <div class="city-stat-label">WiFi</div>
+            </div>
+            <div class="city-stat">
+              <div class="city-stat-value">GMT+1</div>
+              <div class="city-stat-label">Fuso</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="city-card reveal">
+        <div class="city-header">
+          <div class="city-flag">US</div>
+          <h3 class="city-name">Miami</h3>
+          <div class="city-country">Estados Unidos</div>
+        </div>
+        <div class="city-body">
+          <div class="city-tags">
+            <span class="city-tag">Portal Latino</span>
+            <span class="city-tag">Vida de Praia</span>
+          </div>
+          <p class="city-description">
+            Ponte entre as Americas. Otimo para reunioes com clientes dos EUA, cultura latina vibrante,
+            caminhadas na praia entre reunioes. Caro mas vale visitas estrategicas.
+          </p>
+          <div class="city-stats">
+            <div class="city-stat">
+              <div class="city-stat-value">$$$$</div>
+              <div class="city-stat-label">Custo</div>
+            </div>
+            <div class="city-stat">
+              <div class="city-stat-value">Rapido</div>
+              <div class="city-stat-label">WiFi</div>
+            </div>
+            <div class="city-stat">
+              <div class="city-stat-value">GMT-5</div>
+              <div class="city-stat-label">Fuso</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="city-card reveal">
+        <div class="city-header">
+          <div class="city-flag">PT</div>
+          <h3 class="city-name">Porto</h3>
+          <div class="city-country">Portugal</div>
+        </div>
+        <div class="city-body">
+          <div class="city-tags">
+            <span class="city-tag">Base Atual</span>
+            <span class="city-tag">Joia Escondida</span>
+          </div>
+          <p class="city-description">
+            O irmao mais descolado e barato de Lisboa. Vinho incrivel, vistas deslumbrantes do rio,
+            locais amigaveis e uma cena tech crescente. Meu favorito atual.
+          </p>
+          <div class="city-stats">
+            <div class="city-stat">
+              <div class="city-stat-value">$$</div>
+              <div class="city-stat-label">Custo</div>
+            </div>
+            <div class="city-stat">
+              <div class="city-stat-value">Otimo</div>
+              <div class="city-stat-label">WiFi</div>
+            </div>
+            <div class="city-stat">
+              <div class="city-stat-value">GMT+0</div>
+              <div class="city-stat-label">Fuso</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- For Companies Section -->
+  <section class="section companies">
+    <div class="section-header">
+      <div class="section-tag">Para Empresas</div>
+      <h2 class="section-title">Por Que Contratar um Nomade?</h2>
+    </div>
+
+    <div class="companies-content">
+      <p class="companies-intro">
+        Entendo a hesitacao. "Eles estarao disponiveis?" "Podemos confiar em trabalhadores remotos?"
+        "E os fusos horarios?" Aqui esta por que contratar profissionais independentes de localizacao
+        como eu e na verdade uma vantagem competitiva.
+      </p>
+
+      <div class="benefits-grid">
+        <div class="benefit-card reveal">
+          <div class="benefit-number">01</div>
+          <div class="benefit-content">
+            <h4>Autogestao Comprovada</h4>
+            <p>
+              Nomades que prosperam dominaram disciplina, gestao de tempo e responsabilidade.
+              Nao precisamos de supervisao - precisamos de objetivos claros e confianca.
+            </p>
+          </div>
+        </div>
+
+        <div class="benefit-card reveal">
+          <div class="benefit-number">02</div>
+          <div class="benefit-content">
+            <h4>Flexibilidade de Fuso Horario</h4>
+            <p>
+              Projeto minha localizacao em torno das necessidades de trabalho. Precisa de sobreposicao com clientes dos EUA?
+              Estarei nas Americas. Foco europeu? Estou no Porto ou Madrid.
+            </p>
+          </div>
+        </div>
+
+        <div class="benefit-card reveal">
+          <div class="benefit-number">03</div>
+          <div class="benefit-content">
+            <h4>Documentacao Superior</h4>
+            <p>
+              Trabalho assincrono exige excelente documentacao. Cada processo, decisao
+              e peca de conhecimento e capturada - sua equipe se beneficia permanentemente.
+            </p>
+          </div>
+        </div>
+
+        <div class="benefit-card reveal">
+          <div class="benefit-number">04</div>
+          <div class="benefit-content">
+            <h4>Mentalidade Focada em Resultados</h4>
+            <p>
+              Sem politica de escritorio e estresse de deslocamento, toda energia vai para a producao.
+              Me julgue por entregas, nao por horas registradas.
+            </p>
+          </div>
+        </div>
+
+        <div class="benefit-card reveal">
+          <div class="benefit-number">05</div>
+          <div class="benefit-content">
+            <h4>Perspectiva Global</h4>
+            <p>
+              Trabalhar entre culturas constroi compreensao de mercados diversos,
+              necessidades de usuarios e estilos de comunicacao. Inestimavel para produtos globais.
+            </p>
+          </div>
+        </div>
+
+        <div class="benefit-card reveal">
+          <div class="benefit-number">06</div>
+          <div class="benefit-content">
+            <h4>Sempre Acessivel</h4>
+            <p>
+              Apesar das localizacoes, mantenho 99,9% de disponibilidade durante os horarios acordados.
+              Internet de backup, power banks e planos de contingencia sao padrao.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="section cta">
+    <div class="cta-content">
+      <h2>Vamos Construir <span>Algo Incrivel</span></h2>
+      <p>
+        Se voce precisa de expertise em automacao, quer discutir estrategias de trabalho remoto,
+        ou apenas conversar sobre o estilo de vida nomade - estou sempre aberto a conversas.
+      </p>
+      <div class="cta-buttons">
+        <a href="/pt/#contact" class="btn btn-primary">
+          Iniciar uma Conversa
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="5" y1="12" x2="19" y2="12"/>
+            <polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </a>
+        <a href="/pt/" class="btn btn-secondary">
+          Ver Meu Trabalho
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+            <polyline points="15 3 21 3 21 9"/>
+            <line x1="10" y1="14" x2="21" y2="3"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-text">
+      &copy; 2025 <a href="/pt/">Marlow Sousa</a>. Construido de Porto, Portugal.
+    </div>
+    <div class="footer-links">
+      <a href="/pt/">Inicio</a>
+      <a href="/pt/#projects">Projetos</a>
+      <a href="/pt/blog/">Blog</a>
+      <a href="/pt/#contact">Contato</a>
+    </div>
+  </footer>
+
+  <!-- Scroll Reveal Script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const reveals = document.querySelectorAll('.reveal');
+
+      const revealOnScroll = function() {
+        reveals.forEach(function(element) {
+          const elementTop = element.getBoundingClientRect().top;
+          const windowHeight = window.innerHeight;
+
+          if (elementTop < windowHeight - 100) {
+            element.classList.add('visible');
+          }
+        });
+      };
+
+      window.addEventListener('scroll', revealOnScroll);
+      revealOnScroll(); // Initial check
+    });
+  </script>
+
+</body>
+</html>

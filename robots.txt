@@ -1,0 +1,9 @@
+# robots.txt for marlow.dev.br
+# Portfolio website of Marlow Sousa
+
+User-agent: *
+Allow: /
+Disallow: /assets/
+
+# Sitemap location
+Sitemap: https://marlow.dev.br/sitemap.xml

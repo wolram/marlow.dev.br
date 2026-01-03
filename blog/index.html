@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog | Marlow Sousa - RPA Tech Lead & Digital Nomad</title>
+
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Technical insights on RPA, AI agents, process automation, and digital nomad life. Practical guides from an RPA Tech Lead working across 3 continents.">
+  <meta name="keywords" content="RPA Blog, AI Agents, UiPath, Microsoft Copilot, Process Automation, BPMN, Camunda, Tech Lead Blog, Digital Nomad">
+  <meta name="author" content="Marlow Sousa">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://marlow.dev.br/blog/">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://marlow.dev.br/blog/">
+  <meta property="og:title" content="Blog | Marlow Sousa - RPA Tech Lead & Digital Nomad">
+  <meta property="og:description" content="Technical insights on RPA, AI agents, process automation, and digital nomad life.">
+  <meta property="og:image" content="https://marlow.dev.br/og-image.png">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:site_name" content="Marlow Sousa Blog">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://marlow.dev.br/blog/">
+  <meta name="twitter:title" content="Blog | Marlow Sousa - RPA Tech Lead & Digital Nomad">
+  <meta name="twitter:description" content="Technical insights on RPA, AI agents, process automation, and digital nomad life.">
+  <meta name="twitter:image" content="https://marlow.dev.br/og-image.png">
+  <meta name="twitter:creator" content="@marlowsousa">
+
+  <!-- Theme Color -->
+  <meta name="theme-color" content="#0a0a0a">
+  <meta name="msapplication-TileColor" content="#c8ff2d">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='12' fill='%230a0a0a'/%3E%3Ctext x='50' y='68' font-family='system-ui,-apple-system,sans-serif' font-size='60' font-weight='800' fill='%23c8ff2d' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E">
+
+  <!-- JSON-LD Blog List Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "Marlow Sousa Blog",
+    "description": "Technical insights on RPA, AI agents, process automation, and digital nomad life.",
+    "url": "https://marlow.dev.br/blog/",
+    "author": {
+      "@type": "Person",
+      "name": "Marlow Sousa",
+      "url": "https://marlow.dev.br",
+      "jobTitle": "RPA Tech Lead"
+    },
+    "blogPost": [
+      {
+        "@type": "BlogPosting",
+        "headline": "Building Enterprise AI Agents with Microsoft Copilot Studio",
+        "description": "Learn how to deploy 5+ AI agents with JIRA integration using Microsoft Copilot Studio. A practical guide for enterprise tech leads.",
+        "url": "https://marlow.dev.br/blog/ai-agents-copilot-studio.html",
+        "datePublished": "2024-12-15",
+        "author": {
+          "@type": "Person",
+          "name": "Marlow Sousa"
+        },
+        "keywords": ["AI Agents", "Microsoft Copilot", "Enterprise AI"]
+      },
+      {
+        "@type": "BlogPosting",
+        "headline": "From 60 Hours to 6: The UiPath Optimization Playbook",
+        "description": "A comprehensive guide to optimizing UiPath automations for enterprise scale. Real metrics and strategies that delivered 90% time reduction.",
+        "url": "https://marlow.dev.br/blog/uipath-optimization-playbook.html",
+        "datePublished": "2024-11-20",
+        "author": {
+          "@type": "Person",
+          "name": "Marlow Sousa"
+        },
+        "keywords": ["RPA", "UiPath", "Optimization"]
+      },
+      {
+        "@type": "BlogPosting",
+        "headline": "BPMN + Camunda: Designing Processes That Actually Scale",
+        "description": "How to design BPMN processes with Camunda that handle enterprise workloads without becoming maintenance nightmares.",
+        "url": "https://marlow.dev.br/blog/bpmn-camunda-process-design.html",
+        "datePublished": "2024-10-10",
+        "author": {
+          "@type": "Person",
+          "name": "Marlow Sousa"
+        },
+        "keywords": ["BPMN", "Camunda", "Process Design"]
+      }
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-primary: #0a0a0a;
+      --bg-secondary: #111111;
+      --bg-tertiary: #1a1a1a;
+      --text-primary: #f5f0e8;
+      --text-secondary: #a8a8a8;
+      --text-muted: #666666;
+      --accent: #c8ff2d;
+      --accent-secondary: #e85d4c;
+      --accent-glow: rgba(200, 255, 45, 0.15);
+      --font-display: 'Syne', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scrollbar-width: thin;
+      scrollbar-color: var(--accent) var(--bg-secondary);
+    }
+
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg-secondary);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--accent);
+      border-radius: 4px;
+    }
+
+    body {
+      font-family: var(--font-mono);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.8;
+      overflow-x: hidden;
+    }
+
+    /* Noise Overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      opacity: 0.03;
+      pointer-events: none;
+      z-index: 10000;
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 1.5rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(10, 10, 10, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .logo {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      text-decoration: none;
+    }
+
+    .logo::after {
+      content: '_';
+      color: var(--accent);
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      transition: color 0.3s;
+      position: relative;
+    }
+
+    .nav-links a::before {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: width 0.3s var(--ease-out-expo);
+    }
+
+    .nav-links a:hover {
+      color: var(--text-primary);
+    }
+
+    .nav-links a:hover::before {
+      width: 100%;
+    }
+
+    .nav-links a.active {
+      color: var(--accent);
+    }
+
+    .nav-links a.active::before {
+      width: 100%;
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 10rem 3rem 5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80%;
+      height: 100%;
+      background: radial-gradient(ellipse at center top, var(--accent-glow) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.8s var(--ease-out-expo) 0.2s forwards;
+    }
+
+    .hero-tag::before,
+    .hero-tag::after {
+      content: '';
+      width: 2rem;
+      height: 2px;
+      background: var(--accent);
+    }
+
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 10vw, 7rem);
+      font-weight: 800;
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      transform: translateY(40px);
+      animation: fadeUp 1s var(--ease-out-expo) 0.4s forwards;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(135deg, var(--accent) 0%, #9eff00 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-description {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.8;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeUp 0.8s var(--ease-out-expo) 0.6s forwards;
+    }
+
+    /* Filter Tags */
+    .filter-section {
+      padding: 0 3rem 3rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .filter-tags {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.8s var(--ease-out-expo) 0.8s forwards;
+    }
+
+    .filter-tag {
+      padding: 0.75rem 1.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-secondary);
+      background: var(--bg-secondary);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s var(--ease-out-expo);
+    }
+
+    .filter-tag:hover {
+      color: var(--text-primary);
+      border-color: var(--accent);
+      background: rgba(200, 255, 45, 0.1);
+    }
+
+    .filter-tag.active {
+      color: var(--bg-primary);
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    /* Articles Grid */
+    .articles-section {
+      padding: 3rem 3rem 6rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .articles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 2rem;
+    }
+
+    .article-card {
+      background: var(--bg-secondary);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: all 0.4s var(--ease-out-expo);
+      opacity: 0;
+      transform: translateY(30px);
+      text-decoration: none;
+      display: block;
+    }
+
+    .article-card.visible {
+      animation: fadeUp 0.6s var(--ease-out-expo) forwards;
+    }
+
+    .article-card:nth-child(1).visible { animation-delay: 0.1s; }
+    .article-card:nth-child(2).visible { animation-delay: 0.2s; }
+    .article-card:nth-child(3).visible { animation-delay: 0.3s; }
+
+    .article-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--accent);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 40px var(--accent-glow);
+    }
+
+    .article-card-image {
+      height: 200px;
+      background: var(--bg-tertiary);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .article-card-image::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--accent-glow) 0%, transparent 50%);
+    }
+
+    .article-card-icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80px;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(200, 255, 45, 0.1);
+      border: 1px solid var(--accent);
+      border-radius: 16px;
+    }
+
+    .article-card-icon svg {
+      width: 40px;
+      height: 40px;
+      stroke: var(--accent);
+    }
+
+    .article-card-content {
+      padding: 2rem;
+    }
+
+    .article-card-meta {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .article-card-category {
+      padding: 0.35rem 0.75rem;
+      background: rgba(200, 255, 45, 0.1);
+      color: var(--accent);
+      border-radius: 4px;
+      font-weight: 600;
+    }
+
+    .article-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+      transition: color 0.3s;
+    }
+
+    .article-card:hover h3 {
+      color: var(--accent);
+    }
+
+    .article-card-excerpt {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+
+    .article-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .article-card-date {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .article-card-read {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .article-card-read svg {
+      width: 16px;
+      height: 16px;
+      transition: transform 0.3s;
+    }
+
+    .article-card:hover .article-card-read svg {
+      transform: translateX(4px);
+    }
+
+    /* Newsletter Section */
+    .newsletter-section {
+      padding: 6rem 3rem;
+      background: var(--bg-secondary);
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .newsletter-container {
+      max-width: 700px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .newsletter-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+    }
+
+    .newsletter-tag::before {
+      content: '';
+      width: 2rem;
+      height: 2px;
+      background: var(--accent);
+    }
+
+    .newsletter-section h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+
+    .newsletter-section h2 span {
+      background: linear-gradient(135deg, var(--accent) 0%, #9eff00 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .newsletter-description {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+      line-height: 1.8;
+    }
+
+    .newsletter-form {
+      display: flex;
+      gap: 1rem;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .newsletter-input {
+      flex: 1;
+      padding: 1rem 1.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      color: var(--text-primary);
+      background: var(--bg-tertiary);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      outline: none;
+      transition: all 0.3s;
+    }
+
+    .newsletter-input::placeholder {
+      color: var(--text-muted);
+    }
+
+    .newsletter-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-glow);
+    }
+
+    .newsletter-btn {
+      padding: 1rem 2rem;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--bg-primary);
+      background: var(--accent);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s var(--ease-out-expo);
+    }
+
+    .newsletter-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px var(--accent-glow);
+    }
+
+    /* Footer */
+    footer {
+      padding: 3rem;
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent);
+    }
+
+    .footer-copy {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .footer-copy span {
+      color: var(--accent);
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+      nav {
+        padding: 1rem 1.5rem;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .hero {
+        padding: 8rem 1.5rem 4rem;
+      }
+
+      .hero-description {
+        font-size: 1rem;
+      }
+
+      .filter-section {
+        padding: 0 1.5rem 2rem;
+      }
+
+      .filter-tags {
+        gap: 0.75rem;
+      }
+
+      .filter-tag {
+        padding: 0.6rem 1rem;
+        font-size: 0.75rem;
+      }
+
+      .articles-section {
+        padding: 2rem 1.5rem 4rem;
+      }
+
+      .articles-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      .article-card-content {
+        padding: 1.5rem;
+      }
+
+      .article-card h3 {
+        font-size: 1.2rem;
+      }
+
+      .newsletter-section {
+        padding: 4rem 1.5rem;
+      }
+
+      .newsletter-form {
+        flex-direction: column;
+      }
+
+      .newsletter-btn {
+        width: 100%;
+      }
+
+      footer {
+        padding: 2rem 1.5rem;
+      }
+
+      .footer-links {
+        gap: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav>
+    <a href="/" class="logo">marlow</a>
+    <ul class="nav-links">
+      <li><a href="/#about">About</a></li>
+      <li><a href="/#experience">Experience</a></li>
+      <li><a href="/#projects">Projects</a></li>
+      <li><a href="/blog/" class="active">Blog</a></li>
+      <li><a href="/#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <span class="hero-tag">Insights & Tutorials</span>
+    <h1>The <span>Blog</span></h1>
+    <p class="hero-description">
+      Technical deep-dives, automation strategies, and lessons learned from building
+      enterprise solutions across 3 continents. Written for practitioners, by a practitioner.
+    </p>
+  </section>
+
+  <!-- Filter Tags -->
+  <section class="filter-section">
+    <div class="filter-tags">
+      <button class="filter-tag active" data-filter="all">All Posts</button>
+      <button class="filter-tag" data-filter="ai-agents">AI Agents</button>
+      <button class="filter-tag" data-filter="rpa">RPA</button>
+      <button class="filter-tag" data-filter="process-design">Process Design</button>
+    </div>
+  </section>
+
+  <!-- Articles Grid -->
+  <section class="articles-section">
+    <div class="articles-grid">
+      <!-- Article 1: AI Agents -->
+      <a href="ai-agents-copilot-studio.html" class="article-card" data-category="ai-agents">
+        <div class="article-card-image">
+          <div class="article-card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2a4 4 0 0 1 4 4v1a4 4 0 0 1-8 0V6a4 4 0 0 1 4-4z"/>
+              <path d="M16 7v1a4 4 0 0 1-8 0V7"/>
+              <path d="M12 11v6"/>
+              <path d="M8 17l4 4 4-4"/>
+              <circle cx="12" cy="6" r="1"/>
+              <path d="M6 12h2"/>
+              <path d="M16 12h2"/>
+            </svg>
+          </div>
+        </div>
+        <div class="article-card-content">
+          <div class="article-card-meta">
+            <span class="article-card-category">AI Agents</span>
+            <span>8 min read</span>
+          </div>
+          <h3>Building Enterprise AI Agents with Microsoft Copilot Studio</h3>
+          <p class="article-card-excerpt">
+            Learn how to deploy 5+ AI agents with JIRA integration. A practical guide for
+            enterprise tech leads with real implementation details and ROI metrics.
+          </p>
+          <div class="article-card-footer">
+            <span class="article-card-date">December 2024</span>
+            <span class="article-card-read">
+              Read More
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14"/>
+                <path d="m12 5 7 7-7 7"/>
+              </svg>
+            </span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Article 2: RPA -->
+      <a href="uipath-optimization-playbook.html" class="article-card" data-category="rpa">
+        <div class="article-card-image">
+          <div class="article-card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 20V10"/>
+              <path d="M18 20V4"/>
+              <path d="M6 20v-4"/>
+              <path d="M2 12l4-4 4 4"/>
+              <path d="M18 8l4-4"/>
+              <path d="M22 8V4h-4"/>
+            </svg>
+          </div>
+        </div>
+        <div class="article-card-content">
+          <div class="article-card-meta">
+            <span class="article-card-category">RPA</span>
+            <span>12 min read</span>
+          </div>
+          <h3>From 60 Hours to 6: The UiPath Optimization Playbook</h3>
+          <p class="article-card-excerpt">
+            A comprehensive guide to optimizing UiPath automations for enterprise scale.
+            Real metrics and strategies that delivered 90% time reduction.
+          </p>
+          <div class="article-card-footer">
+            <span class="article-card-date">November 2024</span>
+            <span class="article-card-read">
+              Read More
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14"/>
+                <path d="m12 5 7 7-7 7"/>
+              </svg>
+            </span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Article 3: Process Design -->
+      <a href="bpmn-camunda-process-design.html" class="article-card" data-category="process-design">
+        <div class="article-card-image">
+          <div class="article-card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="6" height="6" rx="1"/>
+              <rect x="15" y="3" width="6" height="6" rx="1"/>
+              <rect x="9" y="15" width="6" height="6" rx="1"/>
+              <path d="M6 9v3a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3V9"/>
+              <path d="M12 12v3"/>
+            </svg>
+          </div>
+        </div>
+        <div class="article-card-content">
+          <div class="article-card-meta">
+            <span class="article-card-category">Process Design</span>
+            <span>10 min read</span>
+          </div>
+          <h3>BPMN + Camunda: Designing Processes That Actually Scale</h3>
+          <p class="article-card-excerpt">
+            How to design BPMN processes with Camunda that handle enterprise workloads
+            without becoming maintenance nightmares. Patterns that work.
+          </p>
+          <div class="article-card-footer">
+            <span class="article-card-date">October 2024</span>
+            <span class="article-card-read">
+              Read More
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14"/>
+                <path d="m12 5 7 7-7 7"/>
+              </svg>
+            </span>
+          </div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- Newsletter Section -->
+  <section class="newsletter-section">
+    <div class="newsletter-container">
+      <span class="newsletter-tag">Stay Updated</span>
+      <h2>Get the <span>Latest</span> Insights</h2>
+      <p class="newsletter-description">
+        Join 500+ automation professionals receiving practical tips on RPA, AI agents,
+        and process optimization. No spam, just signal.
+      </p>
+      <form class="newsletter-form" action="#" method="POST">
+        <input
+          type="email"
+          class="newsletter-input"
+          placeholder="your@email.com"
+          required
+          aria-label="Email address"
+        >
+        <button type="submit" class="newsletter-btn">Subscribe</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="/#about">About</a>
+      <a href="/#projects">Projects</a>
+      <a href="/blog/">Blog</a>
+      <a href="https://linkedin.com/in/marlowsousa" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/marlowsousa" target="_blank" rel="noopener">GitHub</a>
+    </div>
+    <p class="footer-copy">
+      &copy; 2024 Marlow Sousa. Built with <span>&lt;/&gt;</span> from anywhere.
+    </p>
+  </footer>
+
+  <script>
+    // Intersection Observer for article card animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.article-card').forEach(card => {
+      observer.observe(card);
+    });
+
+    // Filter functionality
+    const filterTags = document.querySelectorAll('.filter-tag');
+    const articleCards = document.querySelectorAll('.article-card');
+
+    filterTags.forEach(tag => {
+      tag.addEventListener('click', () => {
+        // Update active state
+        filterTags.forEach(t => t.classList.remove('active'));
+        tag.classList.add('active');
+
+        const filter = tag.dataset.filter;
+
+        // Filter articles
+        articleCards.forEach(card => {
+          if (filter === 'all' || card.dataset.category === filter) {
+            card.style.display = 'block';
+            setTimeout(() => {
+              card.style.opacity = '1';
+              card.style.transform = 'translateY(0)';
+            }, 10);
+          } else {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            setTimeout(() => {
+              card.style.display = 'none';
+            }, 300);
+          }
+        });
+      });
+    });
+
+    // Newsletter form handling
+    const newsletterForm = document.querySelector('.newsletter-form');
+    newsletterForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = newsletterForm.querySelector('.newsletter-input').value;
+      // Add your newsletter subscription logic here
+      alert('Thanks for subscribing! You\'ll receive updates at ' + email);
+      newsletterForm.reset();
+    });
+  </script>
+</body>
+</html>
