@@ -1,0 +1,98 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="accentGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#c8ff2d;stop-opacity:0.15"/>
+      <stop offset="100%" style="stop-color:#c8ff2d;stop-opacity:0"/>
+    </linearGradient>
+    <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#c8ff2d"/>
+      <stop offset="100%" style="stop-color:#9eff00"/>
+    </linearGradient>
+    <filter id="noise">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.05"/>
+      </feComponentTransfer>
+      <feBlend in="SourceGraphic" mode="overlay"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#0a0a0a"/>
+
+  <!-- Accent glow -->
+  <ellipse cx="900" cy="200" rx="400" ry="300" fill="url(#accentGlow)"/>
+
+  <!-- Grid pattern -->
+  <g stroke="#1a1a1a" stroke-width="1">
+    <line x1="0" y1="157" x2="1200" y2="157"/>
+    <line x1="0" y1="315" x2="1200" y2="315"/>
+    <line x1="0" y1="473" x2="1200" y2="473"/>
+    <line x1="300" y1="0" x2="300" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="900" y1="0" x2="900" y2="630"/>
+  </g>
+
+  <!-- Decorative elements -->
+  <rect x="60" y="60" width="4" height="40" fill="#c8ff2d"/>
+  <rect x="60" y="60" width="40" height="4" fill="#c8ff2d"/>
+  <rect x="1136" y="526" width="4" height="40" fill="#c8ff2d"/>
+  <rect x="1100" y="562" width="40" height="4" fill="#c8ff2d"/>
+
+  <!-- Tag line -->
+  <line x1="80" y1="200" x2="140" y2="200" stroke="#c8ff2d" stroke-width="3"/>
+  <text x="155" y="206" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="600" fill="#c8ff2d" letter-spacing="4">RPA TECH LEAD &amp; AI SPECIALIST</text>
+
+  <!-- Main title -->
+  <text x="80" y="300" font-family="system-ui, -apple-system, sans-serif" font-size="82" font-weight="800" fill="#f5f0e8" letter-spacing="-2">MARLOW</text>
+  <text x="80" y="385" font-family="system-ui, -apple-system, sans-serif" font-size="82" font-weight="800" fill="url(#textGradient)" letter-spacing="-2">SOUSA</text>
+
+  <!-- Subtitle -->
+  <text x="80" y="450" font-family="ui-monospace, monospace" font-size="20" fill="#a8a8a8">Automating Business Intelligence</text>
+
+  <!-- Stats -->
+  <g font-family="system-ui, -apple-system, sans-serif">
+    <text x="80" y="540" font-size="36" font-weight="800" fill="#c8ff2d">8+</text>
+    <text x="145" y="540" font-size="14" fill="#666666" letter-spacing="1">YEARS</text>
+
+    <text x="260" y="540" font-size="36" font-weight="800" fill="#c8ff2d">60+</text>
+    <text x="340" y="540" font-size="14" fill="#666666" letter-spacing="1">AUTOMATIONS</text>
+
+    <text x="520" y="540" font-size="36" font-weight="800" fill="#c8ff2d">R$10M+</text>
+    <text x="680" y="540" font-size="14" fill="#666666" letter-spacing="1">SAVINGS</text>
+  </g>
+
+  <!-- Domain -->
+  <text x="1120" y="540" font-family="ui-monospace, monospace" font-size="18" font-weight="600" fill="#f5f0e8" text-anchor="end">marlow.dev.br</text>
+
+  <!-- Code window decoration -->
+  <rect x="850" y="180" width="280" height="200" rx="8" fill="#111111" stroke="#1a1a1a" stroke-width="1"/>
+  <rect x="850" y="180" width="280" height="32" rx="8" fill="#1a1a1a"/>
+  <circle cx="870" cy="196" r="6" fill="#ff5f57"/>
+  <circle cx="890" cy="196" r="6" fill="#febc2e"/>
+  <circle cx="910" cy="196" r="6" fill="#28c840"/>
+
+  <g font-family="ui-monospace, monospace" font-size="13">
+    <text x="865" y="240" fill="#ff79c6">const</text>
+    <text x="910" y="240" fill="#8be9fd">lead</text>
+    <text x="950" y="240" fill="#f5f0e8">= {</text>
+    <text x="880" y="262" fill="#8be9fd">role</text>
+    <text x="915" y="262" fill="#f5f0e8">:</text>
+    <text x="925" y="262" fill="#f1fa8c">'Tech Lead'</text>
+    <text x="1010" y="262" fill="#f5f0e8">,</text>
+    <text x="880" y="284" fill="#8be9fd">stack</text>
+    <text x="925" y="284" fill="#f5f0e8">: [</text>
+    <text x="950" y="284" fill="#f1fa8c">'AI'</text>
+    <text x="980" y="284" fill="#f5f0e8">,</text>
+    <text x="995" y="284" fill="#f1fa8c">'RPA'</text>
+    <text x="1035" y="284" fill="#f5f0e8">],</text>
+    <text x="880" y="306" fill="#50fa7b">automate</text>
+    <text x="965" y="306" fill="#f5f0e8">() {</text>
+    <text x="895" y="328" fill="#ff79c6">return</text>
+    <text x="955" y="328" fill="#f1fa8c">'magic'</text>
+    <text x="1015" y="328" fill="#f5f0e8">;</text>
+    <text x="880" y="350" fill="#f5f0e8">}</text>
+    <text x="865" y="372" fill="#f5f0e8">};</text>
+  </g>
+</svg>
