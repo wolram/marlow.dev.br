@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-M9WNCRDEXQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-M9WNCRDEXQ');
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Marlow Sousa | RPA Tech Lead & Digital Nomad</title>
@@ -223,6 +231,7 @@
       padding: 8rem 6rem 6rem;
       position: relative;
       overflow: hidden;
+      z-index: 1;
     }
 
     .hero::before {
@@ -234,6 +243,18 @@
       height: 60%;
       background: radial-gradient(ellipse, var(--accent-glow) 0%, transparent 70%);
       pointer-events: none;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 150px;
+      background: linear-gradient(to bottom, transparent 0%, var(--bg-primary) 100%);
+      pointer-events: none;
+      z-index: 10;
     }
 
     .hero-content {
@@ -468,6 +489,8 @@
       background: var(--bg-secondary);
       border-top: 1px solid rgba(255, 255, 255, 0.05);
       border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      position: relative;
+      z-index: 2;
     }
 
     .stat {
