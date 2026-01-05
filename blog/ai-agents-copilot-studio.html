@@ -665,9 +665,22 @@
         font-size: 1.8rem;
       }
     }
+
+    /* Reading Progress Bar */
+    .reading-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent) 0%, #9eff00 100%);
+      z-index: 1001;
+      transition: width 0.1s ease-out;
+    }
   </style>
 </head>
 <body>
+  <div class="reading-progress" id="reading-progress"></div>
   <!-- Navigation -->
   <nav>
     <a href="https://marlow.dev.br" class="logo">marlow</a>
@@ -948,5 +961,23 @@
     </div>
     <p class="footer-copy">&copy; 2026 Marlow Sousa. All rights reserved.</p>
   </footer>
+
+  <script>
+    const progressBar = document.getElementById('reading-progress');
+    const article = document.querySelector('.article-content');
+
+    window.addEventListener('scroll', () => {
+      const articleTop = article.offsetTop;
+      const articleHeight = article.offsetHeight;
+      const windowHeight = window.innerHeight;
+      const scrollY = window.scrollY;
+
+      const start = articleTop - windowHeight;
+      const end = articleTop + articleHeight - windowHeight;
+      const progress = Math.min(Math.max((scrollY - start) / (end - start) * 100, 0), 100);
+
+      progressBar.style.width = progress + '%';
+    });
+  </script>
 </body>
 </html>
