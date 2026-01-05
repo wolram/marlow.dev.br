@@ -8,7 +8,7 @@ REMOTE_USER="u163272241"
 REMOTE_HOST="147.93.39.7"
 REMOTE_PORT="65002"
 REMOTE_PATH="~/domains/marlow.dev.br/public_html/"
-LOCAL_PATH="/Users/marlow/projetos/marlow.dev.br/"
+LOCAL_PATH="/Users/wolram/Developer/marlow.dev.br/"
 
 echo "🚀 Deploying marlow.dev.br to Hostinger..."
 
