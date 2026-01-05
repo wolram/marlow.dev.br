@@ -230,6 +230,74 @@
       width: 100%;
     }
 
+    /* Hamburger Menu */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+      z-index: 1001;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 100%;
+      height: 2px;
+      background: var(--text-primary);
+      transition: all 0.3s var(--ease-out-expo);
+    }
+
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+    /* Mobile Navigation Overlay */
+    .nav-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(10, 10, 10, 0.95);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      z-index: 999;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s var(--ease-out-expo);
+    }
+
+    .nav-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .nav-overlay .nav-links {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      gap: 2rem;
+    }
+
+    .nav-overlay .nav-links a {
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
     /* Hero Section */
     .hero {
       min-height: 100vh;
@@ -1158,32 +1226,17 @@
       z-index: -1;
     }
 
-    .about-image-placeholder {
+    .about-photo {
       width: 100%;
       aspect-ratio: 4/5;
-      background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-primary) 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      overflow: hidden;
+      object-fit: cover;
+      display: block;
+      filter: grayscale(20%);
+      transition: filter 0.4s ease;
     }
 
-    .about-image-placeholder::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(circle at 30% 20%, rgba(200, 255, 45, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 70% 80%, rgba(200, 255, 45, 0.08) 0%, transparent 40%);
-    }
-
-    .about-image-placeholder svg {
-      width: 120px;
-      height: 120px;
-      color: var(--accent);
-      opacity: 0.4;
-      z-index: 1;
+    .about-photo:hover {
+      filter: grayscale(0%);
     }
 
     .about-content {
@@ -1534,6 +1587,7 @@
 
     /* Footer */
     footer {
+      position: relative;
       padding: 2rem 6rem;
       border-top: 1px solid rgba(255, 255, 255, 0.05);
       display: flex;
@@ -1553,6 +1607,19 @@
 
     .footer-right span {
       color: var(--accent);
+    }
+
+    .footer-center {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .version {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      opacity: 0.6;
+      font-family: 'SF Mono', monospace;
     }
 
     /* Backdrop-filter fallback for older browsers */
@@ -1615,6 +1682,14 @@
 
       .nav-links {
         display: none;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .nav-overlay {
+        display: block;
       }
 
       .section-header {
@@ -1792,7 +1867,25 @@
       <li><a href="#contact">Contact</a></li>
       <li><a href="/pt/" class="lang-toggle">PT</a></li>
     </ul>
+    <div class="hamburger" aria-label="Toggle menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
   </nav>
+
+  <!-- Mobile Navigation Overlay -->
+  <div class="nav-overlay">
+    <ul class="nav-links">
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#blog">Blog</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="/nomad/">Nomad</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="/pt/" class="lang-toggle">PT</a></li>
+    </ul>
+  </div>
 
   <!-- Hero Section -->
   <section class="hero">
@@ -2320,11 +2413,7 @@
     <div class="about-grid">
       <div class="about-image">
         <div class="about-image-wrapper">
-          <div class="about-image-placeholder">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5" />
-            </svg>
-          </div>
+          <img src="/assets/about.jpg" alt="Marlow Sousa - RPA Tech Lead" class="about-photo" loading="lazy" />
         </div>
       </div>
       <div class="about-content">
@@ -2512,6 +2601,9 @@
   <footer>
     <div class="footer-left">
       &copy; 2026 Marlow Sousa. All rights reserved.
+    </div>
+    <div class="footer-center">
+      <span class="version">v1.0.0</span>
     </div>
     <div class="footer-right">
       Crafted with <span>&hearts;</span> and code
@@ -2730,6 +2822,36 @@
       init();
       animate();
     })();
+
+    // Hamburger Menu Toggle
+    const hamburger = document.querySelector('.hamburger');
+    const navOverlay = document.querySelector('.nav-overlay');
+
+    if (hamburger && navOverlay) {
+      hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        navOverlay.classList.toggle('active');
+        document.body.style.overflow = navOverlay.classList.contains('active') ? 'hidden' : '';
+      });
+
+      // Close menu when link clicked
+      navOverlay.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          hamburger.classList.remove('active');
+          navOverlay.classList.remove('active');
+          document.body.style.overflow = '';
+        });
+      });
+
+      // Close menu on escape key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && navOverlay.classList.contains('active')) {
+          hamburger.classList.remove('active');
+          navOverlay.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+      });
+    }
   </script>
 </body>
 </html>
