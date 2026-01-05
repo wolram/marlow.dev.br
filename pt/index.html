@@ -1219,26 +1219,16 @@
     }
 
     .about-image-wrapper::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border: 2px solid var(--accent);
-      border-radius: 12px;
-      transform: translate(15px, 15px);
-      z-index: -1;
+      display: none;
     }
 
     .about-photo {
       width: 100%;
-      aspect-ratio: 4/5;
-      object-fit: cover;
+      max-width: 400px;
+      aspect-ratio: 1/1;
+      object-fit: contain;
       display: block;
-      filter: grayscale(20%);
-      transition: filter 0.4s ease;
-    }
-
-    .about-photo:hover {
-      filter: grayscale(0%);
+      margin: 0 auto;
     }
 
     .about-content {
