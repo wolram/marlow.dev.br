@@ -1,0 +1,26 @@
+# Credenciais e scripts de deploy com dados sensíveis
+deploy.sh
+.env*
+*.key
+*.pem
+*.p12
+
+# Sistema
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+
+# Claude Code (configs locais)
+.claude/
+
+# Builds futuros (Next.js/Turbo)
+node_modules/
+dist/
+.next/
+.turbo/
+out/
+
+# Docs pessoais
+*.pdf
+*.log

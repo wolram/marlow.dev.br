@@ -57,3 +57,30 @@ When adding content:
 ## Deployment
 
 `deploy.sh` uses rsync over SSH (port 65002) to Hostinger. Excludes `.git`, `.DS_Store`, `.pdf`, `deploy.sh`, `.claude/`. Sets permissions after upload.
+
+## Claude Code Automations
+
+### Skills (User-invocable commands)
+
+| Skill | Purpose | Time Saved |
+|---|---|---|
+| `/new-blog-post` | Generate complete EN+PT blog post with all metadata | 54 min/post |
+| `/pre-deploy` | Validate hreflang, sitemap, links before deploying | 10-15 min/deploy |
+| `/fix-hreflang` | One-time fix for missing hreflang on EN pages (already applied) | — |
+
+**Workflow for new blog posts:**
+1. `/new-blog-post` → answer 10 prompts → files generated automatically
+2. Write content in the placeholders
+3. `/pre-deploy` → validate everything
+4. `./deploy.sh` → publish
+
+### Hooks (Automatic validations)
+
+- **PostToolUse:** Reminds about sitemap and `/pre-deploy` after editing blog files
+- **PreToolUse:** Warns when editing critical files (`sitemap.xml`, `deploy.sh`, `robots.txt`)
+
+### Hreflang Status
+
+All 12 pages now have correct bidirectional hreflang tags:
+- EN pages: `hreflang="en"` + `hreflang="pt-BR"` + `hreflang="x-default"`
+- PT pages: `hreflang="en"` + `hreflang="pt-BR"` + `hreflang="x-default"`
