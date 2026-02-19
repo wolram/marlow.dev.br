@@ -1,15 +1,12 @@
-# Credenciais e scripts de deploy com dados sensíveis
+# Credenciais e scripts de deploy
 deploy.sh
 .env*
 *.key
 *.pem
-*.p12
 
 # Sistema
 .DS_Store
 .AppleDouble
-.LSOverride
-Thumbs.db
 
 # Claude Code (configs locais)
 .claude/

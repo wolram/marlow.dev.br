@@ -21,11 +21,19 @@ jobs:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: Add Hostinger to known_hosts
+        env:
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_PORT: ${{ secrets.SSH_PORT }}
         run: |
           mkdir -p ~/.ssh
-          ssh-keyscan -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+          ssh-keyscan -p "$SSH_PORT" "$SSH_HOST" >> ~/.ssh/known_hosts
 
       - name: Deploy via rsync
+        env:
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_PORT: ${{ secrets.SSH_PORT }}
+          SSH_USER: ${{ secrets.SSH_USER }}
+          SSH_PATH: ${{ secrets.SSH_PATH }}
         run: |
           rsync -avz --delete \
             --exclude='.DS_Store' \
@@ -40,13 +48,17 @@ jobs:
             --exclude='requirements.txt' \
             --exclude='GEMINI.md' \
             --exclude='CLAUDE.md' \
-            -e "ssh -p ${{ secrets.SSH_PORT }}" \
+            -e "ssh -p ${SSH_PORT}" \
             ./ \
-            ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.SSH_PATH }}
+            "${SSH_USER}@${SSH_HOST}:${SSH_PATH}"
 
       - name: Fix permissions
+        env:
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_PORT: ${{ secrets.SSH_PORT }}
+          SSH_USER: ${{ secrets.SSH_USER }}
         run: |
-          ssh -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} bash -s << 'ENDSSH'
+          ssh -p "${SSH_PORT}" "${SSH_USER}@${SSH_HOST}" bash << 'ENDSSH'
             find ~/domains/marlow.dev.br/public_html -type f -name "*.html" -exec chmod 644 {} \;
             find ~/domains/marlow.dev.br/public_html -type f \( -name "*.xml" -o -name "*.txt" -o -name "*.json" -o -name "*.png" -o -name "*.svg" \) -exec chmod 644 {} \;
             find ~/domains/marlow.dev.br/public_html -type d -exec chmod 755 {} \;
@@ -60,8 +72,4 @@ jobs:
             echo "Deploy failed: site returned HTTP $STATUS"
             exit 1
           fi
-          echo "Site is live and responding (HTTP $STATUS)"
-
-      - name: Notify success
-        if: success()
-        run: echo "Deploy complete at $(date -u '+%Y-%m-%d %H:%M UTC')"
+          echo "Site is live (HTTP $STATUS)"
