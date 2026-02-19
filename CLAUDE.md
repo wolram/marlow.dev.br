@@ -14,11 +14,11 @@ Static HTML portfolio website for Marlow Sousa (RPA Tech Lead & Digital Nomad). 
 # Preview locally - just open HTML files in browser
 open index.html
 
-# Deploy to production (Hostinger via rsync/SSH)
-./deploy.sh
+# Deploy to production - push to master triggers GitHub Actions
+git push origin master
 ```
 
-No build process. Edit HTML files directly, preview in browser, deploy when ready.
+No build process. Edit HTML files directly, preview in browser, push to deploy.
 
 ## Project Structure
 
@@ -31,7 +31,6 @@ No build process. Edit HTML files directly, preview in browser, deploy when read
 ├── nomad/                  # Digital nomad page
 ├── pt/nomad/               # Portuguese nomad page
 ├── assets/                 # Favicon, icons
-├── deploy.sh               # Deployment script
 ├── sitemap.xml             # XML sitemap (12 URLs)
 └── robots.txt
 ```
@@ -54,11 +53,7 @@ When adding content:
 - Update `sitemap.xml` when adding/removing pages
 - Keep hreflang tags in sync between language versions
 
-## Deployment
-
-`deploy.sh` uses rsync over SSH (port 65002) to Hostinger. Excludes `.git`, `.DS_Store`, `.pdf`, `deploy.sh`, `.claude/`. Sets permissions after upload.
-
-## CI/CD (GitHub Actions)
+## Deployment & CI/CD (GitHub Actions)
 
 ### Automated Workflows
 
