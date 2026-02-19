@@ -1,0 +1,64 @@
+name: Validate PR
+
+on:
+  pull_request:
+    branches:
+      - master
+    types: [opened, synchronize, reopened]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+      - name: Run validation
+        id: validate
+        continue-on-error: true
+        run: |
+          python3 scripts/validate_deployment.py --ci 2>&1 | tee /tmp/validation_output.txt
+          echo "exit_code=$?" >> $GITHUB_OUTPUT
+
+      - name: Comment validation result on PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            let output = '';
+            try { output = fs.readFileSync('/tmp/validation_output.txt', 'utf8'); } catch(e) {}
+            const exitCode = '${{ steps.validate.outputs.exit_code }}';
+            const passed = exitCode === '0';
+            const status = passed ? '✅ Todas as validações passaram!' : '❌ Validação falhou';
+
+            const body = [
+              `## ${status}`,
+              '',
+              '```',
+              output.slice(0, 4000),
+              '```',
+              '',
+              `_Validação automática — ${new Date().toUTCString()}_`
+            ].join('\n');
+
+            await github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: body
+            });
+
+      - name: Fail if validation errors
+        if: steps.validate.outputs.exit_code != '0'
+        run: exit 1

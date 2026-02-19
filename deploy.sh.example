@@ -1,0 +1,32 @@
+#!/bin/bash
+# Deploy marlow.dev.br para Hostinger
+# Copie para deploy.sh e preencha as credenciais:
+#   cp deploy.sh.example deploy.sh && chmod +x deploy.sh
+# NUNCA commite deploy.sh (está no .gitignore)
+
+set -e
+
+REMOTE_USER="seu_usuario_hostinger"
+REMOTE_HOST="seu_ip_ou_hostname"
+REMOTE_PORT="65002"
+REMOTE_PATH="~/domains/marlow.dev.br/public_html/"
+LOCAL_PATH="$(pwd)/"
+
+echo "Deploying marlow.dev.br..."
+
+rsync -avz \
+  --exclude='.DS_Store' \
+  --exclude='.claude' \
+  --exclude='*.pdf' \
+  --exclude='deploy.sh' \
+  --exclude='deploy.sh.example' \
+  --exclude='.gitignore' \
+  --exclude='.git' \
+  --exclude='scripts/' \
+  --exclude='requirements.txt' \
+  -e "ssh -p $REMOTE_PORT" \
+  "$LOCAL_PATH" \
+  "$REMOTE_USER@$REMOTE_HOST:$REMOTE_PATH"
+
+echo "Deploy complete!"
+echo "Site: https://marlow.dev.br"
