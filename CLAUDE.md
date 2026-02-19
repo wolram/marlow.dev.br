@@ -57,3 +57,52 @@ When adding content:
 ## Deployment
 
 `deploy.sh` uses rsync over SSH (port 65002) to Hostinger. Excludes `.git`, `.DS_Store`, `.pdf`, `deploy.sh`, `.claude/`. Sets permissions after upload.
+
+## CI/CD (GitHub Actions)
+
+### Automated Workflows
+
+| Workflow | Trigger | Purpose |
+|---|---|---|
+| `deploy.yml` | Push to `master` | Auto-deploy to Hostinger via rsync |
+| `validate-pr.yml` | PR opened/updated | Run pre-deploy checks, comment results |
+| `create-blog-post.yml` | Issue labeled `blog-post` | Generate EN+PT HTML, open PR |
+
+### Required GitHub Secrets
+
+Configure at: Settings → Secrets and variables → Actions
+
+| Secret | Value |
+|---|---|
+| `SSH_PRIVATE_KEY` | Private SSH key for Hostinger |
+| `SSH_HOST` | Server IP |
+| `SSH_PORT` | `65002` |
+| `SSH_USER` | SSH username |
+| `SSH_PATH` | `~/domains/marlow.dev.br/public_html/` |
+
+### Blog Post via Issue Workflow
+
+1. Create GitHub Issue using "Novo Blog Post" template
+2. Add label `blog-post`
+3. GitHub Action auto-generates EN+PT HTML and opens PR
+4. Review PR → merge → auto-deploy
+
+### Scripts
+
+- `scripts/validate_deployment.py` — validate hreflang, sitemap, GA4, EN/PT parity
+- `scripts/generate_blog_post.py` — generate blog post from issue body Markdown
+
+### Claude Code Skills (local)
+
+| Skill | Purpose |
+|---|---|
+| `/new-blog-post` | Interactive blog post generation (local) |
+| `/pre-deploy` | Run pre-deploy validations locally |
+
+### Hreflang Status
+
+All 12 pages have correct bidirectional hreflang tags:
+- EN pages: `hreflang="en"` + `hreflang="pt-BR"` + `hreflang="x-default"`
+- PT pages: `hreflang="en"` + `hreflang="pt-BR"` + `hreflang="x-default"`
+- Index pages use clean URLs (`/`, `/pt/`, `/blog/`, etc.)
+- Blog posts use `.html` extension (`/blog/slug.html`)
