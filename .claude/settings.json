@@ -1,0 +1,26 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "FILE=\"$CLAUDE_TOOL_PARAM_FILE_PATH\"; if echo \"$FILE\" | grep -qE '(blog/[^/]+\\.html|pt/blog/[^/]+\\.html)' && ! echo \"$FILE\" | grep -q 'index.html'; then echo \"\\n📝 Post de blog modificado: $FILE\\n\\nRecomendações:\\n  1. Atualizar sitemap.xml se for novo post\\n  2. Executar /pre-deploy antes do deploy\\n  3. Verificar paridade de conteúdo (EN ↔ PT)\"; fi"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "FILE=\"$CLAUDE_TOOL_PARAM_FILE_PATH\"; if echo \"$FILE\" | grep -qE '(sitemap\\.xml|deploy\\.sh|robots\\.txt)'; then BASENAME=$(basename \"$FILE\"); echo \"⚠️  Editando arquivo crítico de infraestrutura: $BASENAME\\n\\nNota: sitemap.xml → considere usar /new-blog-post | deploy.sh → script de produção, teste com cuidado | robots.txt → crítico para SEO\"; fi"
+          }
+        ]
+      }
+    ]
+  }
+}
