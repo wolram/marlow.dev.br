@@ -67,6 +67,18 @@
     "blogPost": [
       {
         "@type": "BlogPosting",
+        "headline": "Construindo o Futuro: Um Negocio de Cada Vez",
+        "description": "Digitalizamos um negocio independente por mes, de graca — site profissional ou app iOS, dominio e hospedagem por 3 anos.",
+        "url": "https://marlow.dev.br/pt/blog/building-the-future-program.html",
+        "datePublished": "2026-02-20",
+        "author": {
+          "@type": "Person",
+          "name": "Marlow Sousa"
+        },
+        "keywords": ["Impacto Social", "Inclusao Digital", "MEI"]
+      },
+      {
+        "@type": "BlogPosting",
         "headline": "Construindo Agentes de IA Empresariais com Microsoft Copilot Studio",
         "description": "Aprenda a implantar 5+ agentes de IA com integracao JIRA usando Microsoft Copilot Studio. Um guia pratico para tech leads empresariais.",
         "url": "https://marlow.dev.br/pt/blog/ai-agents-copilot-studio.html",
@@ -425,6 +437,7 @@
     .article-card:nth-child(1).visible { animation-delay: 0.1s; }
     .article-card:nth-child(2).visible { animation-delay: 0.2s; }
     .article-card:nth-child(3).visible { animation-delay: 0.3s; }
+    .article-card:nth-child(4).visible { animation-delay: 0.4s; }
 
     .article-card:hover {
       transform: translateY(-8px);
@@ -784,12 +797,48 @@
       <button class="filter-tag" data-filter="ai-agents">Agentes de IA</button>
       <button class="filter-tag" data-filter="rpa">RPA</button>
       <button class="filter-tag" data-filter="process-design">Design de Processos</button>
+      <button class="filter-tag" data-filter="social">Impacto Social</button>
     </div>
   </section>
 
   <!-- Articles Grid -->
   <section class="articles-section">
     <div class="articles-grid">
+      <!-- Article: Impacto Social -->
+      <a href="building-the-future-program.html" class="article-card" data-category="social">
+        <div class="article-card-image">
+          <div class="article-card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+              <circle cx="9" cy="7" r="4"/>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+          </div>
+        </div>
+        <div class="article-card-content">
+          <div class="article-card-meta">
+            <span class="article-card-category">Impacto Social</span>
+            <span>7 min de leitura</span>
+          </div>
+          <h3>Construindo o Futuro: Um Negocio de Cada Vez</h3>
+          <p class="article-card-excerpt">
+            Digitalizamos um negocio independente por mes, de graca — site profissional
+            ou app iOS, dominio e hospedagem por 3 anos. Candidate-se agora.
+          </p>
+          <div class="article-card-footer">
+            <span class="article-card-date">Fevereiro 2026</span>
+            <span class="article-card-read">
+              Leia Mais
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14"/>
+                <path d="m12 5 7 7-7 7"/>
+              </svg>
+            </span>
+          </div>
+        </div>
+      </a>
+
       <!-- Article 1: AI Agents -->
       <a href="ai-agents-copilot-studio.html" class="article-card" data-category="ai-agents">
         <div class="article-card-image">

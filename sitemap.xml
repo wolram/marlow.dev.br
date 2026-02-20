@@ -38,6 +38,13 @@
     <priority>0.8</priority>
   </url>
 
+  <url>
+    <loc>https://marlow.dev.br/blog/building-the-future-program.html</loc>
+    <lastmod>2026-02-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
   <!-- Nomad Page -->
   <url>
     <loc>https://marlow.dev.br/nomad/</loc>
@@ -78,6 +85,13 @@
   <url>
     <loc>https://marlow.dev.br/pt/blog/bpmn-camunda-process-design.html</loc>
     <lastmod>2026-02-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://marlow.dev.br/pt/blog/building-the-future-program.html</loc>
+    <lastmod>2026-02-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

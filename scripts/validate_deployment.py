@@ -28,6 +28,7 @@ EXPECTED_PAIRS = [
     ("blog/ai-agents-copilot-studio.html",    "pt/blog/ai-agents-copilot-studio.html",    "/blog/ai-agents-copilot-studio.html",    "/pt/blog/ai-agents-copilot-studio.html"),
     ("blog/bpmn-camunda-process-design.html", "pt/blog/bpmn-camunda-process-design.html", "/blog/bpmn-camunda-process-design.html", "/pt/blog/bpmn-camunda-process-design.html"),
     ("blog/uipath-optimization-playbook.html","pt/blog/uipath-optimization-playbook.html","/blog/uipath-optimization-playbook.html", "/pt/blog/uipath-optimization-playbook.html"),
+    ("blog/building-the-future-program.html","pt/blog/building-the-future-program.html","/blog/building-the-future-program.html", "/pt/blog/building-the-future-program.html"),
 ]
 
 
