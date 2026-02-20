@@ -1,0 +1,170 @@
+name: "Novo Blog Post"
+description: "Criar um novo post de blog bilíngue (EN + PT)"
+title: "Blog: [título do post]"
+labels: ["blog-post"]
+assignees:
+  - marlowsousa
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Metadata do Post
+        Preencha os campos abaixo para gerar o blog post automaticamente.
+
+  - type: input
+    id: slug
+    attributes:
+      label: Slug
+      description: "URL slug do post (ex: meu-novo-post). Apenas letras minúsculas, números e hífens."
+      placeholder: "meu-novo-post"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: categoria
+    attributes:
+      label: Categoria
+      description: "Categoria do post"
+      options:
+        - ai-agents
+        - rpa
+        - process-design
+        - nomad
+        - tech
+    validations:
+      required: true
+
+  - type: input
+    id: tempo-leitura
+    attributes:
+      label: Tempo de leitura
+      description: "Tempo estimado de leitura em minutos"
+      placeholder: "8"
+    validations:
+      required: false
+
+  - type: input
+    id: keywords-en
+    attributes:
+      label: Keywords EN
+      description: "Palavras-chave em inglês, separadas por vírgula"
+      placeholder: "keyword1, keyword2, keyword3"
+    validations:
+      required: true
+
+  - type: input
+    id: keywords-pt
+    attributes:
+      label: Keywords PT
+      description: "Palavras-chave em português, separadas por vírgula"
+      placeholder: "palavra1, palavra2, palavra3"
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ## Títulos e Descrições
+        Use **negrito** para a parte que aparecerá colorida no título.
+
+  - type: input
+    id: titulo-en
+    attributes:
+      label: "Título EN"
+      description: "Título em inglês. Use **negrito** para destaque."
+      placeholder: "My Title With **Highlighted Part**"
+    validations:
+      required: true
+
+  - type: input
+    id: titulo-pt
+    attributes:
+      label: "Título PT"
+      description: "Título em português. Use **negrito** para destaque."
+      placeholder: "Meu Título Com **Parte Destacada**"
+    validations:
+      required: true
+
+  - type: input
+    id: subtitulo-en
+    attributes:
+      label: "Subtítulo EN"
+      description: "Frase descritiva abaixo do título (inglês)"
+      placeholder: "A descriptive sentence about the article"
+    validations:
+      required: true
+
+  - type: input
+    id: subtitulo-pt
+    attributes:
+      label: "Subtítulo PT"
+      description: "Frase descritiva abaixo do título (português)"
+      placeholder: "Uma frase descritiva sobre o artigo"
+    validations:
+      required: true
+
+  - type: input
+    id: descricao-en
+    attributes:
+      label: "Descrição EN"
+      description: "Descrição SEO (máx 160 caracteres, inglês)"
+      placeholder: "A short SEO description..."
+    validations:
+      required: true
+
+  - type: input
+    id: descricao-pt
+    attributes:
+      label: "Descrição PT"
+      description: "Descrição SEO (máx 160 caracteres, português)"
+      placeholder: "Uma descrição curta para SEO..."
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        ## Conteúdo do Post
+        Escreva o conteúdo em Markdown. Use `##` para seções dentro do post.
+
+  - type: textarea
+    id: conteudo-en
+    attributes:
+      label: "Conteúdo EN"
+      description: "Conteúdo completo em inglês (Markdown). Use ## para seções."
+      placeholder: |
+        ## Introduction
+
+        Write your introduction here...
+
+        ## Main Section
+
+        Content goes here...
+
+        ## Conclusion
+
+        Wrap up here...
+    validations:
+      required: true
+
+  - type: textarea
+    id: conteudo-pt
+    attributes:
+      label: "Conteúdo PT"
+      description: "Conteúdo completo em português (Markdown). Use ## para seções."
+      placeholder: |
+        ## Introdução
+
+        Escreva sua introdução aqui...
+
+        ## Seção Principal
+
+        O conteúdo vai aqui...
+
+        ## Conclusão
+
+        Conclusão aqui...
+    validations:
+      required: true

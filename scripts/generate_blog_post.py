@@ -52,67 +52,156 @@ MONTHS_PT = {
 }
 
 
+KNOWN_LABELS = {
+    "Slug", "Categoria", "Tempo de leitura", "Keywords EN", "Keywords PT",
+    "Título EN", "Título PT", "Subtítulo EN", "Subtítulo PT",
+    "Descrição EN", "Descrição PT", "Conteúdo EN", "Conteúdo PT",
+}
+
+
 def parse_issue_body(body: str) -> dict:
     """
-    Extrai metadata e conteúdo do corpo do issue GitHub.
-    Formato esperado: seções ## com labels específicos.
+    Extrai metadata e conteúdo do corpo do issue GitHub (Issue Forms format).
+
+    Issue Forms gera o body com ### Field Label seguido do valor.
+    Faz split apenas em ### headings que correspondem a labels conhecidos,
+    preservando ## headings do conteúdo do blog.
     """
     data = {}
 
-    def extract_section(label: str) -> str:
-        pattern = rf"## {re.escape(label)}\s*\n(.*?)(?=\n## |\Z)"
-        match = re.search(pattern, body, re.DOTALL | re.IGNORECASE)
-        return match.group(1).strip() if match else ""
+    # Split apenas em ### headings que são labels conhecidos do formulário
+    label_pattern = '|'.join(re.escape(label) for label in KNOWN_LABELS)
+    pattern = rf'^### +({label_pattern})\s*$'
+    parts = re.split(pattern, body, flags=re.MULTILINE)
 
-    def extract_meta(key: str) -> str:
-        pattern = rf"\*\*{re.escape(key)}:\*\*\s*(.+)"
-        match = re.search(pattern, body)
-        return match.group(1).strip() if match else ""
+    # parts alterna: [preâmbulo, label1, valor1, label2, valor2, ...]
+    fields = {}
+    for i in range(1, len(parts), 2):
+        label = parts[i].strip()
+        value = parts[i + 1].strip() if i + 1 < len(parts) else ""
+        # Strip defensivo de code fences (caso render: markdown seja adicionado)
+        fence_match = re.match(r'^```\w*\n(.*?)```\s*$', value, re.DOTALL)
+        if fence_match:
+            value = fence_match.group(1).strip()
+        fields[label] = value
 
     # Metadata
-    data["slug"] = extract_meta("Slug").lower().replace(" ", "-")
-    data["category"] = extract_meta("Categoria").lower()
-    data["read_time"] = extract_meta("Tempo de leitura").replace(" minutos", "").replace(" min", "").strip() or "10"
-    data["keywords_en"] = extract_meta("Keywords EN")
-    data["keywords_pt"] = extract_meta("Keywords PT")
+    data["slug"] = fields.get("Slug", "").lower().replace(" ", "-")
+    data["category"] = fields.get("Categoria", "").lower().strip()
+    data["read_time"] = (
+        fields.get("Tempo de leitura", "")
+        .replace(" minutos", "").replace(" min", "").strip() or "10"
+    )
+    data["keywords_en"] = fields.get("Keywords EN", "")
+    data["keywords_pt"] = fields.get("Keywords PT", "")
 
-    # Títulos (plain + accent)
-    title_en_raw = extract_section("Título EN") or extract_section("Título")
-    title_pt_raw = extract_section("Título PT")
-
-    # Suporte a **negrito** como accent: "Título **Accent**"
-    accent_match_en = re.search(r"\*\*(.+?)\*\*", title_en_raw)
-    if accent_match_en:
-        data["title_en_accent"] = accent_match_en.group(1)
-        data["title_en_plain"] = re.sub(r"\*\*(.+?)\*\*", "", title_en_raw).strip()
-    else:
-        words = title_en_raw.split()
-        data["title_en_plain"] = " ".join(words[:-1]) if len(words) > 1 else title_en_raw
-        data["title_en_accent"] = words[-1] if len(words) > 1 else ""
-
-    accent_match_pt = re.search(r"\*\*(.+?)\*\*", title_pt_raw)
-    if accent_match_pt:
-        data["title_pt_accent"] = accent_match_pt.group(1)
-        data["title_pt_plain"] = re.sub(r"\*\*(.+?)\*\*", "", title_pt_raw).strip()
-    else:
-        words = title_pt_raw.split()
-        data["title_pt_plain"] = " ".join(words[:-1]) if len(words) > 1 else title_pt_raw
-        data["title_pt_accent"] = words[-1] if len(words) > 1 else ""
-
-    data["title_en"] = f"{data['title_en_plain']} {data['title_en_accent']}".strip()
-    data["title_pt"] = f"{data['title_pt_plain']} {data['title_pt_accent']}".strip()
+    # Títulos (plain + accent via **negrito**)
+    for lang, label in [("en", "Título EN"), ("pt", "Título PT")]:
+        raw = fields.get(label, "")
+        accent_match = re.search(r"\*\*(.+?)\*\*", raw)
+        if accent_match:
+            data[f"title_{lang}_accent"] = accent_match.group(1)
+            data[f"title_{lang}_plain"] = re.sub(r"\*\*(.+?)\*\*", "", raw).strip()
+        else:
+            words = raw.split()
+            data[f"title_{lang}_plain"] = " ".join(words[:-1]) if len(words) > 1 else raw
+            data[f"title_{lang}_accent"] = words[-1] if len(words) > 1 else ""
+        data[f"title_{lang}"] = f"{data[f'title_{lang}_plain']} {data[f'title_{lang}_accent']}".strip()
 
     # Subtítulos e descrições
-    data["subtitle_en"] = extract_section("Subtítulo EN") or extract_section("Subtitle EN")
-    data["subtitle_pt"] = extract_section("Subtítulo PT") or extract_section("Subtitle PT")
-    data["description_en"] = extract_section("Descrição EN") or extract_section("Description EN") or data["subtitle_en"][:160]
-    data["description_pt"] = extract_section("Descrição PT") or extract_section("Description PT") or data["subtitle_pt"][:160]
+    data["subtitle_en"] = fields.get("Subtítulo EN", "")
+    data["subtitle_pt"] = fields.get("Subtítulo PT", "")
+    data["description_en"] = fields.get("Descrição EN", "") or data["subtitle_en"][:160]
+    data["description_pt"] = fields.get("Descrição PT", "") or data["subtitle_pt"][:160]
 
-    # Conteúdo Markdown
-    data["content_en_md"] = extract_section("Conteúdo EN") or extract_section("Content EN")
-    data["content_pt_md"] = extract_section("Conteúdo PT") or extract_section("Content PT")
+    # Conteúdo Markdown (pode conter ## headings internos)
+    data["content_en_md"] = fields.get("Conteúdo EN", "")
+    data["content_pt_md"] = fields.get("Conteúdo PT", "")
 
     return data
+
+
+def get_test_issue_body() -> str:
+    """Simula o body gerado por Issue Forms para teste do parser."""
+    return """### Slug
+
+test-ci-cd-post
+
+### Categoria
+
+tech
+
+### Tempo de leitura
+
+5
+
+### Keywords EN
+
+CI/CD, GitHub Actions, Automation, Static Site
+
+### Keywords PT
+
+CI/CD, GitHub Actions, Automação, Site Estático
+
+### Título EN
+
+Automating Blog Posts with **GitHub Actions**
+
+### Título PT
+
+Automatizando Posts com **GitHub Actions**
+
+### Subtítulo EN
+
+How I automated the entire blog post creation workflow using GitHub Issues and Actions.
+
+### Subtítulo PT
+
+Como automatizei todo o fluxo de criação de posts usando GitHub Issues e Actions.
+
+### Descrição EN
+
+Learn how to create a complete CI/CD pipeline for a static blog using GitHub Actions.
+
+### Descrição PT
+
+Aprenda a criar um pipeline CI/CD completo para um blog estático usando GitHub Actions.
+
+### Conteúdo EN
+
+## Introduction
+
+This is a test post generated by the CI/CD pipeline.
+
+## How it Works
+
+1. Create a GitHub Issue
+2. GitHub Actions parses the issue
+3. HTML files are generated automatically
+4. A PR is opened for review
+5. After merge, auto-deploy fires
+
+## Conclusion
+
+Automation saves time and reduces errors.
+
+### Conteúdo PT
+
+## Introdução
+
+Este é um post de teste gerado pelo pipeline CI/CD.
+
+## Como Funciona
+
+1. Crie um GitHub Issue
+2. GitHub Actions analisa o issue
+3. Arquivos HTML são gerados automaticamente
+4. Um PR é aberto para revisão
+5. Após merge, o deploy automático executa
+
+## Conclusão
+
+Automação economiza tempo e reduz erros."""
 
 
 def markdown_to_html(text: str) -> str:
@@ -252,12 +341,19 @@ def main():
     parser = argparse.ArgumentParser(description="Gera blog posts para marlow.dev.br")
     parser.add_argument("--issue-file", help="Path para arquivo JSON do issue GitHub")
     parser.add_argument("--test", action="store_true", help="Gera post de exemplo")
+    parser.add_argument("--test-parser", action="store_true", help="Testa o parser Issue Forms")
     parser.add_argument("--dry-run", action="store_true", help="Não escreve arquivos")
     args = parser.parse_args()
 
     today = date.today()
 
-    if args.test:
+    if args.test_parser:
+        data = parse_issue_body(get_test_issue_body())
+        print("Resultado do parser Issue Forms:")
+        for k, v in data.items():
+            preview = v[:80] + "..." if len(v) > 80 else v
+            print(f"  {k}: {preview}")
+    elif args.test:
         data = get_test_data()
     else:
         # Tentar ler do GITHUB_EVENT_PATH (GitHub Actions)

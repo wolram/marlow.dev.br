@@ -1,0 +1,36 @@
+name: "Feature Request"
+description: "Sugerir uma nova funcionalidade para o site"
+title: "[Feature]: "
+labels: ["feature"]
+body:
+  - type: textarea
+    id: problema
+    attributes:
+      label: Problema ou Necessidade
+      description: "Qual problema esta funcionalidade resolve?"
+    validations:
+      required: true
+
+  - type: textarea
+    id: solucao
+    attributes:
+      label: Solução Proposta
+      description: "Descreva como você imagina a solução"
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternativas
+    attributes:
+      label: Alternativas Consideradas
+      description: "Outras soluções que você pensou?"
+    validations:
+      required: false
+
+  - type: textarea
+    id: contexto
+    attributes:
+      label: Contexto Adicional
+      description: "Links, screenshots, referências"
+    validations:
+      required: false

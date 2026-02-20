@@ -9,6 +9,15 @@
             "command": "FILE=\"$CLAUDE_TOOL_PARAM_FILE_PATH\"; if echo \"$FILE\" | grep -qE '(blog/[^/]+\\.html|pt/blog/[^/]+\\.html)' && ! echo \"$FILE\" | grep -q 'index.html'; then echo \"\\n📝 Post de blog modificado: $FILE\\n\\nRecomendações:\\n  1. Atualizar sitemap.xml se for novo post\\n  2. Executar /pre-deploy antes do deploy\\n  3. Verificar paridade de conteúdo (EN ↔ PT)\"; fi"
           }
         ]
+      },
+      {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "FILE=\"$CLAUDE_TOOL_PARAM_FILE_PATH\"; if [ -n \"$FILE\" ] && echo \"$FILE\" | grep -qE '\\.html$'; then E=''; if ! grep -q '</html>' \"$FILE\" 2>/dev/null; then E=\"${E}  - Tag </html> ausente\\n\"; fi; if ! grep -q 'meta name=\"description\"' \"$FILE\" 2>/dev/null; then E=\"${E}  - Meta description ausente\\n\"; fi; if ! grep -q 'hreflang' \"$FILE\" 2>/dev/null; then E=\"${E}  - Tags hreflang ausentes\\n\"; fi; if ! grep -q 'G-M9WNCRDEXQ' \"$FILE\" 2>/dev/null; then E=\"${E}  - GA4 tracking ausente\\n\"; fi; if [ -n \"$E\" ]; then printf '⚠️  Validacao HTML — %s:\\n%b' \"$(basename \"$FILE\")\" \"$E\"; fi; fi"
+          }
+        ]
       }
     ],
     "PreToolUse": [

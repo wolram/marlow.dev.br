@@ -1,0 +1,66 @@
+name: "Bug Report"
+description: "Reportar um bug no site marlow.dev.br"
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: textarea
+    id: descricao
+    attributes:
+      label: Descrição do Bug
+      description: "Descreva o bug de forma clara"
+    validations:
+      required: true
+
+  - type: textarea
+    id: passos
+    attributes:
+      label: Passos para Reproduzir
+      description: "Como reproduzir o bug?"
+      placeholder: |
+        1. Acesse a página '...'
+        2. Clique em '...'
+        3. Observe o erro
+    validations:
+      required: true
+
+  - type: textarea
+    id: esperado
+    attributes:
+      label: Comportamento Esperado
+      description: "O que deveria acontecer?"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: pagina
+    attributes:
+      label: Página Afetada
+      description: "Qual página apresenta o bug?"
+      options:
+        - Homepage (EN)
+        - Homepage (PT)
+        - Blog Index (EN)
+        - Blog Index (PT)
+        - Blog Post
+        - Nomad Page (EN)
+        - Nomad Page (PT)
+        - Outra
+    validations:
+      required: true
+
+  - type: input
+    id: navegador
+    attributes:
+      label: Navegador / Dispositivo
+      description: "Ex: Chrome 120 / iPhone 15"
+      placeholder: "Chrome 120, macOS"
+    validations:
+      required: false
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots
+      description: "Arraste e solte imagens aqui se aplicável"
+    validations:
+      required: false

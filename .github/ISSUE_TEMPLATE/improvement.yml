@@ -1,0 +1,44 @@
+name: "Melhoria Geral"
+description: "Sugerir uma melhoria ou ajuste no site"
+title: "[Melhoria]: "
+labels: ["improvement"]
+body:
+  - type: dropdown
+    id: area
+    attributes:
+      label: Área
+      description: "Qual área do site você quer melhorar?"
+      options:
+        - Design / UI
+        - Performance
+        - SEO
+        - Acessibilidade
+        - Conteúdo
+        - CI/CD
+        - Outra
+    validations:
+      required: true
+
+  - type: textarea
+    id: descricao
+    attributes:
+      label: Descrição da Melhoria
+      description: "Descreva a melhoria desejada"
+    validations:
+      required: true
+
+  - type: textarea
+    id: motivacao
+    attributes:
+      label: Motivação
+      description: "Por que essa melhoria é importante?"
+    validations:
+      required: false
+
+  - type: textarea
+    id: contexto
+    attributes:
+      label: Contexto Adicional
+      description: "Links, exemplos, referências"
+    validations:
+      required: false
