@@ -1,0 +1,171 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum SubscriberStatus {
+  pending
+  active
+  unsubscribed
+  bounced
+}
+
+enum SubscriptionTokenType {
+  confirm
+  unsubscribe
+}
+
+enum CampaignStatus {
+  draft
+  scheduled
+  sending
+  sent
+  failed
+}
+
+enum RecipientStatus {
+  queued
+  sent
+  delivered
+  opened
+  clicked
+  bounced
+  complained
+  unsubscribed
+}
+
+enum EventType {
+  sent
+  delivered
+  opened
+  clicked
+  unsubscribed
+  bounced
+  complained
+}
+
+model Subscriber {
+  id             String           @id @default(cuid())
+  email          String           @unique
+  language       String
+  status         SubscriberStatus @default(pending)
+  source         String?
+  confirmedAt    DateTime?
+  unsubscribedAt DateTime?
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+
+  recipients CampaignRecipient[]
+  tokens     SubscriptionToken[]
+  events     Event[]
+
+  @@index([status, language])
+}
+
+model SubscriptionToken {
+  id           String                @id @default(cuid())
+  subscriberId String
+  tokenHash    String                @unique
+  type         SubscriptionTokenType
+  expiresAt    DateTime
+  usedAt       DateTime?
+  createdAt    DateTime              @default(now())
+
+  subscriber Subscriber @relation(fields: [subscriberId], references: [id], onDelete: Cascade)
+
+  @@index([subscriberId, type])
+}
+
+model Campaign {
+  id           String         @id @default(cuid())
+  slug         String         @unique
+  title        String
+  language     String
+  subject      String
+  preheader    String?
+  markdownBody String
+  htmlBody     String?
+  isPublic     Boolean        @default(true)
+  status       CampaignStatus @default(draft)
+  scheduledAt  DateTime?
+  sentAt       DateTime?
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+
+  recipients CampaignRecipient[]
+  links      CampaignLink[]
+  events     Event[]
+
+  @@index([status, scheduledAt])
+}
+
+model CampaignRecipient {
+  id           String          @id @default(cuid())
+  campaignId   String
+  subscriberId String
+  messageId    String?         @unique
+  status       RecipientStatus @default(queued)
+  sentAt       DateTime?
+  deliveredAt  DateTime?
+  openedAt     DateTime?
+  clickedAt    DateTime?
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @updatedAt
+
+  campaign   Campaign   @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  subscriber Subscriber @relation(fields: [subscriberId], references: [id], onDelete: Cascade)
+  events     Event[]
+
+  @@unique([campaignId, subscriberId])
+  @@index([campaignId, status])
+}
+
+model CampaignLink {
+  id          String   @id @default(cuid())
+  campaignId  String
+  originalUrl String
+  shortCode   String   @unique
+  clickCount  Int      @default(0)
+  createdAt   DateTime @default(now())
+
+  campaign Campaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+
+  @@index([campaignId])
+}
+
+model Event {
+  id                  String   @id @default(cuid())
+  campaignId          String?
+  subscriberId        String?
+  campaignRecipientId String?
+  type                EventType
+  metadata            Json?
+  createdAt           DateTime @default(now())
+
+  campaign          Campaign?          @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  subscriber        Subscriber?        @relation(fields: [subscriberId], references: [id], onDelete: Cascade)
+  campaignRecipient CampaignRecipient? @relation(fields: [campaignRecipientId], references: [id], onDelete: Cascade)
+
+  @@index([type, createdAt])
+}
+
+model AdminLoginToken {
+  id        String   @id @default(cuid())
+  email     String
+  tokenHash String   @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime @default(now())
+}
+
+model AdminSession {
+  id        String   @id @default(cuid())
+  email     String
+  tokenHash String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+}

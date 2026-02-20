@@ -939,16 +939,11 @@
         Join 500+ automation professionals receiving practical tips on RPA, AI agents,
         and process optimization. No spam, just signal.
       </p>
-      <form class="newsletter-form" action="#" method="POST">
-        <input
-          type="email"
-          class="newsletter-input"
-          placeholder="your@email.com"
-          required
-          aria-label="Email address"
-        >
-        <button type="submit" class="newsletter-btn">Subscribe</button>
-      </form>
+      <a
+        href="https://newsletter.marlow.dev.br"
+        class="newsletter-btn"
+        style="display:inline-flex;justify-content:center;align-items:center;text-decoration:none;"
+      >Subscribe at newsletter.marlow.dev.br</a>
     </div>
   </section>
 
@@ -959,6 +954,7 @@
       <a href="/#about">About</a>
       <a href="/#projects">Projects</a>
       <a href="/blog/">Blog</a>
+      <a href="https://newsletter.marlow.dev.br">Newsletter</a>
       <a href="https://linkedin.com/in/marlowsousa" target="_blank" rel="noopener">LinkedIn</a>
       <a href="https://github.com/marlowsousa" target="_blank" rel="noopener">GitHub</a>
     </div>
@@ -1017,15 +1013,6 @@
       });
     });
 
-    // Newsletter form handling
-    const newsletterForm = document.querySelector('.newsletter-form');
-    newsletterForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const email = newsletterForm.querySelector('.newsletter-input').value;
-      // Add your newsletter subscription logic here
-      alert('Thanks for subscribing! You\'ll receive updates at ' + email);
-      newsletterForm.reset();
-    });
   </script>
 </body>
 </html>

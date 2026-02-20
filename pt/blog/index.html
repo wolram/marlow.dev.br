@@ -961,16 +961,11 @@
         Junte-se a mais de 500 profissionais de automacao recebendo dicas praticas sobre RPA, agentes de IA
         e otimizacao de processos. Sem spam, apenas conteudo relevante.
       </p>
-      <form class="newsletter-form" action="#" method="POST">
-        <input
-          type="email"
-          class="newsletter-input"
-          placeholder="seu@email.com"
-          required
-          aria-label="Endereco de email"
-        >
-        <button type="submit" class="newsletter-btn">Inscrever</button>
-      </form>
+      <a
+        href="https://newsletter.marlow.dev.br"
+        class="newsletter-btn"
+        style="display:inline-flex;justify-content:center;align-items:center;text-decoration:none;"
+      >Inscreva-se em newsletter.marlow.dev.br</a>
     </div>
   </section>
 
@@ -981,6 +976,7 @@
       <a href="/pt/#about">Sobre</a>
       <a href="/pt/#projects">Projetos</a>
       <a href="/pt/blog/">Blog</a>
+      <a href="https://newsletter.marlow.dev.br">Newsletter</a>
       <a href="https://linkedin.com/in/marlowsousa" target="_blank" rel="noopener">LinkedIn</a>
       <a href="https://github.com/marlowsousa" target="_blank" rel="noopener">GitHub</a>
     </div>
@@ -1039,15 +1035,6 @@
       });
     });
 
-    // Newsletter form handling
-    const newsletterForm = document.querySelector('.newsletter-form');
-    newsletterForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const email = newsletterForm.querySelector('.newsletter-input').value;
-      // Add your newsletter subscription logic here
-      alert('Obrigado por se inscrever! Voce recebera atualizacoes em ' + email);
-      newsletterForm.reset();
-    });
   </script>
 </body>
 </html>
