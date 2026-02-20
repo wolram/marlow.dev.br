@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Static HTML portfolio website for Marlow Sousa (RPA Tech Lead & Digital Nomad). No build tools, package managers, or frameworks — pure HTML5, CSS3, and vanilla JavaScript.
+Static HTML portfolio website for Marlow Sousa (Software Engineering Lead & Digital Nomad). No build tools, package managers, or frameworks — pure HTML5, CSS3, and vanilla JavaScript.
 
 **Live Site:** https://marlow.dev.br
 

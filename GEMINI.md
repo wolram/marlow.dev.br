@@ -1,6 +1,6 @@
 # Project Overview
 
-This directory contains the source code for the personal portfolio website of **Marlow Sousa** (marlow.dev.br). It is a static website highlighting his work as an RPA Tech Lead and Digital Nomad.
+This directory contains the source code for the personal portfolio website of **Marlow Sousa** (marlow.dev.br). It is a static website highlighting his work as an Software Engineering Lead and Digital Nomad.
 
 The site is built using:
 - **HTML5**: Semantic structure.
