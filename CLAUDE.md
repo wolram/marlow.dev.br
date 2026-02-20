@@ -4,70 +4,74 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Static HTML portfolio website for Marlow Sousa (RPA Tech Lead & Digital Nomad). No build tools, package managers, or frameworks - pure HTML5, CSS3, and vanilla JavaScript.
+Static HTML portfolio website for Marlow Sousa (RPA Tech Lead & Digital Nomad). No build tools, package managers, or frameworks — pure HTML5, CSS3, and vanilla JavaScript.
 
 **Live Site:** https://marlow.dev.br
 
-## Development
+## Development Commands
 
 ```bash
-# Preview locally - just open HTML files in browser
+# Preview locally — just open HTML files in browser
 open index.html
 
-# Deploy to production - push to master triggers GitHub Actions
+# Run pre-deploy validation
+python3 scripts/validate_deployment.py        # interactive
+python3 scripts/validate_deployment.py --ci   # exit 1 on errors (used in CI)
+
+# Generate blog post from issue JSON (or test data)
+python3 scripts/generate_blog_post.py --test          # example post
+python3 scripts/generate_blog_post.py --issue-file x  # from issue JSON
+python3 scripts/generate_blog_post.py --dry-run       # preview without writing
+
+# Deploy — push to master triggers GitHub Actions (no manual deploy needed)
 git push origin master
 ```
 
-No build process. Edit HTML files directly, preview in browser, push to deploy.
-
-## Project Structure
-
-```
-.
-├── index.html              # Main portfolio (English)
-├── pt/index.html           # Portuguese version
-├── blog/                   # Blog articles (English)
-├── pt/blog/                # Blog articles (Portuguese)
-├── nomad/                  # Digital nomad page
-├── pt/nomad/               # Portuguese nomad page
-├── assets/                 # Favicon, icons
-├── sitemap.xml             # XML sitemap (12 URLs)
-└── robots.txt
-```
-
-12 total pages: 6 English (root), 6 Portuguese (/pt/).
+Python scripts require: `pip install -r requirements.txt` (beautifulsoup4, lxml, markdown, jinja2).
 
 ## Architecture
 
-- **CSS:** Embedded in `<style>` tags, uses CSS variables for theming (dark theme, `--accent: #c8ff2d`)
-- **JavaScript:** Vanilla JS at bottom of each HTML file (custom cursor, scroll animations, IntersectionObserver, parallax)
-- **Fonts:** Google Fonts (Syne for headlines, JetBrains Mono for body)
-- **Analytics:** GA4 on all pages (ID: `G-M9WNCRDEXQ`)
-- **i18n:** English/Portuguese with hreflang tags for SEO
+- **No build step.** Edit HTML files directly, preview in browser, push to deploy.
+- **CSS:** Embedded `<style>` tags per page. CSS variables for dark theme (`--bg-primary: #0a0a0a`, `--accent: #c8ff2d`). Fonts: Syne (headlines), JetBrains Mono (body).
+- **JavaScript:** Vanilla JS at bottom of each HTML file (custom cursor, scroll animations, IntersectionObserver, parallax).
+- **i18n:** 12 total pages — 6 English (root), 6 Portuguese (`/pt/`). All pages have bidirectional hreflang tags.
+- **Analytics:** GA4 on all pages (ID: `G-M9WNCRDEXQ`).
+
+### URL Conventions
+
+- Index pages use clean URLs: `/`, `/pt/`, `/blog/`, `/pt/blog/`, `/nomad/`, `/pt/nomad/`
+- Blog posts use `.html` extension: `/blog/slug.html`, `/pt/blog/slug.html`
+- `hreflang="x-default"` always points to the EN version
+
+### Blog Post Generation
+
+Two paths to create blog posts:
+
+1. **GitHub Issues workflow:** Create issue with "Novo Blog Post" template + label `blog-post` → Actions runs `scripts/generate_blog_post.py` → opens PR with EN+PT HTML + sitemap update
+2. **Local skill:** `/new-blog-post` — interactive metadata collection, generates both HTML files, updates blog indices and sitemap
+
+Blog posts use Jinja2 templates in `scripts/templates/` (`blog_post_en.html.j2`, `blog_post_pt.html.j2`, `blog_post_styles.css`). The template CSS is embedded inline in generated posts.
 
 ## Key Patterns
 
-When adding content:
-- Maintain both English and Portuguese versions
-- Include GA4 script, meta tags, OpenGraph, and JSON-LD schema
+When adding or modifying content:
+- **Always maintain both EN and PT versions** with matching slugs
+- Include GA4 script, meta tags (description, OG, Twitter Card), JSON-LD schema, and hreflang tags
 - Update `sitemap.xml` when adding/removing pages
 - Keep hreflang tags in sync between language versions
+- Use existing blog posts (e.g., `blog/ai-agents-copilot-studio.html`) as reference for CSS/JS patterns when creating content manually
 
-## Deployment & CI/CD (GitHub Actions)
-
-### Automated Workflows
+## CI/CD (GitHub Actions)
 
 | Workflow | Trigger | Purpose |
 |---|---|---|
-| `deploy.yml` | Push to `master` | Auto-deploy to Hostinger via rsync |
-| `validate-pr.yml` | PR opened/updated | Run pre-deploy checks, comment results |
-| `create-blog-post.yml` | Issue labeled `blog-post` | Generate EN+PT HTML, open PR |
+| `deploy.yml` | Push to `master` | rsync to Hostinger, fix permissions, smoke test |
+| `validate-pr.yml` | PR to `master` | Run `validate_deployment.py --ci`, comment results on PR |
+| `create-blog-post.yml` | Issue labeled `blog-post` | Generate EN+PT HTML via Jinja2 templates, open PR |
 
 ### Required GitHub Secrets
 
-Configure at: Settings → Secrets and variables → Actions
-
-| Secret | Value |
+| Secret | Purpose |
 |---|---|
 | `SSH_PRIVATE_KEY` | Private SSH key for Hostinger |
 | `SSH_HOST` | Server IP |
@@ -75,29 +79,24 @@ Configure at: Settings → Secrets and variables → Actions
 | `SSH_USER` | SSH username |
 | `SSH_PATH` | `~/domains/marlow.dev.br/public_html/` |
 
-### Blog Post via Issue Workflow
+### What Gets Deployed
 
-1. Create GitHub Issue using "Novo Blog Post" template
-2. Add label `blog-post`
-3. GitHub Action auto-generates EN+PT HTML and opens PR
-4. Review PR → merge → auto-deploy
+`deploy.yml` uses `rsync --delete` and excludes: `.git/`, `.github/`, `.claude/`, `scripts/`, `*.pdf`, `deploy.sh*`, `.gitignore`, `GEMINI.md`, `CLAUDE.md`, `requirements.txt`, `.DS_Store`.
 
-### Scripts
+## Validation Script
 
-- `scripts/validate_deployment.py` — validate hreflang, sitemap, GA4, EN/PT parity
-- `scripts/generate_blog_post.py` — generate blog post from issue body Markdown
+`scripts/validate_deployment.py` checks:
+- **Hreflang:** bidirectional EN↔PT tags on all page pairs
+- **Sitemap:** XML validity, all pages present, no orphan URLs
+- **GA4:** tracking code on every HTML file
+- **EN/PT parity:** every EN page has a PT counterpart and vice versa
 
-### Claude Code Skills (local)
+The script uses a hardcoded `EXPECTED_PAIRS` list — update it when adding new pages.
 
-| Skill | Purpose |
-|---|---|
-| `/new-blog-post` | Interactive blog post generation (local) |
-| `/pre-deploy` | Run pre-deploy validations locally |
+## Claude Code Skills
 
-### Hreflang Status
-
-All 12 pages have correct bidirectional hreflang tags:
-- EN pages: `hreflang="en"` + `hreflang="pt-BR"` + `hreflang="x-default"`
-- PT pages: `hreflang="en"` + `hreflang="pt-BR"` + `hreflang="x-default"`
-- Index pages use clean URLs (`/`, `/pt/`, `/blog/`, etc.)
-- Blog posts use `.html` extension (`/blog/slug.html`)
+| Skill | Invocation | Purpose |
+|---|---|---|
+| `/new-blog-post` | User only | Interactive blog post generation (EN+PT + indices + sitemap) |
+| `/pre-deploy` | User or Claude | Run full pre-deploy validation checklist |
+| `/fix-hreflang` | User only | One-time fix for missing hreflang tags (may already be resolved) |
