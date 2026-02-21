@@ -33,6 +33,10 @@ Required values:
 - `RESEND_FROM`
 - `WORKER_SECRET`
 
+Optional:
+
+- `RESEND_WEBHOOK_SECRET` (enables Svix signature verification for `/api/webhooks/resend`)
+
 ## Local run
 
 ```bash
@@ -62,3 +66,8 @@ curl -X POST "https://newsletter.marlow.dev.br/api/admin/worker/run" \
 ## Healthcheck
 
 `GET /api/health`
+
+## Webhook
+
+- Endpoint: `POST /api/webhooks/resend`
+- Event mapping: `email.delivered`, `email.opened`, `email.clicked`, `email.bounced`, `email.complained`
