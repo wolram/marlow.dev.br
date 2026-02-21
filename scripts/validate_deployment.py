@@ -18,6 +18,12 @@ from html.parser import HTMLParser
 ROOT = Path(__file__).parent.parent
 GA4_ID = "G-M9WNCRDEXQ"
 SITE_URL = "https://marlow.dev.br"
+IGNORED_HTML_SEGMENTS = (
+    "/node_modules/",
+    "/.next/",
+    "/out/",
+    "/dist/",
+)
 
 # (en_file, pt_file, en_url, pt_url)
 # Index pages use clean URLs (/), blog posts use .html
@@ -108,7 +114,14 @@ def validate_sitemap(errors, warnings):
 
 def validate_ga4(errors, warnings):
     print("\n Validando GA4...")
-    all_html = [f for f in ROOT.glob("**/*.html") if "scripts" not in str(f)]
+    all_html = []
+    for filepath in ROOT.glob("**/*.html"):
+        path = str(filepath).replace("\\", "/")
+        if "/scripts/" in path:
+            continue
+        if any(segment in path for segment in IGNORED_HTML_SEGMENTS):
+            continue
+        all_html.append(filepath)
     for filepath in all_html:
         parser = parse_html(filepath)
         if not parser.has_ga4:

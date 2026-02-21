@@ -52,6 +52,12 @@ python3 scripts/validate_deployment.py
 git push origin master
 ```
 
+## Branch Policy
+
+- Este repositório usa `master` como branch principal de produção.
+- Prefixos recomendados para branches de trabalho: `feat/*`, `fix/*`, `chore/*`.
+- Prefixos recomendados para commits: `feat:`, `fix:`, `chore:`, `docs:`.
+
 ## Contributing
 
 Contributions are welcome via [GitHub Issues](https://github.com/marlowsb/marlow.dev.br/issues):

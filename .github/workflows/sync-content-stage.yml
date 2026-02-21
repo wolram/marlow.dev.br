@@ -31,7 +31,6 @@ jobs:
             const repo = context.repo.repo;
             const issue = context.payload.issue;
             const issue_number = context.issue.number;
-            const issueTitle = issue.title || '';
             const labels = issue.labels || [];
             const labelNames = new Set(labels.map((l) => l.name));
 
@@ -51,9 +50,7 @@ jobs:
               labelNames.has('pipeline:blogpost') ||
               labelNames.has('pipeline:newsletter') ||
               labelNames.has('blog-post') ||
-              labelNames.has('newsletter-post') ||
-              /^Blog:/i.test(issueTitle) ||
-              /^Newsletter:/i.test(issueTitle);
+              labelNames.has('newsletter-post');
 
             if (!hasPipeline) {
               core.info('Issue fora dos pipelines de conteudo. Sem sync de stage.');
@@ -124,26 +121,42 @@ jobs:
             }
 
             const queryProjectItems = async (projectId) => {
-              const result = await github.graphql(
-                `
-                  query($projectId: ID!) {
-                    node(id: $projectId) {
-                      ... on ProjectV2 {
-                        items(first: 100) {
-                          nodes {
-                            id
-                            content {
-                              ... on Issue { id }
+              const nodes = [];
+              let hasNextPage = true;
+              let cursor = null;
+
+              while (hasNextPage) {
+                const result = await github.graphql(
+                  `
+                    query($projectId: ID!, $cursor: String) {
+                      node(id: $projectId) {
+                        ... on ProjectV2 {
+                          items(first: 100, after: $cursor) {
+                            nodes {
+                              id
+                              content {
+                                ... on Issue { id }
+                              }
+                            }
+                            pageInfo {
+                              hasNextPage
+                              endCursor
                             }
                           }
                         }
                       }
                     }
-                  }
-                `,
-                { projectId }
-              );
-              return result?.node?.items?.nodes || [];
+                  `,
+                  { projectId, cursor }
+                );
+
+                const batch = result?.node?.items?.nodes || [];
+                nodes.push(...batch);
+                hasNextPage = result?.node?.items?.pageInfo?.hasNextPage || false;
+                cursor = result?.node?.items?.pageInfo?.endCursor || null;
+              }
+
+              return nodes;
             };
 
             const issueNodeId = issue.node_id;
