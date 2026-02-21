@@ -1,7 +1,7 @@
 name: "Novo Blog Post"
 description: "Criar um novo post de blog bilíngue (EN + PT)"
 title: "Blog: [título do post]"
-labels: ["blog-post"]
+labels: ["blog-post", "pipeline:blogpost"]
 assignees:
   - marlowsousa
 body:

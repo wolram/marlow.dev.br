@@ -58,6 +58,7 @@ Contributions are welcome via [GitHub Issues](https://github.com/marlowsb/marlow
 
 - **Bug reports** — broken links, display issues, typos
 - **Blog posts** — use the "Novo Blog Post" issue template to propose content
+- **Newsletter editions** — use the "Nova Newsletter" issue template for newsletter pipeline cards
 - **Suggestions** — ideas for new sections or improvements
 
 ## License

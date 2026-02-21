@@ -1,0 +1,163 @@
+name: Route Content Pipelines
+
+on:
+  issues:
+    types: [opened, edited, reopened, labeled, unlabeled]
+
+jobs:
+  route:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      repository-projects: write
+
+    steps:
+      - name: Sync pipeline labels and route to project
+        uses: actions/github-script@v7
+        env:
+          BLOGPOST_PROJECT_ID: ${{ secrets.BLOGPOST_PROJECT_ID }}
+          NEWSLETTER_PROJECT_ID: ${{ secrets.NEWSLETTER_PROJECT_ID }}
+        with:
+          script: |
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const issue_number = context.issue.number;
+            const issue = context.payload.issue;
+            const issueTitle = issue.title || '';
+
+            const labels = new Set((issue.labels || []).map((l) => l.name));
+
+            // Compatibilidade com label legado de geração automática.
+            const hasLegacyBlogLabel = labels.has('blog-post');
+            const hasBlogPipeline = labels.has('pipeline:blogpost') || hasLegacyBlogLabel;
+            const hasNewsletterPipeline = labels.has('pipeline:newsletter') || labels.has('newsletter-post');
+
+            let pipeline = null;
+            if (hasBlogPipeline && !hasNewsletterPipeline) pipeline = 'blogpost';
+            if (hasNewsletterPipeline && !hasBlogPipeline) pipeline = 'newsletter';
+
+            // Se ficar ambíguo, prioriza a label do evento "labeled" para decidir.
+            if (!pipeline && context.payload.label?.name) {
+              if (['pipeline:blogpost', 'blog-post'].includes(context.payload.label.name)) pipeline = 'blogpost';
+              if (['pipeline:newsletter', 'newsletter-post'].includes(context.payload.label.name)) pipeline = 'newsletter';
+            }
+
+            if (!pipeline) {
+              if (/^Blog:/i.test(issueTitle)) pipeline = 'blogpost';
+              if (/^Newsletter:/i.test(issueTitle)) pipeline = 'newsletter';
+            }
+
+            const ensureLabelExists = async (name, color, description) => {
+              const labelExists = await github.rest.issues.getLabel({ owner, repo, name }).then(() => true).catch(() => false);
+              if (!labelExists) {
+                await github.rest.issues.createLabel({ owner, repo, name, color, description });
+              }
+            };
+
+            // Mantém apenas um label de pipeline para evitar mistura.
+            if (pipeline === 'blogpost') {
+              await ensureLabelExists('pipeline:blogpost', '1d76db', 'Conteudo de blog post');
+              if (!labels.has('pipeline:blogpost')) {
+                await github.rest.issues.addLabels({ owner, repo, issue_number, labels: ['pipeline:blogpost'] });
+              }
+              if (labels.has('pipeline:newsletter')) {
+                await github.rest.issues.removeLabel({ owner, repo, issue_number, name: 'pipeline:newsletter' }).catch(() => null);
+              }
+            } else if (pipeline === 'newsletter') {
+              await ensureLabelExists('pipeline:newsletter', '0e8a16', 'Conteudo de newsletter');
+              if (!labels.has('pipeline:newsletter')) {
+                await github.rest.issues.addLabels({ owner, repo, issue_number, labels: ['pipeline:newsletter'] });
+              }
+              if (labels.has('pipeline:blogpost')) {
+                await github.rest.issues.removeLabel({ owner, repo, issue_number, name: 'pipeline:blogpost' }).catch(() => null);
+              }
+              // Evita disparar automação de blog acidentalmente.
+              if (labels.has('blog-post')) {
+                await github.rest.issues.removeLabel({ owner, repo, issue_number, name: 'blog-post' }).catch(() => null);
+              }
+            } else {
+              core.info('Pipeline não definido. Sem roteamento para project.');
+              return;
+            }
+
+            const queryProjectItems = async (projectId) => {
+              if (!projectId) return [];
+              const result = await github.graphql(`
+                query($projectId: ID!) {
+                  node(id: $projectId) {
+                    ... on ProjectV2 {
+                      items(first: 100) {
+                        nodes {
+                          id
+                          content {
+                            ... on Issue { id }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              `, { projectId });
+              return result?.node?.items?.nodes || [];
+            };
+
+            const addToProject = async (projectId, contentId) => {
+              if (!projectId) return;
+              await github.graphql(`
+                mutation($projectId: ID!, $contentId: ID!) {
+                  addProjectV2ItemById(input: {projectId: $projectId, contentId: $contentId}) {
+                    item { id }
+                  }
+                }
+              `, { projectId, contentId });
+            };
+
+            const removeFromProject = async (projectId, itemId) => {
+              if (!projectId || !itemId) return;
+              await github.graphql(`
+                mutation($projectId: ID!, $itemId: ID!) {
+                  deleteProjectV2Item(input: {projectId: $projectId, itemId: $itemId}) {
+                    deletedItemId
+                  }
+                }
+              `, { projectId, itemId });
+            };
+
+            const issueNodeId = issue.node_id;
+            const blogProjectId = process.env.BLOGPOST_PROJECT_ID;
+            const newsletterProjectId = process.env.NEWSLETTER_PROJECT_ID;
+
+            if (!blogProjectId || !newsletterProjectId) {
+              core.warning('BLOGPOST_PROJECT_ID e/ou NEWSLETTER_PROJECT_ID não configurado(s). Pulando roteamento de Project.');
+              return;
+            }
+
+            const [blogItems, newsletterItems] = await Promise.all([
+              queryProjectItems(blogProjectId),
+              queryProjectItems(newsletterProjectId),
+            ]);
+
+            const blogItem = blogItems.find((item) => item?.content?.id === issueNodeId);
+            const newsletterItem = newsletterItems.find((item) => item?.content?.id === issueNodeId);
+
+            if (pipeline === 'blogpost') {
+              if (!blogItem) {
+                await addToProject(blogProjectId, issueNodeId);
+                core.info('Issue adicionada ao Project de blogpost.');
+              }
+              if (newsletterItem) {
+                await removeFromProject(newsletterProjectId, newsletterItem.id);
+                core.info('Issue removida do Project de newsletter.');
+              }
+            }
+
+            if (pipeline === 'newsletter') {
+              if (!newsletterItem) {
+                await addToProject(newsletterProjectId, issueNodeId);
+                core.info('Issue adicionada ao Project de newsletter.');
+              }
+              if (blogItem) {
+                await removeFromProject(blogProjectId, blogItem.id);
+                core.info('Issue removida do Project de blogpost.');
+              }
+            }

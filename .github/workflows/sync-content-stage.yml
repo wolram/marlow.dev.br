@@ -1,0 +1,191 @@
+name: Sync Content Stage
+
+on:
+  issues:
+    types: [opened, edited, reopened, closed, labeled, unlabeled]
+
+jobs:
+  sync-stage:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      repository-projects: write
+
+    steps:
+      - name: Sync stage labels and project status
+        uses: actions/github-script@v7
+        env:
+          BLOGPOST_PROJECT_ID: ${{ secrets.BLOGPOST_PROJECT_ID }}
+          NEWSLETTER_PROJECT_ID: ${{ secrets.NEWSLETTER_PROJECT_ID }}
+          STAGE_FIELD_ID: ${{ secrets.STAGE_FIELD_ID }}
+          STAGE_OPTION_IDEA: ${{ secrets.STAGE_OPTION_IDEA }}
+          STAGE_OPTION_RESEARCH: ${{ secrets.STAGE_OPTION_RESEARCH }}
+          STAGE_OPTION_DRAFT: ${{ secrets.STAGE_OPTION_DRAFT }}
+          STAGE_OPTION_REVIEW: ${{ secrets.STAGE_OPTION_REVIEW }}
+          STAGE_OPTION_APPROVED: ${{ secrets.STAGE_OPTION_APPROVED }}
+          STAGE_OPTION_SCHEDULED: ${{ secrets.STAGE_OPTION_SCHEDULED }}
+          STAGE_OPTION_PUBLISHED: ${{ secrets.STAGE_OPTION_PUBLISHED }}
+        with:
+          script: |
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const issue = context.payload.issue;
+            const issue_number = context.issue.number;
+            const issueTitle = issue.title || '';
+            const labels = issue.labels || [];
+            const labelNames = new Set(labels.map((l) => l.name));
+
+            const stages = [
+              'stage:idea',
+              'stage:research',
+              'stage:draft',
+              'stage:review',
+              'stage:approved',
+              'stage:scheduled',
+              'stage:published',
+            ];
+
+            const stageSet = new Set(stages);
+            const existingStageLabels = labels.map((l) => l.name).filter((name) => stageSet.has(name));
+            const hasPipeline =
+              labelNames.has('pipeline:blogpost') ||
+              labelNames.has('pipeline:newsletter') ||
+              labelNames.has('blog-post') ||
+              labelNames.has('newsletter-post') ||
+              /^Blog:/i.test(issueTitle) ||
+              /^Newsletter:/i.test(issueTitle);
+
+            if (!hasPipeline) {
+              core.info('Issue fora dos pipelines de conteudo. Sem sync de stage.');
+              return;
+            }
+
+            const ensureLabelExists = async (name) => {
+              const exists = await github.rest.issues.getLabel({ owner, repo, name }).then(() => true).catch(() => false);
+              if (exists) return;
+              await github.rest.issues.createLabel({
+                owner,
+                repo,
+                name,
+                color: '5319e7',
+                description: 'Stage do pipeline de conteudo',
+              });
+            };
+
+            let desiredStage = null;
+            const eventLabel = context.payload.label?.name || null;
+            if (issue.state === 'closed') {
+              desiredStage = 'stage:published';
+            } else if (eventLabel && stageSet.has(eventLabel)) {
+              desiredStage = eventLabel;
+            } else if (existingStageLabels.length > 0) {
+              desiredStage = existingStageLabels[0];
+            } else {
+              desiredStage = 'stage:idea';
+            }
+
+            await ensureLabelExists(desiredStage);
+
+            if (!labelNames.has(desiredStage)) {
+              await github.rest.issues.addLabels({
+                owner,
+                repo,
+                issue_number,
+                labels: [desiredStage],
+              });
+            }
+
+            for (const stage of existingStageLabels) {
+              if (stage !== desiredStage) {
+                await github.rest.issues
+                  .removeLabel({ owner, repo, issue_number, name: stage })
+                  .catch(() => null);
+              }
+            }
+
+            const stageOptionIdByLabel = {
+              'stage:idea': process.env.STAGE_OPTION_IDEA,
+              'stage:research': process.env.STAGE_OPTION_RESEARCH,
+              'stage:draft': process.env.STAGE_OPTION_DRAFT,
+              'stage:review': process.env.STAGE_OPTION_REVIEW,
+              'stage:approved': process.env.STAGE_OPTION_APPROVED,
+              'stage:scheduled': process.env.STAGE_OPTION_SCHEDULED,
+              'stage:published': process.env.STAGE_OPTION_PUBLISHED,
+            };
+
+            const blogProjectId = process.env.BLOGPOST_PROJECT_ID;
+            const newsletterProjectId = process.env.NEWSLETTER_PROJECT_ID;
+            const stageFieldId = process.env.STAGE_FIELD_ID;
+            const stageOptionId = stageOptionIdByLabel[desiredStage];
+
+            if (!blogProjectId || !newsletterProjectId || !stageFieldId || !stageOptionId) {
+              core.warning('IDs de Project/Stage incompletos. Label de stage sincronizada, mas campo de status do Project nao foi atualizado.');
+              return;
+            }
+
+            const queryProjectItems = async (projectId) => {
+              const result = await github.graphql(
+                `
+                  query($projectId: ID!) {
+                    node(id: $projectId) {
+                      ... on ProjectV2 {
+                        items(first: 100) {
+                          nodes {
+                            id
+                            content {
+                              ... on Issue { id }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                `,
+                { projectId }
+              );
+              return result?.node?.items?.nodes || [];
+            };
+
+            const issueNodeId = issue.node_id;
+            const [blogItems, newsletterItems] = await Promise.all([
+              queryProjectItems(blogProjectId),
+              queryProjectItems(newsletterProjectId),
+            ]);
+
+            const projectTargets = [];
+            const blogItem = blogItems.find((item) => item?.content?.id === issueNodeId);
+            const newsletterItem = newsletterItems.find((item) => item?.content?.id === issueNodeId);
+            if (blogItem) projectTargets.push({ projectId: blogProjectId, itemId: blogItem.id });
+            if (newsletterItem) projectTargets.push({ projectId: newsletterProjectId, itemId: newsletterItem.id });
+
+            if (projectTargets.length === 0) {
+              core.info('Issue ainda nao esta em nenhum Project. Campo stage nao atualizado.');
+              return;
+            }
+
+            for (const target of projectTargets) {
+              await github.graphql(
+                `
+                  mutation($projectId: ID!, $itemId: ID!, $fieldId: ID!, $optionId: String!) {
+                    updateProjectV2ItemFieldValue(
+                      input: {
+                        projectId: $projectId
+                        itemId: $itemId
+                        fieldId: $fieldId
+                        value: { singleSelectOptionId: $optionId }
+                      }
+                    ) {
+                      projectV2Item { id }
+                    }
+                  }
+                `,
+                {
+                  projectId: target.projectId,
+                  itemId: target.itemId,
+                  fieldId: stageFieldId,
+                  optionId: stageOptionId,
+                }
+              );
+            }
+
+            core.info(`Stage sincronizada: ${desiredStage}`);

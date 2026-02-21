@@ -1,0 +1,60 @@
+name: "Nova Newsletter"
+description: "Planejar e produzir uma nova edição de newsletter"
+title: "Newsletter: [tema da edição]"
+labels: ["newsletter-post", "pipeline:newsletter"]
+assignees:
+  - marlowsousa
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Brief da Newsletter
+        Use este formulário para abrir cards de produção de newsletter sem misturar com blog post.
+
+  - type: input
+    id: campaign-id
+    attributes:
+      label: Campaign ID
+      description: "Identificador único da edição (ex: nl-2026-02-21)"
+      placeholder: "nl-2026-02-21"
+    validations:
+      required: true
+
+  - type: input
+    id: publish-date
+    attributes:
+      label: Data de publicação
+      description: "Formato YYYY-MM-DD"
+      placeholder: "2026-02-28"
+    validations:
+      required: true
+
+  - type: textarea
+    id: audience
+    attributes:
+      label: Público-alvo
+      description: "Para quem essa edição foi pensada?"
+      placeholder: "ex: founders early-stage em SaaS B2B"
+    validations:
+      required: true
+
+  - type: textarea
+    id: key-message
+    attributes:
+      label: Mensagem principal
+      description: "Resumo em 2-4 linhas do foco da edição"
+    validations:
+      required: true
+
+  - type: textarea
+    id: draft-outline
+    attributes:
+      label: Estrutura sugerida
+      description: "Tópicos principais, links e CTA"
+      placeholder: |
+        - Abertura
+        - Insight principal
+        - Exemplo prático
+        - CTA final
+    validations:
+      required: false
